@@ -1,0 +1,30 @@
+#!/bin/bash
+echo "Installing frontend dependencies..."
+
+# Install production dependencies
+npm install \
+ @react-three/drei@10.5.0 \
+ framer-motion@12.23.0 \
+ gsap@3.13.0 \
+ lucide-react@0.525.0 \
+ react@19.1.0 \
+ react-dom@19.1.0 \
+ react-router-dom@7.6.3 \
+ react-scroll@1.9.3 \
+ react-three-fiber@6.0.13 \
+ styled-components@6.1.19 \
+ three@0.178.0
+
+# Install dev dependencies
+npm install -D \
+ @eslint/js@9.30.1 \
+ @types/react@19.1.8 \
+ @types/react-dom@19.1.6 \
+ @vitejs/plugin-react@4.6.0 \
+ eslint@9.30.1 \
+ eslint-plugin-react-hooks@5.2.0 \
+ eslint-plugin-react-refresh@0.4.20 \
+ globals@16.3.0 \
+ vite@7.0.3
+
+echo "Installation complete."
