@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import { motion } from 'framer-motion';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,6 +15,11 @@ import CustomCursor from './components/CustomCursor';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import ClientsBar from './components/ClientsBar';
+
+// Service Detail Pages
+import AgenticAI from './pages/AgenticAI';
+import LLM from './pages/LLM';
+import NLP from './pages/NLP';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -88,10 +94,8 @@ function App() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Simulate loading
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    // Simulated loading
+    setTimeout(() => setIsLoading(false), 2000);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -111,7 +115,7 @@ function App() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: '#000'
+            background: '#000',
           }}
         >
           <motion.div
@@ -123,7 +127,7 @@ function App() {
               background: 'linear-gradient(45deg, #fff, #888)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              WebkitTextFillColor: 'transparent',
             }}
           >
             ALTARIC
@@ -140,24 +144,47 @@ function App() {
         <Navbar />
         <MainContent>
           <Routes>
-            <Route path="/" element={
-              <>
-                <SnapContainer>
-                  <div style={{ background: '#fff', position: 'relative', zIndex: 1, width: '100%', minHeight: '95vh' }}>
-                    <Hero />
-                    <ClientsBar />
-                    <About />
-                  </div>
-                  {/* <Statistics /> */}
-                  <Industries />
-                  <Expertise />
-                  <ContactForm />
-                </SnapContainer>
-                <Footer />
-              </>
-            } />
+
+            {/* HOME PAGE */}
+            <Route
+              path="/"
+              element={
+                <>
+                  <SnapContainer>
+                    <div
+                      style={{
+                        background: '#fff',
+                        position: 'relative',
+                        zIndex: 1,
+                        width: '100%',
+                        minHeight: '95vh',
+                      }}
+                    >
+                      <Hero />
+                      <ClientsBar />
+                      <About />
+                    </div>
+
+                    {/* Other sections */}
+                    {/* <Statistics /> */}
+                    <Industries />
+                    <Expertise />
+                    <ContactForm />
+                  </SnapContainer>
+
+                  <Footer />
+                </>
+              }
+            />
+
+            {/* EXISTING ROUTES */}
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+
+            {/* NEW SERVICE PAGES */}
+            <Route path="/services/agentic-ai" element={<AgenticAI />} />
+            <Route path="/services/llm" element={<LLM />} />
+            <Route path="/services/nlp" element={<NLP />} />
           </Routes>
         </MainContent>
       </AppContainer>

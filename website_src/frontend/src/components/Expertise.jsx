@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { Brain, MessageSquare, Eye, Cpu, Zap, Users } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 const ExpertiseContainer = styled.section`
   padding: 4rem 0 3rem 0;
@@ -149,23 +150,23 @@ const ExpertiseFeature = styled.li`
   }
 `;
 
-const LearnMoreButton = styled(motion.button)`
+const StyledLinkButton = styled(Link)`
   background: linear-gradient(45deg, #000, #333);
   color: #fff;
-  border: none;
   padding: 0.85rem 2rem;
   border-radius: 25px;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
-  margin: 0 auto;
-  display: block;
-  transition: all 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: 0.3s ease;
 
   &:hover {
     background: linear-gradient(45deg, #333, #000);
-    transform: translateY(-2px) scale(1.04);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 4px 16px rgba(0,0,0,0.16);
   }
 `;
@@ -178,6 +179,7 @@ const Expertise = () => {
     {
       icon: <Brain size={40} />,
       title: "Agentic AI",
+      link: "/services/agentic-ai",
       description: "Autonomous AI agents that can perform complex tasks, make decisions, and learn from their environment.",
       features: [
         "Autonomous decision making",
@@ -189,6 +191,7 @@ const Expertise = () => {
     {
       icon: <MessageSquare size={40} />,
       title: "Large Language Models",
+      link: "/services/llm",
       description: "Advanced language models that understand, generate, and process human language with unprecedented accuracy.",
       features: [
         "Natural language understanding",
@@ -200,6 +203,7 @@ const Expertise = () => {
     {
       icon: <Cpu size={40} />,
       title: "Natural Language Processing",
+      link: "/services/nlp",
       description: "Sophisticated NLP solutions that extract meaning, sentiment, and insights from text data.",
       features: [
         "Sentiment analysis",
@@ -211,7 +215,8 @@ const Expertise = () => {
     {
       icon: <Eye size={40} />,
       title: "Computer Vision",
-      description: "Advanced computer vision systems that can see, understand, and analyze visual information.",
+      link: "/services/computer-vision",
+      description: "Advanced computer vision systems that analyze and interpret visual information.",
       features: [
         "Object detection",
         "Image classification",
@@ -222,22 +227,24 @@ const Expertise = () => {
     {
       icon: <Zap size={40} />,
       title: "Machine Learning",
-      description: "Custom machine learning models that learn patterns and make predictions from data.",
+      link: "/services/machine-learning",
+      description: "Custom machine learning models that learn patterns and make predictions from complex datasets.",
       features: [
-        "Predictive modeling",
+        "Predictive modelling",
         "Pattern recognition",
         "Anomaly detection",
-        "Recommendation systems"
+        "Recommendation engines"
       ]
     },
     {
       icon: <Users size={40} />,
       title: "AI Consulting",
-      description: "Strategic AI consulting services to help organizations implement and scale AI solutions.",
+      link: "/services/ai-consulting",
+      description: "End-to-end AI consulting to help organizations adopt, scale, and optimize AI solutions.",
       features: [
-        "AI strategy development",
+        "AI roadmap creation",
+        "Technical advisory",
         "Implementation planning",
-        "Technology assessment",
         "Change management"
       ]
     }
@@ -264,7 +271,6 @@ const Expertise = () => {
         <ExpertiseGrid>
           {expertiseAreas.map((expertise, index) => (
             <ExpertiseCard
-              as={motion.div}
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -273,29 +279,23 @@ const Expertise = () => {
               whileHover={{ scale: 1.05 }}
               className="interactive"
             >
-              <IconCircle
-                initial={{ scale: 0, rotate: 0 }}
-                animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              >
+              <IconCircle>
                 {expertise.icon}
               </IconCircle>
+
               <CardTitle>{expertise.title}</CardTitle>
               <CardDesc>{expertise.description}</CardDesc>
+
               <ExpertiseFeatures>
-                {expertise.features.map((feature, featureIndex) => (
-                  <ExpertiseFeature key={featureIndex}>
-                    {feature}
-                  </ExpertiseFeature>
+                {expertise.features.map((feature, i) => (
+                  <ExpertiseFeature key={i}>{feature}</ExpertiseFeature>
                 ))}
               </ExpertiseFeatures>
-              <LearnMoreButton
-                whileHover={{ scale: 1.07 }}
-                whileTap={{ scale: 0.97 }}
-                className="interactive"
-              >
+
+              {/* UPDATED: Learn More Button with Navigation */}
+              <StyledLinkButton to={expertise.link}>
                 Learn More
-              </LearnMoreButton>
+              </StyledLinkButton>
             </ExpertiseCard>
           ))}
         </ExpertiseGrid>
@@ -304,4 +304,4 @@ const Expertise = () => {
   );
 };
 
-export default Expertise; 
+export default Expertise;
