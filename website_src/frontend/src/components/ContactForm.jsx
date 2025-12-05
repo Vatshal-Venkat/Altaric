@@ -6,17 +6,6 @@ import { Calendar, Clock, Phone, Mail, Send, Building } from "lucide-react";
 // ------------------ API URL ------------------
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-const formData = {};
-
-fetch(`${API}/contact`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(formData),
-});
-
-
 // ------------------ Styled Components ------------------
 const ContactFormContainer = styled.section`
   padding: 8rem 2rem;
@@ -269,12 +258,10 @@ const ContactForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handles input updates
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handles form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -290,7 +277,6 @@ const ContactForm = () => {
 
       alert("✅ Meeting scheduled successfully!");
 
-      // reset form
       setFormData({
         full_name: "",
         email: "",
@@ -317,12 +303,13 @@ const ContactForm = () => {
         >
           <SectionTitle>Schedule a Call</SectionTitle>
           <SectionSubtitle>
-            Ready to transform your business with AI? Let's discuss how we can
-            help you achieve your goals.
+            Ready to transform your business with AI? 
+            Let's discuss how we can help you achieve your goals.
           </SectionSubtitle>
         </SectionHeader>
 
         <FormGrid>
+          
           {/* Form */}
           <FormContainer
             initial={{ opacity: 0, x: -50 }}
@@ -335,7 +322,6 @@ const ContactForm = () => {
             </FormTitle>
 
             <form onSubmit={handleSubmit}>
-              {/* Inputs */}
               <FormGroup>
                 <Label htmlFor="full_name">Full Name *</Label>
                 <Input
