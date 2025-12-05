@@ -450,7 +450,7 @@ const ContactForm = () => {
               </ContactIcon>
               <ContactText>
                 <h4>Phone</h4>
-                <p>+91 123-4567-890</p>
+                <p>+91 72073 48777</p>
               </ContactText>
             </ContactItem>
 
