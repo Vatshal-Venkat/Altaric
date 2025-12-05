@@ -23,12 +23,16 @@ def get_db():
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],  # React dev server
+    allow_origins=[
+        "https://altaric.com",
+        "https://www.altaric.com",
+        "https://api.altaric.com",
+        "https://altaric.vercel.app",   # your frontend on vercel
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # -------------------------------
 # CREATE (POST)
