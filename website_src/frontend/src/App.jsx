@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -20,6 +20,10 @@ import ClientsBar from './components/ClientsBar';
 import AgenticAI from './pages/AgenticAI';
 import LLM from './pages/LLM';
 import NLP from './pages/NLP';
+import ComputerVision from './pages/ComputerVision';
+import MachineLearning from './pages/MachineLearning';
+import AIConsulting from './pages/AIConsulting';
+import ServicesIndex from "./pages/ServicesIndex";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -138,57 +142,60 @@ function App() {
   }
 
   return (
-    <Router>
-      <AppContainer>
-        <GlobalStyle />
-        <Navbar />
-        <MainContent>
-          <Routes>
+    <AppContainer>
+      <GlobalStyle />
+      <Navbar />
+      <MainContent>
+        <Routes>
 
-            {/* HOME PAGE */}
-            <Route
-              path="/"
-              element={
-                <>
-                  <SnapContainer>
-                    <div
-                      style={{
-                        background: '#fff',
-                        position: 'relative',
-                        zIndex: 1,
-                        width: '100%',
-                        minHeight: '95vh',
-                      }}
-                    >
-                      <Hero />
-                      <ClientsBar />
-                      <About />
-                    </div>
+          {/* HOME PAGE */}
+          <Route
+            path="/"
+            element={
+              <>
+                <SnapContainer>
+                  <div
+                    style={{
+                      background: '#fff',
+                      position: 'relative',
+                      zIndex: 1,
+                      width: '100%',
+                      minHeight: '95vh',
+                    }}
+                  >
+                    <Hero />
+                    <ClientsBar />
+                    <About />
+                  </div>
 
-                    {/* Other sections */}
-                    {/* <Statistics /> */}
-                    <Industries />
-                    <Expertise />
-                    <ContactForm />
-                  </SnapContainer>
+                  {/* Other sections */}
+                  {/* <Statistics /> */}
+                  <Industries />
+                  <Expertise />
+                  <ContactForm />
+                </SnapContainer>
 
-                  <Footer />
-                </>
-              }
-            />
+                <Footer />
+              </>
+            }
+          />
 
-            {/* EXISTING ROUTES */}
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
+          {/* EXISTING ROUTES */}
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
 
-            {/* NEW SERVICE PAGES */}
-            <Route path="/services/agentic-ai" element={<AgenticAI />} />
-            <Route path="/services/llm" element={<LLM />} />
-            <Route path="/services/nlp" element={<NLP />} />
-          </Routes>
-        </MainContent>
-      </AppContainer>
-    </Router>
+          {/* NEW SERVICE PAGES */}
+          <Route path="/services/agentic-ai" element={<AgenticAI />} />
+          <Route path="/services/llm" element={<LLM />} />
+          <Route path="/services/nlp" element={<NLP />} />
+          <Route path="/services/computer-vision" element={<ComputerVision />} />
+          <Route path="/services/machine-learning" element={<MachineLearning />} />
+          <Route path="/services/ai-consulting" element={<AIConsulting />} />
+          <Route path="/services" element={<ServicesIndex />} />
+
+        </Routes>
+      </MainContent>
+    </AppContainer>
   );
 }
 

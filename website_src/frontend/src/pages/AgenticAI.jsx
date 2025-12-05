@@ -1,17 +1,17 @@
+
+import ServiceTemplate from "./ServiceTemplate";
+
 export default function AgenticAI() {
   return (
-    <div style={{ padding: "4rem" }}>
-      <h1>Agentic AI</h1>
-      <p>
-        Autonomous AI agents that perform complex tasks, make decisions, and
-        learn from their environment.
-      </p>
-      <ul>
-        <li>Autonomous decision making</li>
-        <li>Task automation</li>
-        <li>Multi-agent systems</li>
-        <li>Adaptive learning</li>
-      </ul>
-    </div>
+    <ServiceTemplate
+      title="Agentic AI"
+      description="Autonomous AI agents that perform complex tasks, make decisions, and continuously learn to optimize outcomes."
+      features={[
+        "Autonomous decision-making",
+        "Task automation & workflow agents",
+        "Multi-agent collaboration",
+        "Adaptive learning systems",
+      ]}
+    />
   );
 }
