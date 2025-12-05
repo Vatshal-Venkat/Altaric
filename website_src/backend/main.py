@@ -4,6 +4,7 @@ from database import SessionLocal, engine, Base
 import models, schemas
 from fastapi.middleware.cors import CORSMiddleware
 
+
 import os
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
@@ -94,3 +95,8 @@ def delete_meeting(meeting_id: int, db: Session = Depends(get_db)):
     db.delete(meeting)
     db.commit()
     return {"message": f"Meeting with ID {meeting_id} deleted"}
+
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
