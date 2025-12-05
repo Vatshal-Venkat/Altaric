@@ -6,6 +6,15 @@ import { Calendar, Clock, Phone, Mail, Send, Building } from "lucide-react";
 // ------------------ API URL ------------------
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
+fetch(`${API}/contact`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(formData),
+});
+
+
 // ------------------ Styled Components ------------------
 const ContactFormContainer = styled.section`
   padding: 8rem 2rem;
