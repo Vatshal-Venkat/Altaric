@@ -3,131 +3,138 @@ import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { TrendingUp, Users, Globe, Award } from 'lucide-react';
 
+// ---------------------- WAVE STYLES ----------------------
+
+const WaveTop = styled.div`
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  margin-bottom: -1px;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+  }
+`;
+
+const WaveBottom = styled.div`
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  margin-top: -1px;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+  }
+`;
+
+// ---------------------- SECTION STYLES ----------------------
+
 const StatisticsContainer = styled.section`
-  padding: 4rem 0 3rem 0;
-  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #f0f4f8 100%);
+  padding: 6rem 0;
+  background: #000;
   position: relative;
   overflow: hidden;
-
-  @media (max-width: 768px) {
-    padding: 3rem 1rem;
-  }
 `;
 
 const BackgroundPattern = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
-  pointer-events: none;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
 `;
 
 const ContentWrapper = styled.div`
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
   position: relative;
   z-index: 2;
 `;
 
 const SectionHeader = styled(motion.div)`
   text-align: center;
-  margin-bottom: 6rem;
-
-  @media (max-width: 768px) {
-    margin-bottom: 4rem;
-  }
+  margin-bottom: 4rem;
 `;
 
 const SectionTitle = styled.h2`
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(45deg, #000, #333);
-  background-clip: text;
+  background: linear-gradient(45deg, #fff, #d1d1d1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
 `;
 
 const SectionSubtitle = styled.p`
-  font-size: 1.2rem;
-  color: rgba(0, 0, 0, 0.7);
-  max-width: 600px;
+  color: #aaa;
+  max-width: 620px;
   margin: 0 auto;
+  font-size: 1.1rem;
   line-height: 1.6;
 `;
 
+// ---------------------- CARDS ----------------------
+
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
-  margin-bottom: 4rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
 `;
 
 const StatCard = styled(motion.div)`
+  background: #0f0f0f;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 2.5rem 2rem;
   text-align: center;
-  padding: 3rem 2rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  transition: 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px);
-    border-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    background: #171717;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.9);
   }
 `;
 
 const StatIcon = styled.div`
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #000, #333);
-  border-radius: 20px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+  border-radius: 16px;
+  margin: 0 auto 1.5rem;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 0 auto 2rem;
-  color: #fff;
+  align-items: center;
+  color: #00e5ff;
 `;
 
 const StatNumber = styled(motion.div)`
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(45deg, #000, #333);
-  background-clip: text;
+  background: linear-gradient(45deg, #fff, #cfcfcf);
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
 const StatLabel = styled.h4`
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.8);
-  margin-bottom: 1rem;
+  color: #eee;
+  margin-top: 0.6rem;
+  margin-bottom: 0.3rem;
 `;
 
 const StatDescription = styled.p`
+  color: #888;
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.6);
-  line-height: 1.5;
 `;
+
+// ---------------------- COUNTER HOOK ----------------------
 
 const useCounter = (end, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -140,7 +147,9 @@ const useCounter = (end, duration = 2000) => {
     const animate = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
+
       setCount(Math.floor(progress * end));
+
       if (progress < 1) requestAnimationFrame(animate);
     };
 
@@ -150,72 +159,70 @@ const useCounter = (end, duration = 2000) => {
   return [count, () => setStarted(true)];
 };
 
+// ---------------------- MAIN COMPONENT ----------------------
+
 const Statistics = () => {
-  const ref = useRef(null);
+  const ref = useRef();
   const isInView = useInView(ref, { once: true });
 
   const stats = [
-    {
-      icon: <TrendingUp size={40} />,
-      number: 500,
-      label: "Projects Completed",
-      description: "Successfully delivered innovative solutions across industries",
-    },
-    {
-      icon: <Users size={40} />,
-      number: 50,
-      label: "Global Clients",
-      description: "Trusted by leading companies worldwide",
-    },
-    {
-      icon: <Globe size={40} />,
-      number: 25,
-      label: "Countries Served",
-      description: "Expanding our global footprint and impact",
-    },
-    {
-      icon: <Award size={40} />,
-      number: 15,
-      label: "Industry Awards",
-      description: "Recognized for excellence and innovation",
-    },
+    { icon: <TrendingUp size={36} />, number: 500, label: "Projects Completed", description: "Enterprise AI deployments" },
+    { icon: <Users size={36} />, number: 50, label: "Clients Worldwide", description: "Trusted by global innovators" },
+    { icon: <Globe size={36} />, number: 25, label: "Countries Served", description: "Expanding global footprint" },
+    { icon: <Award size={36} />, number: 15, label: "Industry Awards", description: "Recognized for excellence" },
   ];
 
   return (
-    <StatisticsContainer ref={ref} id="statistics">
-      <BackgroundPattern />
-      <ContentWrapper>
-        <SectionHeader
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <SectionTitle>Our Achievements</SectionTitle>
-          <SectionSubtitle>
-            Numbers that tell the story of our success and the impact we've made.
-          </SectionSubtitle>
-        </SectionHeader>
+    <>
+      {/* ---------------- TOP WAVE ---------------- */}
+      <WaveTop>
+        <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,40 C360,120 1080,-40 1440,30 L1440,0 L0,0 Z" fill="#000" />
+        </svg>
+      </WaveTop>
 
-        <StatsGrid>
-          {stats.map((stat, i) => {
-            const [count, startCounter] = useCounter(stat.number);
+      {/* ---------------- STATISTICS SECTION ---------------- */}
+      <StatisticsContainer ref={ref}>
+        <BackgroundPattern />
 
-            useEffect(() => {
-              if (isInView) startCounter();
-            }, [isInView]);
+        <ContentWrapper>
+          <SectionHeader
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <SectionTitle>Our Achievements</SectionTitle>
+            <SectionSubtitle>Numbers that highlight our enterprise AI impact.</SectionSubtitle>
+          </SectionHeader>
 
-            return (
-              <StatCard key={i}>
-                <StatIcon>{stat.icon}</StatIcon>
-                <StatNumber>{count}</StatNumber>
-                <StatLabel>{stat.label}</StatLabel>
-                <StatDescription>{stat.description}</StatDescription>
-              </StatCard>
-            );
-          })}
-        </StatsGrid>
-      </ContentWrapper>
-    </StatisticsContainer>
+          <StatsGrid>
+            {stats.map((stat, index) => {
+              const [count, startCounter] = useCounter(stat.number);
+
+              useEffect(() => {
+                if (isInView) startCounter();
+              }, [isInView]);
+
+              return (
+                <StatCard key={index}>
+                  <StatIcon>{stat.icon}</StatIcon>
+                  <StatNumber>{count}</StatNumber>
+                  <StatLabel>{stat.label}</StatLabel>
+                  <StatDescription>{stat.description}</StatDescription>
+                </StatCard>
+              );
+            })}
+          </StatsGrid>
+        </ContentWrapper>
+      </StatisticsContainer>
+
+      {/* ---------------- BOTTOM WAVE ---------------- */}
+      <WaveBottom>
+        <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,30 C360,-40 1080,120 1440,50 L1440,90 L0,90 Z" fill="#000" />
+        </svg>
+      </WaveBottom>
+    </>
   );
 };
 

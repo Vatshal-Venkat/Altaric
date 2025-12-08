@@ -1,67 +1,132 @@
 import React from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+
+const Page = styled.div`
+  background: #000;
+  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+`;
+
+const Hero = styled.div`
+  padding: 8rem 2rem 5rem 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #2e004f, #000);
+
+  h1 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  p {
+    color: #e9b7ff;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0.6rem auto 0 auto;
+  }
+`;
+
+const Section = styled.section`
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+
+  h2 {
+    background: linear-gradient(45deg, #b55cff, #f2c1ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.3rem;
+  }
+
+  .lead {
+    color: #dcb4ff;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    max-width: 780px;
+  }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 2rem;
+`;
+
+const Card = styled(motion.div)`
+  background: #1d0b2a;
+  border: 1px solid rgba(240, 150, 255, 0.22);
+  padding: 2rem;
+  border-radius: 18px;
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateY(-8px);
+    background: #260e38;
+    box-shadow: 0 20px 40px rgba(210, 100, 255, 0.3);
+  }
+
+  h3 {
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    color: #f3d6ff;
+  }
+`;
 
 const Insights = () => {
   return (
-    <div className="page insights-page fade-in">
+    <Page>
+      <Hero>
+        <h1>Insights</h1>
+        <p>AI perspectives for leaders shaping tomorrow.</p>
+      </Hero>
 
-      <div className="page-hero insights-hero">
-        <div>
-          <h1>Insights</h1>
-          <p>Expert perspectives and AI knowledge to help shape strategic decisions.</p>
-        </div>
-      </div>
-
-      {/* SECTION 1 */}
-      <section className="section">
+      <Section>
         <h2>Latest Articles</h2>
         <p className="lead">
-          Stay informed on advancements in AI, ML, and enterprise digital transformation.
+          Knowledge from AI practitioners, system architects, and enterprise strategists.
         </p>
 
-        <div className="grid-3">
-          <div className="card">
-            <h3>AI Transformation Roadmaps</h3>
-            <p>
-              What every enterprise leader needs to know before executing an AI-first strategy.
-            </p>
-          </div>
+        <Grid>
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>AI Roadmaps</h3>
+            <p>Everything leaders need to plan AI-first transformation.</p>
+          </Card>
 
-          <div className="card">
-            <h3>The Rise of Enterprise LLMs</h3>
-            <p>
-              Understanding retrieval-augmented generation and how it reshapes productivity.
-            </p>
-          </div>
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>Enterprise LLMs</h3>
+            <p>RAG-driven systems unlocking enterprise productivity.</p>
+          </Card>
 
-          <div className="card">
-            <h3>Computer Vision Beyond Detection</h3>
-            <p>
-              How modern CV models deliver structured insights from unstructured visual data.
-            </p>
-          </div>
-        </div>
-      </section>
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>Advanced Vision Systems</h3>
+            <p>How modern CV models extract structured insights.</p>
+          </Card>
+        </Grid>
+      </Section>
 
-      {/* SECTION 2 */}
-      <section className="section">
+      <Section>
         <h2>Insight Themes</h2>
-        <div className="grid-3">
-          <div className="card">
-            <h3>AI for Operational Efficiency</h3>
-            <p>Reducing manual workloads and streamlining decision-making cycles.</p>
-          </div>
-          <div className="card">
-            <h3>Future of Automation</h3>
-            <p>What next-generation intelligent automation will look like.</p>
-          </div>
-          <div className="card">
-            <h3>Data Governance</h3>
-            <p>Building strong data foundations for safe and scalable AI adoption.</p>
-          </div>
-        </div>
-      </section>
 
-    </div>
+        <Grid>
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>AI for Operations</h3>
+            <p>Improving efficiency and decision automation.</p>
+          </Card>
+
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>Future of Automation</h3>
+            <p>The next leap in intelligent systems.</p>
+          </Card>
+
+          <Card whileHover={{ scale: 1.02 }}>
+            <h3>Data Governance</h3>
+            <p>Scalable foundations for enterprise AI adoption.</p>
+          </Card>
+        </Grid>
+      </Section>
+    </Page>
   );
 };
 
