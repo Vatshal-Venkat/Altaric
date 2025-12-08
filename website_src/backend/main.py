@@ -30,7 +30,7 @@ app.add_middleware(
         "https://api.altaric.com",
         "https://altaric.vercel.app",   # your frontend on vercel
         "https://altaric-backend.onrender.com",
-        "https://altaric-backend.onrender.com/",
+        
     ],
     allow_credentials=True,
     allow_methods=["*"],
