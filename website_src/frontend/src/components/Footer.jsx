@@ -255,7 +255,7 @@ const Footer = () => {
             <ContactInfo>
               <ContactItem>
                 <Mail size={18} />
-                hello@altaric.com
+                tarun@altaric.com
               </ContactItem>
               <ContactItem>
                 <Phone size={18} />
@@ -263,8 +263,8 @@ const Footer = () => {
               </ContactItem>
               <ContactItem>
                 <MapPin size={18} />
-                123 Innovation Drive<br />
-                Tech City, TC 12345
+                Srinagar Colony Banjarahills <br />
+                Hyderabad - 500073
               </ContactItem>
             </ContactInfo>
           </FooterSection>
@@ -272,7 +272,7 @@ const Footer = () => {
 
         <BottomBar>
           <Copyright>
-            © 2024 Altaric. All rights reserved. | Privacy Policy | Terms of Service
+            © 2025 Altaric. All rights reserved. | Privacy Policy | Terms of Service
           </Copyright>
           <ScrollToTop
             onClick={scrollToTop}
