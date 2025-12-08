@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import heroVideo from "../assets/videos/myVideo.mp4";
+import { Link } from "react-router-dom";
 
 /* ============================================================
    STYLED COMPONENTS
@@ -226,9 +227,12 @@ const Hero = () => {
           Transforming businesses through cutting-edge AI solutions and digital innovation.
         </HeroSubtitle>
 
-        <HeroButton whileTap={{ scale: 0.97 }}>
-          Explore More
-        </HeroButton>
+        <Link to="/about-altaric" style={{ textDecoration: "none", display: "inline-block" }}>
+          <HeroButton whileTap={{ scale: 0.97 }}>
+            Explore More
+          </HeroButton>
+        </Link>
+
       </HeroContent>
 
       <ScrollIndicator

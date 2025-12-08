@@ -10,16 +10,19 @@ const Page = styled.div`
 `;
 
 const Hero = styled.div`
-  padding: 8rem 2rem 5rem 2rem;
+  padding: 8rem 2rem 5rem;
   text-align: center;
-  background: linear-gradient(180deg, #4f2500, #000);
+  background: linear-gradient(180deg, #1f2a33, #000);
 
   h1 {
     font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 700;
   }
+
   p {
-    color: #ffd6a1;
+    color: #d2e0ea;
     font-size: 1.1rem;
+    margin-top: 0.5rem;
   }
 `;
 
@@ -29,16 +32,18 @@ const Section = styled.section`
   margin: 0 auto;
 
   h2 {
-    background: linear-gradient(45deg, #ff9f33, #ffd59c);
+    background: linear-gradient(45deg, #9baec1, #e5edf5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.3rem;
+    font-weight: 600;
   }
 
   .lead {
     max-width: 780px;
     margin-bottom: 2.5rem;
-    color: #ffdcba;
+    color: #cbd8e3;
+    line-height: 1.6;
   }
 `;
 
@@ -49,22 +54,25 @@ const Grid = styled.div`
 `;
 
 const Card = styled(motion.div)`
-  background: #2a1400;
-  border: 1px solid rgba(255, 190, 120, 0.2);
+  background: #1a242c;
+  border: 1px solid rgba(155, 174, 193, 0.2);
   padding: 2rem;
   border-radius: 18px;
+  transition: 0.3s;
 
   &:hover {
     transform: translateY(-8px);
-    background: #3a1a00;
-    box-shadow: 0 20px 40px rgba(255, 150, 90, 0.35);
+    background: #25323d;
+    box-shadow: 0 20px 40px rgba(120, 150, 170, 0.3);
   }
 
   h3 {
     margin-bottom: 0.7rem;
+    font-weight: 600;
   }
+
   p {
-    color: #ffd8b8;
+    color: #dfe8ef;
   }
 `;
 
@@ -73,29 +81,29 @@ const Careers = () => {
     <Page>
       <Hero>
         <h1>Careers at Altaric</h1>
-        <p>Join a team building meaningful AI solutions.</p>
+        <p>Be part of a team building advanced AI systems for global enterprises.</p>
       </Hero>
 
       <Section>
         <h2>Open Roles</h2>
         <p className="lead">
-          Work with AI engineers, researchers, and strategists creating real-world impact.
+          We’re looking for innovators, problem-solvers, and builders passionate about shaping the future of AI.
         </p>
 
         <Grid>
           <Card whileHover={{ scale: 1.02 }}>
             <h3>AI Engineer</h3>
-            <p>Build ML, CV, NLP, and agent solutions.</p>
+            <p>Develop end-to-end AI systems including ML, CV, NLP & LLM agents.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Frontend Engineer</h3>
-            <p>Create next-gen UIs with React, WebGL, and 3D experiences.</p>
+            <p>Craft exceptional digital experiences using React, WebGL & modern UI systems.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>AI Strategy Consultant</h3>
-            <p>Guide enterprises through AI adoption and transformation.</p>
+            <p>Guide enterprises through AI adoption, design, and transformation.</p>
           </Card>
         </Grid>
       </Section>
@@ -106,17 +114,17 @@ const Careers = () => {
         <Grid>
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Innovation First</h3>
-            <p>We value experimentation and bold thinking.</p>
+            <p>We encourage bold thinking and constant experimentation.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>Collaborative</h3>
-            <p>We work as one high-performing team.</p>
+            <h3>Collaboration</h3>
+            <p>A supportive team environment fostering creativity and growth.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Career Growth</h3>
-            <p>Mentorship and opportunities to grow fast.</p>
+            <p>Personalized mentorship, training, and advancement opportunities.</p>
           </Card>
         </Grid>
       </Section>

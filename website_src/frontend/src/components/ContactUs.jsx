@@ -147,9 +147,9 @@ const ContactUs = () => {
       </Hero>
       <Section>
         <ContactInfo>
-          <InfoItem><Mail size={20} /> hello@altaric.com</InfoItem>
-          <InfoItem><Phone size={20} /> +1 (555) 123-4567</InfoItem>
-          <InfoItem><MapPin size={20} /> 123 Luxury Ave, New York, NY</InfoItem>
+          <InfoItem><Mail size={20} /> tarun@altaric.com</InfoItem>
+          <InfoItem><Phone size={20} /> +91 72073 48777</InfoItem>
+          <InfoItem><MapPin size={20} /> Srinagar Colony, Banjarahills, Hyderabad - 500073</InfoItem>
         </ContactInfo>
         <Form onSubmit={handleSubmit}>
           <Input type="text" name="name" placeholder="Your Name" value={form.name} onChange={handleChange} required />

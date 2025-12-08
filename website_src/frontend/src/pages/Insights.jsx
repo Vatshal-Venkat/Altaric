@@ -10,19 +10,20 @@ const Page = styled.div`
 `;
 
 const Hero = styled.div`
-  padding: 8rem 2rem 5rem 2rem;
+  padding: 8rem 2rem 5rem;
   text-align: center;
-  background: linear-gradient(180deg, #2e004f, #000);
+  background: linear-gradient(180deg, #0a1a33, #000);
 
   h1 {
     font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 700;
   }
 
   p {
-    color: #e9b7ff;
+    color: #bcd2f7;
     font-size: 1.1rem;
     max-width: 700px;
-    margin: 0.6rem auto 0 auto;
+    margin: 0.6rem auto 0;
   }
 `;
 
@@ -32,17 +33,19 @@ const Section = styled.section`
   padding: 4rem 2rem;
 
   h2 {
-    background: linear-gradient(45deg, #b55cff, #f2c1ff);
+    background: linear-gradient(45deg, #70b8ff, #d3e8ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.3rem;
+    font-weight: 600;
   }
 
   .lead {
-    color: #dcb4ff;
+    color: #a9c4e8;
     font-size: 1.1rem;
     margin-bottom: 2.5rem;
     max-width: 780px;
+    line-height: 1.6;
   }
 `;
 
@@ -53,24 +56,26 @@ const Grid = styled.div`
 `;
 
 const Card = styled(motion.div)`
-  background: #1d0b2a;
-  border: 1px solid rgba(240, 150, 255, 0.22);
+  background: #0f1824;
+  border: 1px solid rgba(112, 168, 255, 0.25);
   padding: 2rem;
   border-radius: 18px;
   transition: 0.3s;
 
   &:hover {
     transform: translateY(-8px);
-    background: #260e38;
-    box-shadow: 0 20px 40px rgba(210, 100, 255, 0.3);
+    background: #152337;
+    box-shadow: 0 20px 40px rgba(60, 120, 200, 0.35);
   }
 
   h3 {
     margin-bottom: 0.6rem;
+    font-weight: 600;
   }
 
   p {
-    color: #f3d6ff;
+    color: #c9dbf3;
+    line-height: 1.5;
   }
 `;
 
@@ -79,29 +84,29 @@ const Insights = () => {
     <Page>
       <Hero>
         <h1>Insights</h1>
-        <p>AI perspectives for leaders shaping tomorrow.</p>
+        <p>Deep analysis and strategic perspectives on the future of AI.</p>
       </Hero>
 
       <Section>
         <h2>Latest Articles</h2>
         <p className="lead">
-          Knowledge from AI practitioners, system architects, and enterprise strategists.
+          Expert insights from AI engineers, enterprise architects, and digital transformation strategists.
         </p>
 
         <Grid>
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>AI Roadmaps</h3>
-            <p>Everything leaders need to plan AI-first transformation.</p>
+            <h3>AI Strategy Roadmaps</h3>
+            <p>A structured approach to designing AI-first enterprise transformation.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>Enterprise LLMs</h3>
-            <p>RAG-driven systems unlocking enterprise productivity.</p>
+            <h3>Enterprise LLM Systems</h3>
+            <p>How RAG and orchestration frameworks power enterprise-grade AI solutions.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>Advanced Vision Systems</h3>
-            <p>How modern CV models extract structured insights.</p>
+            <h3>Computer Vision Intelligence</h3>
+            <p>Unlocking automation with high-accuracy visual inspection models.</p>
           </Card>
         </Grid>
       </Section>
@@ -111,18 +116,18 @@ const Insights = () => {
 
         <Grid>
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>AI for Operations</h3>
-            <p>Improving efficiency and decision automation.</p>
+            <h3>Operational AI</h3>
+            <p>Embedding intelligence into everyday enterprise workflows.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
-            <h3>Future of Automation</h3>
-            <p>The next leap in intelligent systems.</p>
+            <h3>Automation Futures</h3>
+            <p>The evolution of intelligent automation across industries.</p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Data Governance</h3>
-            <p>Scalable foundations for enterprise AI adoption.</p>
+            <p>Building compliant, scalable data foundations for AI systems.</p>
           </Card>
         </Grid>
       </Section>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { motion } from "framer-motion";
+import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
@@ -11,14 +12,14 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import ClientsBar from "./components/ClientsBar";
 import About from "./components/About";
-import IndustriesSection from "./components/Industries"; // ✔️ Landing version
+import IndustriesSection from "./components/Industries";
 import Statistics from "./components/Statistics";
 import Expertise from "./components/Expertise";
 import ContactForm from "./components/ContactForm";
 
 // FULL PAGES
 import Services from "./pages/Services";
-import Industries from "./pages/Industry"; // ✔️ Full page version
+import Industries from "./pages/Industry";
 import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
@@ -126,17 +127,19 @@ function App() {
 
       <Routes>
 
-        {/* ⭐ HOMEPAGE (REAL WORKING ONE) */}
+        {/* ⭐ HOMEPAGE */}
         <Route
           path="/"
           element={
             <>
               <SnapContainer>
+
+                {/* 🎯 FIXED — REMOVED WHITE BACKGROUND SOURCE */}
                 <div
                   style={{
                     position: "relative",
                     width: "100%",
-                    minHeight: "95vh",
+                    background: "#000",   // ← FIXED
                   }}
                 >
                   <Hero />
@@ -145,7 +148,7 @@ function App() {
                 </div>
 
                 <Statistics />
-                <IndustriesSection /> {/* ✔️ Correct landing industries */}
+                <IndustriesSection />
                 <Expertise />
                 <ContactForm />
               </SnapContainer>
@@ -158,7 +161,7 @@ function App() {
 
         {/* ⭐ FULL PAGES */}
         <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} /> {/* ✔️ Full Industries page */}
+        <Route path="/industries" element={<Industries />} />
         <Route path="/ai-solutions" element={<AISolutions />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/careers" element={<Careers />} />
@@ -171,6 +174,8 @@ function App() {
         <Route path="/services/machine-learning" element={<MachineLearning />} />
         <Route path="/services/computer-vision" element={<ComputerVision />} />
         <Route path="/services/ai-consulting" element={<AIConsulting />} />
+        <Route path="/about-altaric" element={<AboutAltaric />} />
+
       </Routes>
     </AppContainer>
   );
