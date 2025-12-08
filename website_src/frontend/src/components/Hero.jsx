@@ -98,12 +98,6 @@ const HeroButton = styled(motion.a)`
   }
 `;
 
-const FloatingShape = styled(motion.div)`
-  position: absolute;
-  border-radius: 50%;
-  z-index: 3;
-  opacity: 0.18;
-`;
 
 const ScrollIndicator = styled(motion.div)`
   position: absolute;
@@ -122,35 +116,9 @@ const ScrollIndicator = styled(motion.div)`
   pointer-events: none;
 `;
 
-const FloatingElements = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-`;
 
-const FloatingElement = styled(motion.div)`
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-  }
-`;
+
 
 const Hero = () => {
   const containerRef = useRef(null);

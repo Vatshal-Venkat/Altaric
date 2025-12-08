@@ -1,106 +1,128 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search } from "lucide-react";
-import { Link } from "react-scroll";
+import { Menu, X } from "lucide-react";
+import { Link as ScrollLink } from "react-scroll";
 
-const NavContainer = styled(motion.nav)`
+const NavWrapper = styled.nav`
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 92%;
   padding: 1rem 2rem;
-  margin-top: 1rem;
   z-index: 1000;
+
   display: flex;
+  align-items: center;
   justify-content: center;
-  transition: 0.3s ease;
 
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(22px);
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease;
 
   ${(props) =>
     props.scrolled &&
     `
     width: 100%;
-    margin-top: 0;
     border-radius: 0;
-    border: none;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(25px);
   `}
 `;
 
 const NavContent = styled.div`
   width: 100%;
-  max-width: 1400px;
+  max-width: 1450px;
+
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
 `;
 
-const Logo = styled(motion.div)`
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #fff;
-  cursor: pointer;
-`;
-
-const IconButton = styled(motion.button)`
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px 16px;
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  color: #fff;
-  cursor: pointer;
-  font-size: 0.85rem;
+const NavLeft = styled.div`
   display: flex;
   align-items: center;
-  gap: 6px;
+`;
 
-  transition: 0.25s ease;
+const NavCenter = styled.div`
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+`;
+
+const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const MenuButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
+  }
+`;
+
+const ContactButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255,255,255,0.15);
   }
 `;
 
 const MenuOverlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(5, 5, 5, 0.9);
+  background: rgba(5, 5, 5, 0.92);
   backdrop-filter: blur(25px);
+
+  z-index: 2000;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
 `;
 
 const MenuContent = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 2.2rem;
+  gap: 2rem;
 `;
 
 const MenuItem = styled(motion.div)`
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   font-weight: 300;
   color: #fff;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: 0.2s;
 
   &:hover {
-    color: #9eaaff;
-    transform: scale(1.07);
+    color: #a5b4fc;
   }
 `;
 
@@ -108,64 +130,55 @@ const CloseButton = styled(motion.button)`
   position: absolute;
   top: 2rem;
   right: 2rem;
-  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  background: rgba(255,255,255,0.2);
   padding: 12px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
-  cursor: pointer;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.3);
   }
 `;
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 100);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const scrollHandler = () => setScrolled(window.scrollY > 90);
+    window.addEventListener("scroll", scrollHandler);
+    return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
-  const menuItems = [
-    "ABOUT US",
-    "SERVICES",
-    "INDUSTRIES",
-    "AI SOLUTIONS",
-    "INSIGHTS",
-    "CAREERS",
-  ];
+  const menuItems = ["ABOUT US", "SERVICES", "INDUSTRIES", "AI SOLUTIONS", "INSIGHTS", "CAREERS"];
 
   return (
     <>
-      <NavContainer scrolled={scrolled}>
+      <NavWrapper scrolled={scrolled}>
         <NavContent>
-          <IconButton
-            onClick={() => setMenuOpen(true)}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Menu size={20} /> Menu
-          </IconButton>
+          {/* LEFT — MENU */}
+          <NavLeft>
+            <MenuButton onClick={() => setMenuOpen(true)}>
+              <Menu size={22} /> MENU
+            </MenuButton>
+          </NavLeft>
 
-          <Logo
-            as={Link}
-            to="hero"
-            smooth={true}
-            duration={600}
-            whileHover={{ scale: 1.05 }}
-          >
+          {/* CENTER — LOGO */}
+          <NavCenter as={ScrollLink} to="hero" smooth duration={600}>
             ALTARIC
-          </Logo>
+          </NavCenter>
 
-          <IconButton as={Link} to="contact" smooth duration={600}>
-            <Search size={18} /> Contact
-          </IconButton>
+          {/* RIGHT — CONTACT */}
+          <NavRight>
+            <ContactButton as={ScrollLink} to="contact" smooth duration={600}>
+              CONTACT US
+            </ContactButton>
+          </NavRight>
         </NavContent>
-      </NavContainer>
+      </NavWrapper>
 
+      {/* FULL SCREEN MENU */}
       <AnimatePresence>
         {menuOpen && (
           <MenuOverlay
@@ -180,11 +193,10 @@ const Navbar = () => {
             <MenuContent>
               {menuItems.map((item, index) => (
                 <MenuItem
-                  key={item}
-                  initial={{ opacity: 0, y: 25 }}
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.07 }}
-                  whileTap={{ scale: 0.95 }}
+                  transition={{ delay: index * 0.08 }}
                   onClick={() => setMenuOpen(false)}
                 >
                   {item}
