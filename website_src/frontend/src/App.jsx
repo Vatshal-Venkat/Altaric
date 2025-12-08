@@ -173,8 +173,15 @@ function App() {
           <Route path="/services/computer-vision" element={<ComputerVision />} />
           <Route path="/services/machine-learning" element={<MachineLearning />} />
           <Route path="/services/ai-consulting" element={<AIConsulting />} />
-
+          <Route path="/" element={<Home />} />
           <Route path="/services" element={<ServicesIndex />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/ai-solutions" element={<AISolutions />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/ContactUs" element={<ContactUs />} />
         </Routes>
       </MainContent>
     </AppContainer>

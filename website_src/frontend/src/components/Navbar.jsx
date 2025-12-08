@@ -1,39 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 
-/* Theme Objects (unchanged) */
 const LIGHT = {
   headerBg: "rgba(255,255,255,0.66)",
   headerBgStrong: "rgba(255,255,255,0.78)",
-  dropdownBg: "rgba(255,255,255,0.98)",
   text: "#0a0a0a",
   textMuted: "#475569",
   logoColor: "#0a0a0a",
-  accent: "#0066ff",
+  accent: "#00eaff",
   ctaBg: "#00d0ff",
-  ctaText: "#000000",
-  icon: "#0a0a0a",
-  mobileBg: "rgba(255,255,255,0.98)"
+  ctaText: "#000",
+  icon: "#000",
+  mobileBg: "rgba(255,255,255,0.96)",
 };
 
 const DARK = {
   headerBg: "rgba(10,12,15,0.62)",
-  headerBgStrong: "linear-gradient(180deg, rgba(6,8,12,0.95), rgba(10,12,15,0.85))",
-  dropdownBg: "rgba(8,10,12,0.9)",
+  headerBgStrong: "rgba(6,8,12,0.92)",
   text: "#eef2ff",
   textMuted: "#aab3bf",
-  logoColor: "#ffffff",
+  logoColor: "#fff",
   accent: "#00eaff",
   ctaBg: "#00d0ff",
   ctaText: "#000",
-  icon: "#ffffff",
-  mobileBg: "rgba(6,8,10,0.98)"
+  icon: "#fff",
+  mobileBg: "rgba(6,8,10,0.96)",
 };
 
-/* Styled Components */
 const NavWrapper = styled.header`
   position: fixed;
   top: 0;
@@ -41,48 +36,48 @@ const NavWrapper = styled.header`
   z-index: 1200;
   background: ${({ themeColors, scrolled }) =>
     scrolled ? themeColors.headerBgStrong : themeColors.headerBg};
-  backdrop-filter: blur(${({ scrolled }) => (scrolled ? "16px" : "10px")});
-  transition: 0.3s ease;
-  box-shadow: ${({ scrolled }) =>
-    scrolled ? "0 8px 24px rgba(0,0,0,0.35)" : "none"};
+  backdrop-filter: blur(18px);
+  transition: all 0.3s ease;
 `;
 
 const NavContainer = styled.nav`
   max-width: 1450px;
-  padding: ${({ scrolled }) =>
-    scrolled ? "0.6rem 2rem" : "1rem 2rem"};
   margin: auto;
+  padding: ${({ scrolled }) => (scrolled ? "0.6rem 2rem" : "1rem 2rem")};
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 `;
 
-const Logo = styled(motion(Link))`
-  text-decoration: none;
-  font-size: 1.35rem;
+const Logo = styled(Link)`
+  font-size: 1.45rem;
   font-weight: 800;
+  text-decoration: none;
   color: ${({ themeColors }) => themeColors.logoColor};
 `;
 
 const CenterMenu = styled.ul`
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 2.3rem;
 
   @media (max-width: 920px) {
     display: none;
   }
 `;
 
-const StyledNavLink = styled(NavLink)`
+const MenuItem = styled(NavLink)`
   text-decoration: none;
   color: ${({ themeColors }) => themeColors.textMuted};
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   position: relative;
+  transition: 0.25s;
 
   &.active {
     color: ${({ themeColors }) => themeColors.accent};
-    font-weight: 600;
   }
 
   &::after {
@@ -94,37 +89,12 @@ const StyledNavLink = styled(NavLink)`
     bottom: -6px;
     left: 0;
     border-radius: 4px;
-    transition: 0.28s ease;
+    transition: 0.25s;
   }
 
   &:hover::after,
   &.active::after {
     width: 100%;
-  }
-`;
-
-const Dropdown = styled(motion.div)`
-  position: absolute;
-  top: 140%;
-  left: 0;
-  background: ${({ themeColors }) => themeColors.dropdownBg};
-  padding: 1rem;
-  min-width: 220px;
-  border-radius: 10px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-  backdrop-filter: blur(14px);
-`;
-
-const DropdownItem = styled(Link)`
-  display: block;
-  padding: 0.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  color: ${({ themeColors }) => themeColors.text};
-  font-size: 0.95rem;
-
-  &:hover {
-    background: rgba(255,255,255,0.06);
   }
 `;
 
@@ -144,12 +114,8 @@ const ContactBtn = styled(Link)`
 const IconButton = styled.button`
   background: transparent;
   border: none;
-  color: ${({ themeColors }) => themeColors.icon};
   cursor: pointer;
-
-  @media (max-width: 920px) {
-    margin-right: 1rem;
-  }
+  color: ${({ themeColors }) => themeColors.icon};
 `;
 
 const MobileMenuButton = styled(IconButton)`
@@ -160,63 +126,44 @@ const MobileMenuButton = styled(IconButton)`
   }
 `;
 
-const MobileOverlay = styled(motion.div)`
+const MobileOverlay = styled.div`
   position: fixed;
   inset: 0;
   background: ${({ themeColors }) => themeColors.mobileBg};
   z-index: 2000;
   padding: 3rem;
+  overflow-y: auto;
 `;
 
 const MobileLink = styled(Link)`
+  display: block;
   color: ${({ themeColors }) => themeColors.text};
   font-size: 1.4rem;
-  margin-bottom: 1rem;
-  display: block;
   text-decoration: none;
+  margin-bottom: 1.2rem;
 `;
 
-
-
-/* MAIN COMPONENT */
 const Navbar = () => {
   const [theme, setTheme] = useState(
     () => localStorage.getItem("site-theme") || "dark"
   );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const themeColors = theme === "light" ? LIGHT : DARK;
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const [openDropdown, setOpenDropdown] = useState(null);
 
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
-
-    {
-      label: "Services",
-      submenu: [{ label: "Services", path: "/services" }],
-    },
-
-    {
-      label: "Industries",
-      submenu: [{ label: "Industries", path: "/industries" }],
-    },
-
-    {
-      label: "AI Solutions",
-      submenu: [{ label: "AI Solutions", path: "/ai-solutions" }],
-    },
-
+    { label: "Services", path: "/services", arrow: true },
+    { label: "Industries", path: "/industries", arrow: true },
+    { label: "AI Solutions", path: "/ai-solutions", arrow: true },
     { label: "Insights", path: "/insights" },
     { label: "Careers", path: "/careers" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -228,128 +175,72 @@ const Navbar = () => {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const dropdownVariants = {
-    open: { opacity: 1, y: 0 },
-    closed: { opacity: 0, y: 6 },
-  };
-
   return (
     <>
-      <NavWrapper scrolled={scrolled} themeColors={themeColors}>
+      <NavWrapper themeColors={themeColors} scrolled={scrolled}>
         <NavContainer scrolled={scrolled}>
-
-          {/* Logo */}
-          <Logo 
-            to="/" 
-            themeColors={themeColors}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <Logo themeColors={themeColors} to="/">
             ALTARIC
           </Logo>
 
-          {/* CENTER MENU (desktop) */}
+          {/* CENTER NAVIGATION */}
           <CenterMenu>
-            {navLinks.map((item) => (
-              <li
-                key={item.label}
-                onMouseEnter={() => item.submenu && setOpenDropdown(item.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-                style={{ position: "relative" }}
-              >
-                <StyledNavLink
-                  to={item.path || "#"}
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <MenuItem
+                  to={link.path}
                   themeColors={themeColors}
+                  className={({ isActive }) => (isActive ? "active" : "")}
                 >
-                  {item.label}
-                </StyledNavLink>
-
-                {item.submenu && (
-                  <AnimatePresence>
-                    {openDropdown === item.label && (
-                      <Dropdown
-                        themeColors={themeColors}
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        variants={dropdownVariants}
-                      >
-                        {item.submenu.map((s) => (
-                          <DropdownItem
-                            key={s.path}
-                            to={s.path}
-                            themeColors={themeColors}
-                          >
-                            {s.label}
-                          </DropdownItem>
-                        ))}
-                      </Dropdown>
-                    )}
-                  </AnimatePresence>
-                )}
+                  {link.label}
+                  {link.arrow && (
+                    <ChevronDown size={14} style={{ opacity: 0.6, marginTop: 1 }} />
+                  )}
+                </MenuItem>
               </li>
             ))}
           </CenterMenu>
 
-          {/* RIGHT SIDE: Theme + Contact */}
+          {/* RIGHT SIDE */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <IconButton themeColors={themeColors} onClick={toggleTheme}>
               {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
             </IconButton>
 
-            <ContactBtn to="/ContactUs" themeColors={themeColors}>
+            <ContactBtn themeColors={themeColors} to="/ContactUs">
               Contact Us
             </ContactBtn>
 
-            <MobileMenuButton themeColors={themeColors} onClick={() => setMenuOpen(true)}>
+            <MobileMenuButton
+              themeColors={themeColors}
+              onClick={() => setMenuOpen(true)}
+            >
               <Menu size={26} />
             </MobileMenuButton>
           </div>
         </NavContainer>
       </NavWrapper>
 
-      {/* MOBILE MENU */}
+      {/* MOBILE OVERLAY */}
       <AnimatePresence>
         {menuOpen && (
-          <MobileOverlay
-            themeColors={themeColors}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <MobileOverlay themeColors={themeColors}>
             <X
               size={32}
-              color={themeColors.text}
               style={{ position: "absolute", top: "2rem", right: "2rem", cursor: "pointer" }}
               onClick={() => setMenuOpen(false)}
+              color={themeColors.text}
             />
 
             {navLinks.map((item) => (
-              <div key={item.label}>
-                <MobileLink
-                  to={item.path || "#"}
-                  themeColors={themeColors}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </MobileLink>
-
-                {item.submenu && (
-                  <div style={{ marginLeft: "1rem" }}>
-                    {item.submenu.map((s) => (
-                      <MobileLink
-                        key={s.path}
-                        to={s.path}
-                        themeColors={themeColors}
-                        onClick={() => setMenuOpen(false)}
-                        style={{ fontSize: "1.2rem", opacity: 0.8 }}
-                      >
-                        {s.label}
-                      </MobileLink>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <MobileLink
+                key={item.label}
+                to={item.path}
+                themeColors={themeColors}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </MobileLink>
             ))}
           </MobileOverlay>
         )}
