@@ -1,117 +1,254 @@
-/* -------------------------------------------------
-   GLOBAL THEME VARIABLES
-------------------------------------------------- */
-:root {
-  --color-bg: #000;
-  --color-text: #fff;
-  --color-text-muted: #b9c8d3;
+/* ----------------------
+   GLOBAL THEME & RESET
+   ---------------------- */
+:root{
+  --bg:#000;
+  --surface: rgba(255,255,255,0.03);
+  --muted: rgba(210,230,255,0.7);
   --accent: #00eaff;
-  --section-padding: 5rem 2rem;
-  font-family: 'Space Grotesk', sans-serif;
+  --cta: linear-gradient(135deg,#fbb13c,#ffcf7b);
+  --section-padding: 5rem 1.6rem;
+  --container-max: 1150px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 
-/* -------------------------------------------------
-   GLOBAL RESET
-------------------------------------------------- */
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  overflow-x: hidden;
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#eaf9ff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
 }
 
-h1, h2, h3 {
-  margin: 0;
-  font-weight: 700;
+/* Small utilities */
+.container{max-width:var(--container-max);margin:0 auto;padding:0 1.25rem}
+.center{text-align:center}
+
+/* Fade-in helper */
+.fade-in{animation:fadeIn .6s ease forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ----------------------
+   HERO / VIDEO
+   ---------------------- */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
-h3 { font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
-
-/* -------------------------------------------------
-   PAGE LAYOUT UTILITIES
-------------------------------------------------- */
-section {
-  padding: var(--section-padding);
-  max-width: 1150px;
-  margin: auto;
+#hero video,
+#hero .hero-bg {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+  transform:scale(1.06);
+  filter:brightness(.55) contrast(1.12);
 }
 
-.fade-in {
-  animation: fadeIn 0.6s ease forwards;
+#hero .hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 66%),
+    radial-gradient(circle at 50% 12%, rgba(0,153,255,0.12), transparent 45%);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+#hero .hero-bottom-fade {
+  position:absolute; left:0; right:0; bottom:0; height:220px; z-index:3;
+  background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.95));
+  pointer-events:none;
 }
 
-/* -------------------------------------------------
-   GRID TEMPLATES
-------------------------------------------------- */
-.service-grid,
-.industry-grid,
-.solution-grid,
-.insight-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
+.hero-content {
+  position:relative; z-index:5; max-width:900px; padding:0 1.25rem; text-align:center;
+}
+.hero-title {
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:1.03; font-weight:700;
+  color: #eaf9ff;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  letter-spacing:-0.02em;
+  text-shadow:0 10px 30px rgba(0,200,255,0.06);
+}
+.hero-sub {
+  color:var(--muted); font-size:1.25rem; margin-bottom:2.5rem; max-width:760px; margin-inline:auto;
 }
 
-/* -------------------------------------------------
-   CARD STYLE
-------------------------------------------------- */
-.service-card,
-.industry-card,
-.solution-card,
-.insight-card {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 1.6rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  transition: transform 0.25s ease;
+/* CTA */
+.hero-cta {
+  display:inline-block; z-index:6;
+  background:var(--cta); color:#111; font-weight:700;
+  padding:1.05rem 2.6rem; border-radius:999px;
+  box-shadow:0 12px 36px rgba(255,180,80,0.14);
+  transition:transform .18s ease,box-shadow .18s;
+}
+.hero-cta:hover{ transform:translateY(-4px); box-shadow:0 22px 54px rgba(255,180,80,0.18); }
+
+/* ----------------------
+   NAVBAR SAFE Z-INDEX
+   ---------------------- */
+header[role="banner"]{ position:fixed; top:0; left:0; right:0; z-index:900; }
+
+/* ----------------------
+   G4 PAGE HERO SECTION
+   ---------------------- */
+.page-hero {
+  height: 42vh;
+  min-height: 320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 1.4rem;
 }
 
-.service-card:hover,
-.industry-card:hover,
-.solution-card:hover,
-.insight-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(0,255,255,0.18);
+.page-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  color:#fff;
+  margin-bottom:.6rem;
 }
 
-/* -------------------------------------------------
-   PAGE-SPECIFIC WRAPPERS
-------------------------------------------------- */
-.services-page,
-.industries-page,
-.ai-solutions-page,
-.insights-page,
-.careers-page {
+.page-hero p {
+  color: rgba(220,235,255,0.8);
+  max-width:700px;
+  margin:0 auto;
+  font-size:1.1rem;
+}
+
+/* G4 Gradient Themes */
+.services-hero {
+  background: linear-gradient(135deg, #002f4b, #00c6ff);
+}
+
+.industries-hero {
+  background: linear-gradient(135deg, #00121f, #009dff);
+}
+
+.ai-hero {
+  background: linear-gradient(135deg, #00f2ff, #006eff);
+}
+
+.insights-hero {
+  background: linear-gradient(135deg, #4a00e0, #8e2de2);
+}
+
+.careers-hero {
+  background: linear-gradient(135deg, #f1c40f, #2980b9);
+}
+
+/* ----------------------
+   PAGE WRAPPERS
+   ---------------------- */
+.page {
   padding-top: 120px;
-  max-width: 1150px;
-  margin: auto;
+  color: #eaf9ff;
 }
 
-.subtitle {
-  opacity: 0.75;
-  margin-bottom: 1.6rem;
+/* Section formatting */
+.section {
+  padding: 3.5rem 1.6rem;
+  max-width: var(--container-max);
+  margin: 0 auto;
 }
 
-/* -------------------------------------------------
-   CAREERS LIST
-------------------------------------------------- */
-.career-section {
-  margin-top: 2.5rem;
+.section h2 {
+  font-size: clamp(1.8rem,3vw,2.4rem);
+  margin-bottom:.6rem;
 }
 
-.career-section ul {
-  padding-left: 1.2rem;
+.section p.lead {
+  color: rgba(220,235,255,0.75);
+  margin-bottom:1.6rem;
+  max-width: 900px;
 }
 
-.career-section li {
-  color: rgba(210,230,255,0.85);
-  margin-bottom: 0.5rem;
+/* ----------------------
+   GRID + CARDS
+   ---------------------- */
+.grid-3 {
+  display:grid;
+  gap:1.6rem;
+  grid-template-columns:repeat(3,1fr);
+}
+
+@media (max-width:1000px){
+  .grid-3 { grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width:640px){
+  .grid-3 { grid-template-columns:1fr; }
+}
+
+.card {
+  background: var(--surface);
+  padding:1.4rem;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  transition:transform .22s ease, border-color .22s;
+}
+
+.card:hover {
+  transform:translateY(-6px);
+  border-color: rgba(0,200,255,0.18);
+}
+
+.card h3 { 
+  margin:0 0 .6rem 0; 
+  color:#eaffff; 
+  font-size:1.05rem; 
+}
+
+.card p { 
+  margin:0; 
+  color:var(--muted); 
+  line-height:1.45; 
+}
+
+/* ----------------------
+   CUSTOM CURSOR
+   ---------------------- */
+.cursor-ring,
+.cursor-core,
+.cursor-particle {
+  will-change: transform;
+}
+
+@media (max-width: 900px) {
+  .cursor-ring,
+  .cursor-core,
+  .cursor-particle {
+    display: none !important;
+  }
+}
+
+/* ----------------------
+   FOOTER
+   ---------------------- */
+footer{
+  padding:2.2rem 1.25rem;
+  color:rgba(218,230,240,0.8);
+  border-top:1px solid rgba(255,255,255,0.03);
+}
+
+/* ----------------------
+   IMAGE FIX
+   ---------------------- */
+img,video{
+  display:block;
+  max-width:100%;
+  height:auto;
 }

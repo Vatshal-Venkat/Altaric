@@ -1,78 +1,78 @@
 import React from "react";
 
-
 const Industries = () => {
   return (
-    <div className="page-wrapper fade-in">
+    <div className="page industries-page fade-in">
 
-      <section className="page-hero">
-        <h1>Industries We Serve</h1>
-        <p className="subtitle">
-          AI solutions crafted for real-world impact across diverse sectors.
-        </p>
-      </section>
+      <div className="page-hero industries-hero">
+        <div>
+          <h1>Industries We Serve</h1>
+          <p>AI solutions designed for high-impact industry use cases.</p>
+        </div>
+      </div>
 
+      {/* SECTION 1 */}
       <section className="section">
-        <h2>Driving Innovation Across Key Markets</h2>
-        <p>
-          Altaric partners with organizations across multiple industries,
-          enabling digital acceleration, operational efficiency, and intelligent
-          automation. Our domain experts collaborate closely to tailor AI models
-          and systems that solve real business challenges.
+        <h2>Industries</h2>
+        <p className="lead">
+          We apply proven AI patterns across multiple sectors to enhance productivity,
+          reduce operational cost, and accelerate innovation.
         </p>
 
-        <div className="industry-grid">
-
-          <div className="industry-card">
+        <div className="grid-3">
+          <div className="card">
             <h3>Healthcare</h3>
             <p>
-              AI-driven diagnostics, patient triage automation, medical imaging
-              analysis, and hospital workflow optimization.
+              Imaging analytics, clinical triage systems, workflow automation, and 
+              intelligent reporting tools.
             </p>
           </div>
 
-          <div class="industry-card">
+          <div className="card">
             <h3>Manufacturing</h3>
             <p>
-              Quality inspection, predictive maintenance, robotics vision,
-              production line automation, and factory analytics.
+              Automated visual inspection, predictive maintenance, anomaly detection,
+              and process optimization.
             </p>
           </div>
 
-          <div className="industry-card">
-            <h3>Retail & E-Commerce</h3>
-            <p>
-              Recommendation engines, demand forecasting, chatbot assistants,
-              customer analytics, and automation of order workflows.
-            </p>
-          </div>
-
-          <div className="industry-card">
+          <div className="card">
             <h3>Finance & Banking</h3>
             <p>
-              Fraud detection, credit scoring, AI-driven risk analysis,
-              automated document verification, and robo-advisory solutions.
+              Document intelligence, fraud detection, risk scoring, and compliance-driven
+              workflow automation.
             </p>
           </div>
-
-          <div className="industry-card">
-            <h3>Automotive & Mobility</h3>
-            <p>
-              Autonomous perception, driver monitoring, fleet analytics, and
-              smart traffic systems powered by computer vision.
-            </p>
-          </div>
-
-          <div className="industry-card">
-            <h3>Education</h3>
-            <p>
-              Intelligent tutoring systems, automated assessments, student
-              analytics, and personalized learning engines.
-            </p>
-          </div>
-
         </div>
       </section>
+
+      {/* SECTION 2 */}
+      <section className="section">
+        <h2>Industry Advantages</h2>
+        <div className="grid-3">
+          <div className="card">
+            <h3>Domain Expertise</h3>
+            <p>
+              Our specialists understand regulatory requirements, domain-specific datasets,
+              and operational workflows.
+            </p>
+          </div>
+          <div className="card">
+            <h3>Reliable Systems</h3>
+            <p>
+              We design robust, scalable technical architectures that support growth and 
+              minimize downtime.
+            </p>
+          </div>
+          <div className="card">
+            <h3>Faster Implementation</h3>
+            <p>
+              Pre-built components and reusable ML accelerators help reduce development time.
+            </p>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };

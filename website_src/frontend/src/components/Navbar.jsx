@@ -158,9 +158,9 @@ const Navbar = () => {
   const navLinks = [
     
     { label: "About", path: "/about" },
-    { label: "Services", path: "/services", arrow: true },
-    { label: "Industries", path: "/industries", arrow: true },
-    { label: "AI Solutions", path: "/ai-solutions", arrow: true },
+    { label: "Services", path: "/services" },
+    { label: "Industries", path: "/industries" },
+    { label: "AI Solutions", path: "/ai-solutions" },
     { label: "Insights", path: "/insights" },
     { label: "Careers", path: "/careers" },
   ];

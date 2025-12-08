@@ -1,72 +1,72 @@
 import React from "react";
 
-
 const AISolutions = () => {
   return (
-    <div className="page-wrapper fade-in">
+    <div className="page ai-solutions-page fade-in">
 
-      <section className="page-hero">
-        <h1>AI Solutions</h1>
-        <p className="subtitle">
-          Ready-to-deploy AI systems designed to accelerate business outcomes.
-        </p>
-      </section>
+      <div className="page-hero ai-hero">
+        <div>
+          <h1>AI Solutions</h1>
+          <p>Modular and production-ready AI solutions designed for real-world impact.</p>
+        </div>
+      </div>
 
+      {/* SECTION 1 */}
       <section className="section">
-        <h2>Our AI Solution Areas</h2>
-        <p>
-          Altaric builds scalable AI solutions that solve complex operational and
-          strategic challenges. These solutions combine machine learning,
-          computer vision, natural language processing, and large language models
-          to deliver measurable business impact.
+        <h2>Our AI Solutions</h2>
+        <p className="lead">
+          From document intelligence to computer vision and AI agents, our solutions are built
+          to integrate quickly into your business systems.
         </p>
 
-        <div className="solution-grid">
-
-          <div className="solution-card">
-            <h3>AI Assistants & Automation Agents</h3>
+        <div className="grid-3">
+          <div className="card">
+            <h3>Vision Intelligence</h3>
             <p>
-              Custom AI agents that automate workflows, process documents, respond
-              to customers, generate insights, and integrate with enterprise
-              tools such as CRM, ERP, and knowledge systems.
+              Real-time detection, inspection, image understanding, and surveillance analytics
+              for high accuracy environments.
             </p>
           </div>
 
-          <div className="solution-card">
-            <h3>Vision Intelligence Systems</h3>
+          <div className="card">
+            <h3>Document Intelligence</h3>
             <p>
-              Computer vision pipelines for detection, tracking, OCR, quality
-              inspection, safety monitoring, and autonomous systems.
+              Automated extraction, classification, summarization, and retrieval systems for
+              enterprise workflows.
             </p>
           </div>
 
-          <div className="solution-card">
-            <h3>Predictive Analytics Platforms</h3>
+          <div className="card">
+            <h3>AI Agents & Automation</h3>
             <p>
-              Forecasting, demand prediction, anomaly detection, and KPI insight
-              engines enabling data-driven decision-making.
-            </p>
-          </div>
-
-          <div className="solution-card">
-            <h3>NLP & Document Intelligence</h3>
-            <p>
-              Semantic search, automated summaries, sentiment analysis,
-              contract intelligence, and chatbot systems using advanced LLMs.
+              Custom LLM-driven agents for customer service, internal operations, and knowledge
+              management.
             </p>
           </div>
         </div>
       </section>
 
+      {/* SECTION 2 */}
       <section className="section">
-        <h2>Our Delivery Approach</h2>
-        <ul className="bullet-list">
-          <li>Discovery workshops to identify high-value AI opportunities</li>
-          <li>Rapid prototyping and iterative model validation</li>
-          <li>Scalable deployment on cloud or on-prem</li>
-          <li>Continuous monitoring and lifecycle improvement</li>
-        </ul>
+        <h2>Solution Benefits</h2>
+        <div className="grid-3">
+          <div className="card">
+            <h3>Faster Deployment</h3>
+            <p>Our solution frameworks reduce integration time and allow quick rollout.</p>
+          </div>
+
+          <div className="card">
+            <h3>Flexible Architecture</h3>
+            <p>Deploy on cloud, on-premise, or hybrid environments based on your needs.</p>
+          </div>
+
+          <div className="card">
+            <h3>Enterprise-Grade Security</h3>
+            <p>Data privacy, access controls, and compliance aligned with enterprise standards.</p>
+          </div>
+        </div>
       </section>
+
     </div>
   );
 };

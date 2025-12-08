@@ -11,12 +11,14 @@ import heroVideo from "../assets/videos/myVideo.mp4";
 const HeroSection = styled(motion.section)`
   position: relative;
   width: 100%;
-  min-height: 90vh;
+  min-height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Space Grotesk', sans-serif;
+  overflow: hidden;
+
 `;
 
 const VideoWrapper = styled.div`
