@@ -181,3 +181,47 @@ section {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+
+
+.career-section {
+  margin-top: 3rem;
+}
+
+
+.page-wrapper {
+  padding-top: 120px;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.page-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.card-grid,
+.industry-grid,
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.service-card,
+.industry-card,
+.solution-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(14px);
+  padding: 1.6rem;
+  border-radius: 14px;
+}

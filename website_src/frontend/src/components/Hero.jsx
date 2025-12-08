@@ -1,151 +1,222 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import heroVideo from "../assets/videos/myVideo.mp4";
 
+/* ============================================================
+   STYLED COMPONENTS
+   ============================================================ */
+
 const HeroSection = styled(motion.section)`
   position: relative;
   width: 100%;
-  min-height: 82vh;
+  min-height: 90vh;
   overflow: hidden;
-  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+`;
+
+const VideoWrapper = styled.div`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1); /* Helps with scroll shifting */
+    filter: brightness(0.6);
+  }
+`;
+
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.0) 70%)
+    , radial-gradient(circle at 50% 20%, rgba(0,140,255,0.12), transparent 60%);
+  z-index: 1;
+`;
+
+const BottomFade = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9));
+  z-index: 2;
+`;
+
+const ParticlesLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(0,255,255,0.4);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: floatParticle 6s infinite ease-in-out;
+  }
+
+  @keyframes floatParticle {
+    0% { transform: translateY(0) scale(1); opacity: 0.4; }
+    50% { transform: translateY(-80px) scale(1.5); opacity: 0.9; }
+    100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  }
+`;
+
+const GlowLines = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: -20%;
+    width: 150%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,255,0.3), transparent);
+    filter: blur(6px);
+    animation: sweep 6s linear infinite;
+  }
+
+  @keyframes sweep {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(50%); }
+  }
 `;
 
 const HeroContent = styled(motion.div)`
   position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 5;
   text-align: center;
-  padding: 0rem 2rem;
-  padding-top: 5rem;
+  max-width: 850px;
+  padding: 0 2rem;
 `;
 
 const HeroTitle = styled(motion.h1)`
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 800;
-  color: #E5E5E5;
+  color: #f1f1f1;
   margin-bottom: 1.2rem;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
-  text-shadow: 0 2px 16px rgba(255,255,255,0.18);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-shadow:
+    0 4px 24px rgba(255,255,255,0.18),
+    0 0 50px rgba(0,255,255,0.15);
 `;
 
 const HeroSubtitle = styled(motion.p)`
   font-size: 1.35rem;
-  color: rgba(244, 244, 244, 0.86);
-  margin-bottom: 2.5rem;
-  max-width: 700px;
-  text-shadow: 0 1px 8px rgba(255,255,255,0.12);
+  opacity: 0.92;
+  color: #e7e7e7;
+  margin-bottom: 2.6rem;
+  max-width: 760px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
 `;
 
 const HeroButton = styled(motion.a)`
   display: inline-block;
-  background: #fbb13c;
-  color: #18181b;
+  background: linear-gradient(135deg, #fbb13c, #ffcc66);
+  color: #181818;
   font-weight: 700;
-  font-size: 1.15rem;
-  padding: 1.1rem 2.5rem;
+  font-size: 1.2rem;
+  padding: 1.15rem 2.8rem;
   border-radius: 50px;
-  box-shadow: 0 4px 24px rgba(251, 177, 60, 0.13);
-  text-decoration: none;
-  transition: 0.2s;
+  box-shadow: 0 6px 24px rgba(255,200,80,0.25);
   cursor: pointer;
+  transition: 0.25s ease;
 
   &:hover {
-    background: #18181b;
-    color: #fff;
-    transform: translateY(-2px) scale(1.04);
+    background: #ffffff;
+    transform: translateY(-3px) scale(1.04);
   }
 `;
 
 const ScrollIndicator = styled(motion.div)`
   position: absolute;
-  left: 50%;
   bottom: 2.5rem;
+  left: 50%;
   transform: translateX(-50%);
-  text-align: center;
-  z-index: 10;
-  color: rgba(255,255,255,0.8);
-  font-size: 1rem;
-  pointer-events: none;
+  z-index: 5;
+  color: #fafafa;
+  cursor: pointer;
 `;
+
+/* ============================================================
+   MAIN COMPONENT
+   ============================================================ */
 
 const Hero = () => {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
-  // Smooth transforms
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "42%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // Smooth transforms for scroll shrink animation
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
-  const width = useTransform(scrollYProgress, [0, 1], ["100vw", "72vw"]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.05], ["0px", "0px 0px 40px 40px"]);
-
+  // Scroll to next section
   const scrollToNext = () => {
-    const nextSection = document.querySelector('#about');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    const next = document.getElementById("about");
+    if (next) next.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <HeroSection
-      ref={containerRef}
-      id="hero"
-      style={{ width, borderRadius }}
-    >
-      {/* Background Video */}
-      <video
-        src={heroVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1,
-          filter: "brightness(0.6)"
-        }}
-      />
+    <HeroSection ref={containerRef} id="hero">
+      {/* VIDEO */}
+      <VideoWrapper>
+        <video src={heroVideo} autoPlay muted loop playsInline />
+      </VideoWrapper>
 
-      {/* HERO CONTENT */}
+      {/* OVERLAY ELEMENTS */}
+      <GradientOverlay />
+      <BottomFade />
+      <ParticlesLayer>
+        {[...Array(18)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              top: `${Math.random() * 90}%`,
+              left: `${Math.random() * 90}%`,
+              animationDelay: `${Math.random() * 4}s`,
+            }}
+          />
+        ))}
+      </ParticlesLayer>
+      <GlowLines />
+
+      {/* CONTENT */}
       <HeroContent
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 1 }}
       >
-        <HeroTitle
-          style={{ opacity }}
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.7 }}
-        >
+        <HeroTitle style={{ opacity }}>
           THE FUTURE OF
           <br />
-          <span style={{ fontWeight: 700 }}>TECHNOLOGY</span>
+          TECHNOLOGY
         </HeroTitle>
 
-        <HeroSubtitle
-          style={{ opacity }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.5 }}
-        >
+        <HeroSubtitle style={{ opacity }}>
           Transforming businesses through cutting-edge AI solutions and digital innovation.
         </HeroSubtitle>
 
@@ -154,16 +225,13 @@ const Hero = () => {
         </HeroButton>
       </HeroContent>
 
-      {/* Scroll Indicator */}
+      {/* SCROLL ICON */}
       <ScrollIndicator
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.3 }}
+        animate={{ y: [0, 12, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
         onClick={scrollToNext}
       >
-        <motion.div animate={{ y: [0, 12, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-          <ArrowDown size={24} />
-        </motion.div>
+        <ArrowDown size={26} />
       </ScrollIndicator>
     </HeroSection>
   );
