@@ -82,11 +82,13 @@ const ExpertiseCard = styled(motion.div)`
   border: 1.5px solid #e5e7eb;
   box-shadow: 0 8px 32px rgba(44, 44, 84, 0.10), 0 1.5px 8px rgba(0,0,0,0.04);
   padding: 2.5rem 1.5rem 2rem 1.5rem;
-  position: relative;
+
   display: flex;
   flex-direction: column;
+  justify-content: space-between;       /* ⭐ FIX */
   align-items: center;
-  min-height: 260px;
+
+  min-height: 380px;                    /* ⭐ NEW height for equal cards */
   transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
   overflow: visible;
 
@@ -124,13 +126,14 @@ const CardDesc = styled.p`
   color: #666;
   opacity: 0.85;
   text-align: center;
+  margin-bottom: 1rem;
 `;
 
 const ExpertiseFeatures = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
 `;
 
 const ExpertiseFeature = styled.li`
@@ -159,7 +162,7 @@ const StyledLinkButton = styled(Link)`
   font-weight: 600;
   text-align: center;
   display: inline-block;
-  margin-top: 1rem;
+  margin-top: auto;                       /* ⭐ KEEP BUTTON AT BOTTOM */
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: 0.3s ease;
@@ -256,7 +259,6 @@ const Expertise = () => {
       
       <ContentWrapper>
         <SectionHeader
-          as={motion.div}
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -276,13 +278,8 @@ const Expertise = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: 'easeOut' }}
-              whileHover={{ scale: 1.05 }}
-              className="interactive"
             >
-              <IconCircle>
-                {expertise.icon}
-              </IconCircle>
-
+              <IconCircle>{expertise.icon}</IconCircle>
               <CardTitle>{expertise.title}</CardTitle>
               <CardDesc>{expertise.description}</CardDesc>
 
@@ -292,7 +289,6 @@ const Expertise = () => {
                 ))}
               </ExpertiseFeatures>
 
-              {/* UPDATED: Learn More Button with Navigation */}
               <StyledLinkButton to={expertise.link}>
                 Learn More
               </StyledLinkButton>
