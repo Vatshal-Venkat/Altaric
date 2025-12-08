@@ -9,7 +9,7 @@ import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 
 // LANDING PAGE SECTIONS
-import Home from "./pages/Home";           // ✅ Your new homepage
+
 import ContactUs from "./components/ContactUs";
 
 // NEW PAGES YOU CREATED
