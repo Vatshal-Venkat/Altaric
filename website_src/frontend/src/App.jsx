@@ -14,7 +14,7 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";  // ⭐ ADDED BACK
 import AboutUs from "./components/AboutUs";
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./components/ContactUs"; 
 import ClientsBar from "./components/ClientsBar";
 import Home from "./pages/Home";
 
@@ -23,6 +23,7 @@ import Industries from "./pages/Industry";
 import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
+
 
 // Service Pages
 import AgenticAI from "./pages/AgenticAI";
