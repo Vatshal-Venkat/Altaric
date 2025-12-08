@@ -1,6 +1,4 @@
 import React from "react";
-import "./Services.css";
-
 const Services = () => {
   return (
     <div className="page-wrapper fade-in">

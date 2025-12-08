@@ -1,5 +1,5 @@
 import React from "react";
-import "./AISolutions.css";
+
 
 const AISolutions = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Industries.css";
+
 
 const Industries = () => {
   return (

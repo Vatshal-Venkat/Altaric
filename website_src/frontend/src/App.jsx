@@ -3,32 +3,38 @@ import { Routes, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { motion } from "framer-motion";
 
-// GLOBAL COMPONENTS
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 
 // LANDING PAGE SECTIONS
+import Hero from "./components/Hero";
+import ClientsBar from "./components/ClientsBar";
+import About from "./components/About";
+import Statistics from "./components/Statistics";
+import Expertise from "./components/Expertise";
+import ContactForm from "./components/ContactForm";
 
-import ContactUs from "./components/ContactUs";
-
-// NEW PAGES YOU CREATED
+// PAGES
 import Services from "./pages/Services";
 import Industries from "./pages/Industries";
 import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
+import ContactUs from "./components/ContactUs";
 
-// GLOBAL STYLE
 const GlobalStyle = createGlobalStyle`
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    cursor: none;
   }
 
   html { scroll-behavior: smooth; }
@@ -36,32 +42,32 @@ const GlobalStyle = createGlobalStyle`
 
 const AppContainer = styled.div`
   min-height: 100vh;
+  width: 100%;
   background: #000;
-  overflow-x: hidden;
 `;
 
-const MainContent = styled.main`
-  position: relative;
-  z-index: 1;
+const SnapContainer = styled.div`
+  width: 100%;
+  background: #000;
 `;
 
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Track mouse for custom cursor
+  // TRACK MOUSE FOR CUSTOM CURSOR
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    setTimeout(() => setIsLoading(false), 1500);
-
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const handler = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
   }, []);
 
-  // Loading screen
+  // SHOW LOADING SCREEN
+  useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
   if (isLoading) {
     return (
       <AppContainer>
@@ -74,7 +80,6 @@ function App() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "#000",
           }}
         >
           <motion.div
@@ -82,8 +87,8 @@ function App() {
             transition={{ duration: 2, repeat: Infinity }}
             style={{
               fontSize: "3rem",
-              fontWeight: "bold",
-              background: "linear-gradient(45deg, #fff, #888)",
+              fontWeight: "900",
+              background: "linear-gradient(45deg, #fff, #bbb)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -98,29 +103,48 @@ function App() {
   return (
     <AppContainer>
       <GlobalStyle />
-
-      {/* Custom Cursor */}
       <CustomCursor mousePosition={mousePosition} />
-
       <Navbar />
 
-      <MainContent>
-        <Routes>
+      <Routes>
+        {/* ⭐ REAL WORKING HOMEPAGE */}
+        <Route
+          path="/"
+          element={
+            <>
+              <SnapContainer>
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    minHeight: "95vh",
+                  }}
+                >
+                  <Hero />
+                  <ClientsBar />
+                  <About />
+                </div>
 
+                <Statistics />
+                <Industries />
+                <Expertise />
+                <ContactForm />
+              </SnapContainer>
 
+              <div style={{ marginTop: "4rem" }} />
+              <Footer />
+            </>
+          }
+        />
 
-          {/* ⭐ NEW PROPER STANDALONE PAGES */}
-          <Route path="/services" element={<Services />} />
-          <Route path="/industries" element={<Industries />} />
-          <Route path="/ai-solutions" element={<AISolutions />} />
-          <Route path="/insights" element={<Insights />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/ContactUs" element={<ContactUs />} />
-
-        </Routes>
-
-        <Footer />
-      </MainContent>
+        {/* ⭐ NEW STANDALONE PAGES */}
+        <Route path="/services" element={<Services />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/ai-solutions" element={<AISolutions />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
+      </Routes>
     </AppContainer>
   );
 }

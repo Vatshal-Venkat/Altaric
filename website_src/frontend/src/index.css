@@ -1,227 +1,117 @@
-/* =========================================================
-   GLOBAL THEME VARIABLE SYSTEM (light + dark)
-   Works with Navbar theme toggle (data-theme="light" | "dark")
-   ========================================================= */
-
+/* -------------------------------------------------
+   GLOBAL THEME VARIABLES
+------------------------------------------------- */
 :root {
-  /* Typography */
-  --font-family-main: system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  /* Base colors (dark mode default) */
-  --color-bg: #0e0f11;
-  --color-text: #eef2ff;
-  --color-text-muted: #aab3bf;
-
-  /* Navbar + UI tokens (DARK THEME DEFAULT) */
-  --header-bg: rgba(10,12,15,0.62);
-  --header-bg-strong: linear-gradient(180deg, rgba(6,8,12,0.95), rgba(10,12,15,0.85));
-  --dropdown-bg: rgba(8,10,12,0.9);
-
-  --logo-color: #ffffff;
-  --icon-color: #ffffff;
-
+  --color-bg: #000;
+  --color-text: #fff;
+  --color-text-muted: #b9c8d3;
   --accent: #00eaff;
-  
-  --cta-bg: #00d0ff;
-  --cta-text: #000000;
-
-  --mobile-bg: rgba(6,8,10,0.98);
-
-  --transition-speed: 0.22s;
-
-  /* Page layout */
-  --section-padding: 6rem 2rem;
+  --section-padding: 5rem 2rem;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-/* =========================================================
-   LIGHT THEME VARIABLES
-   ========================================================= */
-
-:root[data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-text: #0a0a0a;
-  --color-text-muted: #475569;
-
-  --header-bg: rgba(255,255,255,0.66);
-  --header-bg-strong: rgba(255,255,255,0.78);
-  --dropdown-bg: rgba(255,255,255,0.98);
-
-  --logo-color: #0a0a0a;
-  --icon-color: #0a0a0a;
-
-  --accent: #0066ff;
-
-  --cta-bg: #00d0ff;
-  --cta-text: #000000;
-
-  --mobile-bg: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,245,245,0.98));
-}
-
-/* =========================================================
-   BASE GLOBAL STYLES
-   ========================================================= */
-
-html, body {
+/* -------------------------------------------------
+   GLOBAL RESET
+------------------------------------------------- */
+body {
   margin: 0;
-  padding: 0;
-  font-family: var(--font-family-main);
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
-  transition: background-color var(--transition-speed),
-              color var(--transition-speed);
-  min-width: 320px;
-  min-height: 100vh;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* Typography */
 h1, h2, h3 {
   margin: 0;
   font-weight: 700;
 }
 
-h1 {
-  font-size: clamp(2.6rem, 5.5vw, 3.6rem);
-}
-h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-}
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
 
-/* Links */
-a {
-  text-decoration: none;
-  color: var(--accent);
-  transition: 0.18s ease;
-}
-
-a:hover {
-  opacity: 0.85;
-}
-
-/* Buttons */
-button {
-  font-family: inherit;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-/* =========================================================
-   LAYOUT HELPERS
-   ========================================================= */
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-}
-
-/* Section spacing */
+/* -------------------------------------------------
+   PAGE LAYOUT UTILITIES
+------------------------------------------------- */
 section {
   padding: var(--section-padding);
-}
-
-@media (max-width: 768px) {
-  section {
-    padding: 3rem 1rem;
-  }
-}
-
-/* Cards */
-.card,
-.service-card,
-.industry-card {
-  background: rgba(255,255,255,0.03);
-  border-radius: 12px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-}
-
-@media (max-width: 768px) {
-  .card,
-  .service-card,
-  .industry-card {
-    padding: 1.5rem;
-  }
-}
-
-/* =========================================================
-   GLASS EFFECT UTILITIES
-   ========================================================= */
-
-.glass-light {
-  background: rgba(255,255,255,0.35);
-  backdrop-filter: blur(14px);
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.22);
-}
-
-.glass-dark {
-  background: rgba(12,12,14,0.45);
-  backdrop-filter: blur(16px);
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-/* Smooth fade-in utility */
-.fade-in {
-  animation: fadeIn 0.55s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-
-
-.career-section {
-  margin-top: 3rem;
-}
-
-
-.page-wrapper {
-  padding-top: 120px;
   max-width: 1150px;
   margin: auto;
 }
 
-.page-hero {
-  text-align: center;
-  margin-bottom: 3rem;
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
 }
 
-.subtitle {
-  opacity: 0.8;
-  margin-top: 0.5rem;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.section {
-  margin-bottom: 4rem;
-}
-
-.card-grid,
+/* -------------------------------------------------
+   GRID TEMPLATES
+------------------------------------------------- */
+.service-grid,
 .industry-grid,
-.solution-grid {
+.solution-grid,
+.insight-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
 }
 
+/* -------------------------------------------------
+   CARD STYLE
+------------------------------------------------- */
 .service-card,
 .industry-card,
-.solution-card {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(14px);
+.solution-card,
+.insight-card {
+  background: rgba(255, 255, 255, 0.04);
   padding: 1.6rem;
   border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s ease;
+}
+
+.service-card:hover,
+.industry-card:hover,
+.solution-card:hover,
+.insight-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0,255,255,0.18);
+}
+
+/* -------------------------------------------------
+   PAGE-SPECIFIC WRAPPERS
+------------------------------------------------- */
+.services-page,
+.industries-page,
+.ai-solutions-page,
+.insights-page,
+.careers-page {
+  padding-top: 120px;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.subtitle {
+  opacity: 0.75;
+  margin-bottom: 1.6rem;
+}
+
+/* -------------------------------------------------
+   CAREERS LIST
+------------------------------------------------- */
+.career-section {
+  margin-top: 2.5rem;
+}
+
+.career-section ul {
+  padding-left: 1.2rem;
+}
+
+.career-section li {
+  color: rgba(210,230,255,0.85);
+  margin-bottom: 0.5rem;
 }
