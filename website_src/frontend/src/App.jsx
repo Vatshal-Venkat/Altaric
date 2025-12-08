@@ -11,18 +11,30 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import ClientsBar from "./components/ClientsBar";
 import About from "./components/About";
+import IndustriesSection from "./components/Industries"; // ✔️ Landing version
 import Statistics from "./components/Statistics";
 import Expertise from "./components/Expertise";
 import ContactForm from "./components/ContactForm";
 
-// PAGES
+// FULL PAGES
 import Services from "./pages/Services";
-import Industries from "./pages/Industries";
+import Industries from "./pages/Industry"; // ✔️ Full page version
 import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import ContactUs from "./components/ContactUs";
 
+// SERVICE DETAIL PAGES
+import AgenticAI from "./pages/AgenticAI";
+import NLP from "./pages/NLP";
+import LLM from "./pages/LLM";
+import MachineLearning from "./pages/MachineLearning";
+import ComputerVision from "./pages/ComputerVision";
+import AIConsulting from "./pages/AIConsulting";
+
+// ------------------------------------
+// GLOBAL STYLES
+// ------------------------------------
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -55,19 +67,22 @@ function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // TRACK MOUSE FOR CUSTOM CURSOR
+  // Custom cursor tracking
   useEffect(() => {
     const handler = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
   }, []);
 
-  // SHOW LOADING SCREEN
+  // Loader timeout
   useEffect(() => {
     const t = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(t);
   }, []);
 
+  // ------------------------------------
+  // LOADING SCREEN
+  // ------------------------------------
   if (isLoading) {
     return (
       <AppContainer>
@@ -100,6 +115,9 @@ function App() {
     );
   }
 
+  // ------------------------------------
+  // MAIN APP
+  // ------------------------------------
   return (
     <AppContainer>
       <GlobalStyle />
@@ -107,7 +125,8 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* ⭐ REAL WORKING HOMEPAGE */}
+
+        {/* ⭐ HOMEPAGE (REAL WORKING ONE) */}
         <Route
           path="/"
           element={
@@ -126,7 +145,7 @@ function App() {
                 </div>
 
                 <Statistics />
-                <Industries />
+                <IndustriesSection /> {/* ✔️ Correct landing industries */}
                 <Expertise />
                 <ContactForm />
               </SnapContainer>
@@ -137,13 +156,21 @@ function App() {
           }
         />
 
-        {/* ⭐ NEW STANDALONE PAGES */}
+        {/* ⭐ FULL PAGES */}
         <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
+        <Route path="/industries" element={<Industries />} /> {/* ✔️ Full Industries page */}
         <Route path="/ai-solutions" element={<AISolutions />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/careers" element={<Careers />} />
-        <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/contactus" element={<ContactUs />} />
+
+        {/* ⭐ SERVICE DETAIL ROUTES */}
+        <Route path="/services/agentic-ai" element={<AgenticAI />} />
+        <Route path="/services/nlp" element={<NLP />} />
+        <Route path="/services/llm" element={<LLM />} />
+        <Route path="/services/machine-learning" element={<MachineLearning />} />
+        <Route path="/services/computer-vision" element={<ComputerVision />} />
+        <Route path="/services/ai-consulting" element={<AIConsulting />} />
       </Routes>
     </AppContainer>
   );

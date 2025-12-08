@@ -219,7 +219,7 @@ const industriesList = [
 
 // ------------------------ COMPONENT ------------------------
 
-const Industries = () => {
+const IndustriesSection = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true });
 
@@ -244,7 +244,9 @@ const Industries = () => {
             >
               <IndustryIcon>{item.icon}</IndustryIcon>
               <IndustryTitle>{item.title}</IndustryTitle>
-              <IndustryDescription>{item.description}</IndustryDescription>
+              <IndustryDescription>
+                {item.description}
+              </IndustryDescription>
 
               <IndustryFeatures>
                 {item.features.map((f, i) => (
@@ -263,4 +265,4 @@ const Industries = () => {
   );
 };
 
-export default Industries;
+export default IndustriesSection;
