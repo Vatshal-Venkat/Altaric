@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";   // ⭐ Needed for clickable buttons
 import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import {
@@ -67,7 +68,7 @@ const IndustryCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 480px; /* ⭐ Ensures equal card height */
+  min-height: 480px;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: 0.35s ease;
@@ -124,7 +125,6 @@ const IndustryFeature = styled.li`
 
 const LearnMoreButton = styled(motion.button)`
   margin-top: auto;
-
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.4);
   padding: 0.75rem 1.8rem;
@@ -140,6 +140,17 @@ const LearnMoreButton = styled(motion.button)`
   }
 `;
 
+// ------------------------ INDUSTRY ROUTES MAP ------------------------
+
+const industryRoutes = {
+  Finance: "/industries/finance",
+  Healthcare: "/industries/healthcare",
+  Manufacturing: "/industries/manufacturing",
+  "Retail & E-commerce": "/industries/retail",
+  "Media & Entertainment": "/industries/media",
+  "Communication & Networks": "/industries/communications",
+};
+
 // ------------------------ DATA ------------------------
 
 const industriesList = [
@@ -147,7 +158,7 @@ const industriesList = [
     icon: <DollarSign size={38} />,
     title: "Finance",
     description:
-      "AI is redefining financial operations—from automated risk assessment and fraud detection to intelligent portfolio management. We help financial institutions unlock deeper insights, reduce operational overhead, and deploy hyper-accurate predictive systems.",
+      "AI is redefining financial operations—from automated risk assessment and fraud detection to intelligent portfolio management.",
     features: [
       "Risk prediction & underwriting AI",
       "Fraud detection & anomaly systems",
@@ -159,7 +170,7 @@ const industriesList = [
     icon: <Heart size={38} />,
     title: "Healthcare",
     description:
-      "AI-driven healthcare solutions enable precision medicine, enhance diagnostics, and optimize clinical workflows. We bring intelligent automation to hospitals, labs, and telemedicine platforms with measurable improvements in patient outcomes.",
+      "AI-driven healthcare solutions enabling precision medicine, advanced diagnostics, and workflow automation.",
     features: [
       "Advanced diagnostics & imaging AI",
       "Predictive patient risk scoring",
@@ -171,7 +182,7 @@ const industriesList = [
     icon: <Building2 size={38} />,
     title: "Manufacturing",
     description:
-      "Smart manufacturing is powered by real-time analytics, robotic automation, and AI-driven quality assurance. We enable factories to achieve zero downtime, boost throughput, and implement digital twins for process optimization.",
+      "AI-powered automation, predictive maintenance, and quality assurance for smarter, efficient manufacturing.",
     features: [
       "Predictive maintenance AI",
       "Quality control automation",
@@ -183,7 +194,7 @@ const industriesList = [
     icon: <ShoppingCart size={38} />,
     title: "Retail & E-commerce",
     description:
-      "From personalization to demand forecasting, AI empowers retailers to understand customers better and optimize the supply chain. Our solutions enhance CX, increase conversion, and optimize inventory flows with intelligent automation.",
+      "AI-powered personalization, forecasting, and customer insights driving commerce innovation.",
     features: [
       "Recommendation engines",
       "Customer segmentation AI",
@@ -195,7 +206,7 @@ const industriesList = [
     icon: <Radio size={38} />,
     title: "Media & Entertainment",
     description:
-      "AI is transforming the media industry with automated editing, content generation, scene understanding, and behavioral analytics. We help studios & creators streamline workflows while unlocking new storytelling possibilities.",
+      "AI automation transforming content creation, analysis, and personalization in the media world.",
     features: [
       "Generative content creation",
       "Media analysis & scene detection",
@@ -207,7 +218,7 @@ const industriesList = [
     icon: <MessageSquare size={38} />,
     title: "Communication & Networks",
     description:
-      "Modern communication systems rely on AI for routing, optimization, and infrastructure management. Our intelligent network solutions deliver lower latency, stronger reliability, and proactive issue detection.",
+      "AI-powered optimization of communication systems, routing, and infrastructure management.",
     features: [
       "Network optimization AI",
       "Smart routing engines",
@@ -229,8 +240,7 @@ const IndustriesSection = () => {
         <SectionHeader>
           <SectionTitle>Key Industries</SectionTitle>
           <SectionSubtitle>
-            AI-powered solutions that accelerate digital transformation across
-            global industries.
+            AI-powered solutions that accelerate digital transformation across global industries.
           </SectionSubtitle>
         </SectionHeader>
 
@@ -244,9 +254,7 @@ const IndustriesSection = () => {
             >
               <IndustryIcon>{item.icon}</IndustryIcon>
               <IndustryTitle>{item.title}</IndustryTitle>
-              <IndustryDescription>
-                {item.description}
-              </IndustryDescription>
+              <IndustryDescription>{item.description}</IndustryDescription>
 
               <IndustryFeatures>
                 {item.features.map((f, i) => (
@@ -254,9 +262,13 @@ const IndustriesSection = () => {
                 ))}
               </IndustryFeatures>
 
-              <LearnMoreButton whileTap={{ scale: 0.9 }}>
-                Learn More
-              </LearnMoreButton>
+              {/* ⭐ Fully Clickable Learn More Button */}
+              <Link to={industryRoutes[item.title]} style={{ textDecoration: "none" }}>
+                <LearnMoreButton whileTap={{ scale: 0.95 }}>
+                  Learn More
+                </LearnMoreButton>
+              </Link>
+
             </IndustryCard>
           ))}
         </IndustriesGrid>

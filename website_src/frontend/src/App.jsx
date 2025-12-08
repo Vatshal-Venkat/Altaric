@@ -33,6 +33,15 @@ import MachineLearning from "./pages/MachineLearning";
 import ComputerVision from "./pages/ComputerVision";
 import AIConsulting from "./pages/AIConsulting";
 
+
+import Finance from "./pages/Finance";
+import Healthcare from "./pages/Healthcare";
+import Manufacturing from "./pages/Manufacturing";
+import Retail from "./pages/Retail";
+import MediaEntertainment from "./pages/MediaEntertainment";
+import Communications from "./pages/Communications";
+
+
 // ------------------------------------
 // GLOBAL STYLES (default cursor forced hidden globally)
 // ------------------------------------
@@ -187,6 +196,18 @@ function App() {
         <Route path="/services/machine-learning" element={<MachineLearning />} />
         <Route path="/services/computer-vision" element={<ComputerVision />} />
         <Route path="/services/ai-consulting" element={<AIConsulting />} />
+
+
+
+
+
+        <Route path="/industries/finance" element={<Finance />} />
+        <Route path="/industries/healthcare" element={<Healthcare />} />
+        <Route path="/industries/manufacturing" element={<Manufacturing />} />
+        <Route path="/industries/retail" element={<Retail />} />
+        <Route path="/industries/media" element={<MediaEntertainment />} />
+        <Route path="/industries/communications" element={<Communications />} />
+
 
         {/* =====================
             ABOUT ALTARIC PAGE
