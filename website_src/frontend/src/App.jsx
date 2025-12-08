@@ -3,38 +3,23 @@ import { Routes, Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { motion } from "framer-motion";
 
-// Components
+// GLOBAL COMPONENTS
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Industries from "./components/Industries";
-import Expertise from "./components/Expertise";
-import Statistics from "./components/Statistics";     // ⭐ ADDED BACK
-import ContactForm from "./components/ContactForm";
+import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
-import CustomCursor from "./components/CustomCursor";  // ⭐ ADDED BACK
-import AboutUs from "./components/AboutUs";
-import ContactUs from "./components/ContactUs"; 
-import ClientsBar from "./components/ClientsBar";
-import Home from "./pages/Home";
 
+// LANDING PAGE SECTIONS
+import Home from "./pages/Home";           // ✅ Your new homepage
+import ContactUs from "./components/ContactUs";
+
+// NEW PAGES YOU CREATED
 import Services from "./pages/Services";
-import Industries from "./pages/Industry";
+import Industries from "./pages/Industries";
 import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 
-
-// Service Pages
-import AgenticAI from "./pages/AgenticAI";
-import LLM from "./pages/LLM";
-import NLP from "./pages/NLP";
-import ComputerVision from "./pages/ComputerVision";
-import MachineLearning from "./pages/MachineLearning";
-import AIConsulting from "./pages/AIConsulting";
-import ServicesIndex from "./pages/ServicesIndex";
-
-// Global Styles
+// GLOBAL STYLE
 const GlobalStyle = createGlobalStyle`
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -43,22 +28,15 @@ const GlobalStyle = createGlobalStyle`
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    cursor: none;   /* ⭐ Enables custom cursor */
+    cursor: none;
   }
 
   html { scroll-behavior: smooth; }
-
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #111; }
-  ::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-  }
 `;
 
 const AppContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #000 0%, #0a0a0a 50%, #000 100%);
+  background: #000;
   overflow-x: hidden;
 `;
 
@@ -67,11 +45,6 @@ const MainContent = styled.main`
   z-index: 1;
 `;
 
-const SnapContainer = styled.div`
-  width: 100%;
-`;
-
-// App Component
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
@@ -83,12 +56,12 @@ function App() {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setIsLoading(false), 1500);
 
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Loading Screen
+  // Loading screen
   if (isLoading) {
     return (
       <AppContainer>
@@ -122,75 +95,32 @@ function App() {
     );
   }
 
-  // Main App JSX
   return (
     <AppContainer>
       <GlobalStyle />
 
-      {/* ⭐ Custom Cursor */}
+      {/* Custom Cursor */}
       <CustomCursor mousePosition={mousePosition} />
 
       <Navbar />
 
       <MainContent>
         <Routes>
-          {/* HOME PAGE */}
-          <Route
-            path="/"
-            element={
-              <>
-                <SnapContainer>
-                  <div
-                    style={{
-                      background: "#fff",
-                      position: "relative",
-                      zIndex: 1,
-                      width: "100%",
-                      minHeight: "95vh",
-                    }}
-                  >
-                    <Hero />
-                    <ClientsBar />
-                    <About />
-                  </div>
 
-                  {/* ⭐ ADDED STATISTICS SECTION BACK */}
-                  <Statistics />
-
-                  <Industries />
-                  <Expertise />
-                  <ContactForm />
-                </SnapContainer>
-
-                {/* Space before footer */}
-                <div style={{ marginTop: "4rem" }}></div>
-
-                <Footer />
-              </>
-            }
-          />
-
-          {/* Pages */}
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<ContactUs />} />
-
-          {/* Service Pages */}
-          <Route path="/services/agentic-ai" element={<AgenticAI />} />
-          <Route path="/services/llm" element={<LLM />} />
-          <Route path="/services/nlp" element={<NLP />} />
-          <Route path="/services/computer-vision" element={<ComputerVision />} />
-          <Route path="/services/machine-learning" element={<MachineLearning />} />
-          <Route path="/services/ai-consulting" element={<AIConsulting />} />
+          {/* ⭐ NEW HOMEPAGE */}
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServicesIndex />} />
-          <Route path="/about" element={<About />} />
+
+          {/* ⭐ NEW PROPER STANDALONE PAGES */}
           <Route path="/services" element={<Services />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/ai-solutions" element={<AISolutions />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/ContactUs" element={<ContactUs />} />
+
         </Routes>
+
+        <Footer />
       </MainContent>
     </AppContainer>
   );
