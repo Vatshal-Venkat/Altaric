@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
-import CustomCursor from "./components/CustomCursor";
+import CustomCursor from "./components/CustomCursor";   // ✅ Updated cursor
 import Footer from "./components/Footer";
 
 // LANDING PAGE SECTIONS
@@ -34,7 +34,7 @@ import ComputerVision from "./pages/ComputerVision";
 import AIConsulting from "./pages/AIConsulting";
 
 // ------------------------------------
-// GLOBAL STYLES
+// GLOBAL STYLES (default cursor forced hidden globally)
 // ------------------------------------
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -48,6 +48,12 @@ const GlobalStyle = createGlobalStyle`
     background: #000;
     color: #fff;
     overflow-x: hidden;
+    cursor: none !important;  /* 🟢 Hide normal cursor globally */
+  }
+
+  /* 🟢 Restore normal cursor on form elements */
+  input, textarea, select, button, a {
+    cursor: auto !important;
   }
 
   html { scroll-behavior: smooth; }
@@ -68,14 +74,14 @@ function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Custom cursor tracking
+  // Track mouse for custom cursor
   useEffect(() => {
     const handler = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
   }, []);
 
-  // Loader timeout
+  // Loader logic
   useEffect(() => {
     const t = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(t);
@@ -122,24 +128,27 @@ function App() {
   return (
     <AppContainer>
       <GlobalStyle />
+
+      {/* 🟢 Our glowing cursor follows mousePosition */}
       <CustomCursor mousePosition={mousePosition} />
+
       <Navbar />
 
       <Routes>
-
-        {/* ⭐ HOMEPAGE */}
+        {/* =====================
+            HOME PAGE
+        ====================== */}
         <Route
           path="/"
           element={
             <>
               <SnapContainer>
-
-                {/* 🎯 FIXED — REMOVED WHITE BACKGROUND SOURCE */}
+                {/* Fix white background issue */}
                 <div
                   style={{
                     position: "relative",
                     width: "100%",
-                    background: "#000",   // ← FIXED
+                    background: "#000",
                   }}
                 >
                   <Hero />
@@ -159,7 +168,9 @@ function App() {
           }
         />
 
-        {/* ⭐ FULL PAGES */}
+        {/* =====================
+            FULL PAGES
+        ====================== */}
         <Route path="/services" element={<Services />} />
         <Route path="/industries" element={<Industries />} />
         <Route path="/ai-solutions" element={<AISolutions />} />
@@ -167,15 +178,20 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/contactus" element={<ContactUs />} />
 
-        {/* ⭐ SERVICE DETAIL ROUTES */}
+        {/* =====================
+            SERVICE DETAILS
+        ====================== */}
         <Route path="/services/agentic-ai" element={<AgenticAI />} />
         <Route path="/services/nlp" element={<NLP />} />
         <Route path="/services/llm" element={<LLM />} />
         <Route path="/services/machine-learning" element={<MachineLearning />} />
         <Route path="/services/computer-vision" element={<ComputerVision />} />
         <Route path="/services/ai-consulting" element={<AIConsulting />} />
-        <Route path="/about-altaric" element={<AboutAltaric />} />
 
+        {/* =====================
+            ABOUT ALTARIC PAGE
+        ====================== */}
+        <Route path="/about-altaric" element={<AboutAltaric />} />
       </Routes>
     </AppContainer>
   );

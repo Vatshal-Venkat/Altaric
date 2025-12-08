@@ -1,0 +1,68 @@
+/* Keep default mouse cursor */
+body, * {
+  cursor: auto !important;
+}
+
+/* -----------------------------
+   MAIN TRAIL ORB 
+------------------------------*/
+.cursor-main {
+  position: fixed;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+
+  background: rgba(24, 120, 147, 0.9); 
+  box-shadow:
+    0 0 12px rgba(40, 121, 145, 0.7),
+    0 0 22px rgba(33, 138, 157, 0.4),
+    0 0 38px rgba(14, 161, 187, 0.2);
+
+  transition: opacity 0.2s ease;
+  opacity: 1;
+}
+
+/* -----------------------------
+   LARGE GLOW ORB (blur halo)
+------------------------------*/
+.cursor-glow {
+  position: fixed;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+
+  background: rgba(0,255,200,0.15);
+  filter: blur(18px);
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+
+/* -----------------------------
+   CYBER DUST PARTICLES
+------------------------------*/
+.cursor-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+
+  background: rgba(0,255,200,0.3);
+  filter: blur(2px);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* Hide trail when cursor leaves window */
+body:not(:hover) .cursor-main,
+body:not(:hover) .cursor-glow,
+body:not(:hover) .cursor-particle {
+  opacity: 0;
+}
