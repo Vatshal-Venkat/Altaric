@@ -1,4 +1,3 @@
-/*
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
@@ -89,30 +88,10 @@ const StatCard = styled(motion.div)`
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, transparent, rgba(0, 0, 0, 0.02), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
   &:hover {
     transform: translateY(-10px);
     border-color: rgba(0, 0, 0, 0.2);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
   }
 `;
 
@@ -126,20 +105,6 @@ const StatIcon = styled.div`
   justify-content: center;
   margin: 0 auto 2rem;
   color: #fff;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, #000, #333);
-    border-radius: 22px;
-    z-index: -1;
-    opacity: 0.3;
-  }
 `;
 
 const StatNumber = styled(motion.div)`
@@ -148,17 +113,7 @@ const StatNumber = styled(motion.div)`
   margin-bottom: 0.5rem;
   background: linear-gradient(45deg, #000, #333);
   background-clip: text;
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  position: relative;
-
-  &::after {
-    content: '+';
-    font-size: 0.6em;
-    position: relative;
-    top: -0.5em;
-    margin-left: 0.2em;
-  }
 `;
 
 const StatLabel = styled.h4`
@@ -176,108 +131,83 @@ const StatDescription = styled.p`
 
 const useCounter = (end, duration = 2000) => {
   const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (hasStarted) {
-      let startTime = null;
-      const animate = (currentTime) => {
-        if (!startTime) startTime = currentTime;
-        const progress = Math.min((currentTime - startTime) / duration, 1);
-        const currentCount = Math.floor(progress * end);
-        setCount(currentCount);
-        
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      requestAnimationFrame(animate);
-    }
-  }, [end, duration, hasStarted]);
+    if (!started) return;
+    let start = null;
 
-  const startCounter = () => setHasStarted(true);
+    const animate = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
 
-  return [count, startCounter];
+    requestAnimationFrame(animate);
+  }, [started, end, duration]);
+
+  return [count, () => setStarted(true)];
 };
 
 const Statistics = () => {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   const stats = [
     {
       icon: <TrendingUp size={40} />,
       number: 500,
       label: "Projects Completed",
-      description: "Successfully delivered innovative solutions across industries"
+      description: "Successfully delivered innovative solutions across industries",
     },
     {
       icon: <Users size={40} />,
       number: 50,
       label: "Global Clients",
-      description: "Trusted by leading companies worldwide"
+      description: "Trusted by leading companies worldwide",
     },
     {
       icon: <Globe size={40} />,
       number: 25,
       label: "Countries Served",
-      description: "Expanding our global footprint and impact"
+      description: "Expanding our global footprint and impact",
     },
     {
       icon: <Award size={40} />,
       number: 15,
       label: "Industry Awards",
-      description: "Recognized for excellence and innovation"
-    }
+      description: "Recognized for excellence and innovation",
+    },
   ];
 
   return (
-    <StatisticsContainer ref={containerRef} id="statistics">
+    <StatisticsContainer ref={ref} id="statistics">
       <BackgroundPattern />
       <ContentWrapper>
         <SectionHeader
-          as={motion.div}
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
         >
           <SectionTitle>Our Achievements</SectionTitle>
           <SectionSubtitle>
-            Numbers that tell the story of our success and the impact we've made in the technology industry.
+            Numbers that tell the story of our success and the impact we've made.
           </SectionSubtitle>
         </SectionHeader>
 
         <StatsGrid>
-          {stats.map((stat, index) => {
+          {stats.map((stat, i) => {
             const [count, startCounter] = useCounter(stat.number);
-            
-            React.useEffect(() => {
-              if (isInView) {
-                startCounter();
-              }
-            }, [isInView, startCounter]);
+
+            useEffect(() => {
+              if (isInView) startCounter();
+            }, [isInView]);
 
             return (
-              <StatCard
-                as={motion.div}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.7, delay: index * 0.1, ease: 'easeOut' }}
-                whileHover={{ scale: 1.04 }}
-                className="interactive"
-              >
-                <StatIcon>
-                  {stat.icon}
-                </StatIcon>
-                <StatNumber
-                  initial={{ scale: 0 }}
-                  animate={isInView ? { scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                >
-                  {count}
-                </StatNumber>
+              <StatCard key={i}>
+                <StatIcon>{stat.icon}</StatIcon>
+                <StatNumber>{count}</StatNumber>
                 <StatLabel>{stat.label}</StatLabel>
                 <StatDescription>{stat.description}</StatDescription>
               </StatCard>
@@ -290,4 +220,3 @@ const Statistics = () => {
 };
 
 export default Statistics;
-*/ 
