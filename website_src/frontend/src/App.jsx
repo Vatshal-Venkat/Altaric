@@ -16,7 +16,14 @@ import CustomCursor from "./components/CustomCursor";  // ⭐ ADDED BACK
 import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import ClientsBar from "./components/ClientsBar";
-
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Industries from "./pages/Industries";
+import AISolutions from "./pages/AISolutions";
+import Insights from "./pages/Insights";
+import Careers from "./pages/Careers";
+import ContactUs from "./pages/ContactUs";
 // Service Pages
 import AgenticAI from "./pages/AgenticAI";
 import LLM from "./pages/LLM";
