@@ -153,7 +153,7 @@ const Navbar = () => {
   const themeColors = theme === "light" ? LIGHT : DARK;
 
   const navLinks = [
-    { label: "Home", path: "/" },
+    
     { label: "About", path: "/about" },
     { label: "Services", path: "/services", arrow: true },
     { label: "Industries", path: "/industries", arrow: true },

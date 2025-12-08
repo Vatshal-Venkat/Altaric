@@ -107,8 +107,7 @@ function App() {
       <MainContent>
         <Routes>
 
-          {/* ⭐ NEW HOMEPAGE */}
-          <Route path="/" element={<Home />} />
+
 
           {/* ⭐ NEW PROPER STANDALONE PAGES */}
           <Route path="/services" element={<Services />} />
