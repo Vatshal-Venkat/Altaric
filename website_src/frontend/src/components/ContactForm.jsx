@@ -457,7 +457,7 @@ const ContactForm = () => {
               </ContactIcon>
               <ContactText>
                 <h4>Email</h4>
-                <p>contact@altaric.com</p>
+                <p>tarun@altaric.com</p>
               </ContactText>
             </ContactItem>
 
