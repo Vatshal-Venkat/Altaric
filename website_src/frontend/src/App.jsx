@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
-import CustomCursor from "./components/CustomCursor";   // ✅ Updated cursor
+import CustomCursor from "./components/CustomCursor"; // ✅ active premium cursor
 import Footer from "./components/Footer";
 
 // LANDING PAGE SECTIONS
@@ -33,7 +33,6 @@ import MachineLearning from "./pages/MachineLearning";
 import ComputerVision from "./pages/ComputerVision";
 import AIConsulting from "./pages/AIConsulting";
 
-
 import Finance from "./pages/Finance";
 import Healthcare from "./pages/Healthcare";
 import Manufacturing from "./pages/Manufacturing";
@@ -41,9 +40,8 @@ import Retail from "./pages/Retail";
 import MediaEntertainment from "./pages/MediaEntertainment";
 import Communications from "./pages/Communications";
 
-
 // ------------------------------------
-// GLOBAL STYLES (default cursor forced hidden globally)
+// GLOBAL STYLES
 // ------------------------------------
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -57,15 +55,19 @@ const GlobalStyle = createGlobalStyle`
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    cursor: none !important;  /* 🟢 Hide normal cursor globally */
+
+    /* Hide default cursor (required for premium custom cursor) */
+    cursor: none;
   }
 
-  /* 🟢 Restore normal cursor on form elements */
+  /* Restore cursor for interactive & form elements */
   input, textarea, select, button, a {
-    cursor: auto !important;
+    cursor: auto;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+  }
 `;
 
 const AppContainer = styled.div`
@@ -83,9 +85,10 @@ function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Track mouse for custom cursor
+  // Track mouse position (used by premium cursor)
   useEffect(() => {
-    const handler = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
+    const handler = (e) =>
+      setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
   }, []);
@@ -138,7 +141,7 @@ function App() {
     <AppContainer>
       <GlobalStyle />
 
-      {/* 🟢 Our glowing cursor follows mousePosition */}
+      {/* Premium professional cursor */}
       <CustomCursor mousePosition={mousePosition} />
 
       <Navbar />
@@ -152,7 +155,6 @@ function App() {
           element={
             <>
               <SnapContainer>
-                {/* Fix white background issue */}
                 <div
                   style={{
                     position: "relative",
@@ -197,10 +199,9 @@ function App() {
         <Route path="/services/computer-vision" element={<ComputerVision />} />
         <Route path="/services/ai-consulting" element={<AIConsulting />} />
 
-
-
-
-
+        {/* =====================
+            INDUSTRIES
+        ====================== */}
         <Route path="/industries/finance" element={<Finance />} />
         <Route path="/industries/healthcare" element={<Healthcare />} />
         <Route path="/industries/manufacturing" element={<Manufacturing />} />
@@ -208,9 +209,8 @@ function App() {
         <Route path="/industries/media" element={<MediaEntertainment />} />
         <Route path="/industries/communications" element={<Communications />} />
 
-
         {/* =====================
-            ABOUT ALTARIC PAGE
+            ABOUT ALTARIC
         ====================== */}
         <Route path="/about-altaric" element={<AboutAltaric />} />
       </Routes>
