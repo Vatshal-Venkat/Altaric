@@ -7,10 +7,7 @@ import logo1 from "../assets/react.svg";
 // import logo3 from "../assets/clients/logo3.png";
 
 const logos = [
-  logo1,
-  // logo2,
-  // logo3,
-];
+  ];
 
 // ------------------ Animations ------------------
 
