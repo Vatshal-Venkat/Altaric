@@ -1,64 +1,98 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
-// Add your logo images to src/assets/clients/ and import them here
-// Example placeholders (replace with your own):
-import logo1 from '../assets/react.svg';
-// import logo2 from '../assets/clients/logo2.png';
-// import logo3 from '../assets/clients/logo3.png';
-// ...
+// Import your client logos here
+import logo1 from "../assets/react.svg";
+// import logo2 from "../assets/clients/logo2.png";
+// import logo3 from "../assets/clients/logo3.png";
 
 const logos = [
   logo1,
   // logo2,
   // logo3,
-  // ...add more logos here
 ];
 
+// ------------------ Animations ------------------
+
 const scroll = keyframes`
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 `;
 
-const BarWrapper = styled.div`
+// ------------------ Styled Components ------------------
+
+const BarWrapper = styled.section`
   width: 100%;
-  background: #fff;
-  padding: 2rem 0;
+  padding: 3rem 0;
   overflow: hidden;
-  border-radius: 0 0 40px 40px;
+  position: relative;
+
+  /* Dark seamless continuation from Hero */
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,1) 0%,
+    rgba(5,8,15,1) 100%
+  );
+
+  /* Subtle separator glow */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,255,255,0.35),
+      transparent
+    );
+  }
 `;
 
 const LogosTrack = styled.div`
   display: flex;
-  width: fit-content;
-  animation: ${scroll} 30s linear infinite;
+  align-items: center;
+  width: max-content;
+  animation: ${scroll} 32s linear infinite;
+
   &:hover {
     animation-play-state: paused;
   }
 `;
 
 const LogoItem = styled.div`
+  min-width: 180px;
+  height: 60px;
+  margin: 0 3rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 180px;
-  height: 60px;
-  margin: 0 2.5rem;
+
   img {
-    max-height: 60px;
+    max-height: 55px;
     max-width: 160px;
     object-fit: contain;
-    filter: grayscale(0.2) contrast(1.1);
-    transition: filter 0.2s;
+    opacity: 0.65;
+    filter: grayscale(1) brightness(1.15);
+    transition: all 0.35s ease;
+
     &:hover {
+      opacity: 1;
       filter: none;
+      transform: scale(1.05);
     }
   }
 `;
 
+// ------------------ Component ------------------
+
 const ClientsBar = () => {
-  // Duplicate the logos array to create a seamless infinite scroll
+  // Duplicate logos for infinite loop
   const allLogos = [...logos, ...logos];
+
   return (
     <BarWrapper>
       <LogosTrack>
@@ -68,12 +102,6 @@ const ClientsBar = () => {
           </LogoItem>
         ))}
       </LogosTrack>
-      {/*
-        Instructions:
-        1. Add your logo images to src/assets/clients/ (create the folder if it doesn't exist).
-        2. Import them at the top of this file.
-        3. Add them to the 'logos' array above.
-      */}
     </BarWrapper>
   );
 };
