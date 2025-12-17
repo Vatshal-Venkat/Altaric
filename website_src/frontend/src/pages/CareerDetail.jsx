@@ -161,6 +161,25 @@ const SubmitButton = styled.button`
 `;
 
 /* ================================
+   SUCCESS STATE
+================================ */
+const SuccessBox = styled.div`
+  padding: 3rem;
+  border-radius: 18px;
+  background: rgba(0,229,204,0.12);
+  border: 1px solid rgba(0,229,204,0.35);
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    color: #cbd8e3;
+  }
+`;
+
+/* ================================
    ROLE DATA
 ================================ */
 const ROLE_DATA = {
@@ -242,21 +261,47 @@ const CareerDetail = () => {
       : "Careers | Altaric";
   }, [data]);
 
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
+    resume: null,
   });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setForm({
+      ...form,
+      [name]: files ? files[0] : value,
+    });
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    window.location.href = `mailto:careers@altaric.com
-      ?subject=Application for ${data.title}
-      &body=Name: ${form.name}%0D%0AEmail: ${form.email}%0D%0A%0D%0A${form.message}`;
+    const payload = new FormData();
+    payload.append("role", normalizedRole);
+    payload.append("name", form.name);
+    payload.append("email", form.email);
+    payload.append("message", form.message);
+    payload.append("resume", form.resume);
+
+    try {
+      await fetch("/api/apply", {
+        method: "POST",
+        body: payload,
+      });
+
+      setSubmitted(true);
+    } catch (err) {
+      alert("Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!data) {
@@ -265,6 +310,23 @@ const CareerDetail = () => {
         <Container>
           <Title>Role not found</Title>
           <BackLink to="/careers">← Back to Careers</BackLink>
+        </Container>
+      </Page>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <Page>
+        <Container>
+          <SuccessBox>
+            <h2>Application Submitted</h2>
+            <p>
+              Thank you for applying. Our team will review your application and
+              get back to you if there is a match.
+            </p>
+            <BackLink to="/careers">← Back to Careers</BackLink>
+          </SuccessBox>
         </Container>
       </Page>
     );
@@ -325,6 +387,16 @@ const CareerDetail = () => {
               </Field>
 
               <Field>
+                <label>Resume (PDF / DOC)</label>
+                <input
+                  type="file"
+                  name="resume"
+                  required
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
                 <label>Why should we consider you?</label>
                 <textarea
                   name="message"
@@ -333,8 +405,8 @@ const CareerDetail = () => {
                 />
               </Field>
 
-              <SubmitButton type="submit">
-                Submit Application →
+              <SubmitButton type="submit" disabled={loading}>
+                {loading ? "Submitting..." : "Submit Application →"}
               </SubmitButton>
             </Form>
           </ApplyCard>
