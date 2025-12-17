@@ -4,8 +4,6 @@ import { NavLink, Link } from "react-router-dom";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 
-
-
 const LIGHT = {
   headerBg: "rgba(255,255,255,0.66)",
   headerBgStrong: "rgba(255,255,255,0.78)",
@@ -146,24 +144,11 @@ const MobileLink = styled(Link)`
   margin-bottom: 1.2rem;
 `;
 
-const Navbar = () => {
-  const [theme, setTheme] = useState(
-    () => localStorage.getItem("site-theme") || "dark"
-  );
+const Navbar = ({ theme, setTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const themeColors = theme === "light" ? LIGHT : DARK;
-
-  const navLinks = [
-    
-    { label: "About", path: "/about" },
-    { label: "Services", path: "/services" },
-    { label: "Industries", path: "/industries" },
-    { label: "AI Solutions", path: "/ai-solutions" },
-    { label: "Insights", path: "/insights" },
-    { label: "Careers", path: "/careers" },
-  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -172,10 +157,7 @@ const Navbar = () => {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("site-theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
@@ -186,29 +168,25 @@ const Navbar = () => {
             ALTARIC
           </Logo>
 
-          {/* CENTER NAVIGATION */}
           <CenterMenu>
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <MenuItem
-                  to={link.path}
-                  themeColors={themeColors}
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  {link.label}
-                  {link.arrow && (
-                    <ChevronDown size={14} style={{ opacity: 0.6, marginTop: 1 }} />
-                  )}
+            {[
+              "About",
+              "Services",
+              "Industries",
+              "AI Solutions",
+              "Insights",
+              "Careers",
+            ].map((label) => (
+              <li key={label}>
+                <MenuItem to={`/${label.toLowerCase().replace(" ", "-")}`} themeColors={themeColors}>
+                  {label}
                 </MenuItem>
               </li>
             ))}
           </CenterMenu>
 
-          {/* RIGHT SIDE */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <IconButton themeColors={themeColors} onClick={toggleTheme}>
-              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-            </IconButton>
+            
 
             <ContactBtn themeColors={themeColors} to="/ContactUs">
               Contact Us
@@ -224,27 +202,14 @@ const Navbar = () => {
         </NavContainer>
       </NavWrapper>
 
-      {/* MOBILE OVERLAY */}
       <AnimatePresence>
         {menuOpen && (
           <MobileOverlay themeColors={themeColors}>
             <X
               size={32}
-              style={{ position: "absolute", top: "2rem", right: "2rem", cursor: "pointer" }}
+              style={{ position: "absolute", top: "2rem", right: "2rem" }}
               onClick={() => setMenuOpen(false)}
-              color={themeColors.text}
             />
-
-            {navLinks.map((item) => (
-              <MobileLink
-                key={item.label}
-                to={item.path}
-                themeColors={themeColors}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </MobileLink>
-            ))}
           </MobileOverlay>
         )}
       </AnimatePresence>

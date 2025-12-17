@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { motion } from "framer-motion";
 import AboutAltaric from "./pages/AboutAltaric";
 
@@ -40,9 +40,29 @@ import Retail from "./pages/Retail";
 import MediaEntertainment from "./pages/MediaEntertainment";
 import Communications from "./pages/Communications";
 
-// ------------------------------------
-// GLOBAL STYLES
-// ------------------------------------
+import CareerDetail from "./pages/CareerDetail";
+
+
+/* ================================
+   THEME DEFINITIONS
+================================ */
+const darkTheme = {
+  bg: "#000000",
+  bgAlt: "#05070a",
+  text: "#ffffff",
+  border: "rgba(255,255,255,0.12)",
+};
+
+const lightTheme = {
+  bg: "#ffffff",
+  bgAlt: "#f5f7fa",
+  text: "#0a0c12",
+  border: "#e5e7eb",
+};
+
+/* ================================
+   GLOBAL STYLES
+================================ */
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -52,15 +72,16 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Space Grotesk', sans-serif;
-    background: #000;
-    color: #fff;
+    background: ${({ theme }) => theme.bg};
+    color: ${({ theme }) => theme.text};
     overflow-x: hidden;
 
     /* Hide default cursor (required for premium custom cursor) */
     cursor: none;
+
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* Restore cursor for interactive & form elements */
   input, textarea, select, button, a {
     cursor: auto;
   }
@@ -73,17 +94,22 @@ const GlobalStyle = createGlobalStyle`
 const AppContainer = styled.div`
   min-height: 100vh;
   width: 100%;
-  background: #000;
+  background: ${({ theme }) => theme.bg};
 `;
 
 const SnapContainer = styled.div`
   width: 100%;
-  background: #000;
+  background: ${({ theme }) => theme.bg};
 `;
 
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
+  const [themeMode, setThemeMode] = useState("dark");
+
+  const toggleTheme = () => {
+    setThemeMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   // Track mouse position (used by premium cursor)
   useEffect(() => {
@@ -99,122 +125,111 @@ function App() {
     return () => clearTimeout(t);
   }, []);
 
-  // ------------------------------------
-  // LOADING SCREEN
-  // ------------------------------------
   if (isLoading) {
     return (
-      <AppContainer>
-        <GlobalStyle />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          style={{
-            height: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+      <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
+        <AppContainer>
+          <GlobalStyle />
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             style={{
-              fontSize: "3rem",
-              fontWeight: "900",
-              background: "linear-gradient(45deg, #fff, #bbb)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              height: "100vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            ALTARIC
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{
+                fontSize: "3rem",
+                fontWeight: "900",
+                background: "linear-gradient(45deg, #fff, #bbb)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              ALTARIC
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </AppContainer>
+        </AppContainer>
+      </ThemeProvider>
     );
   }
 
-  // ------------------------------------
-  // MAIN APP
-  // ------------------------------------
   return (
-    <AppContainer>
-      <GlobalStyle />
+    <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
+      <AppContainer>
+        <GlobalStyle />
 
-      {/* Premium professional cursor */}
-      <CustomCursor mousePosition={mousePosition} />
+        <CustomCursor mousePosition={mousePosition} />
 
-      <Navbar />
+        <Navbar toggleTheme={toggleTheme} themeMode={themeMode} />
 
-      <Routes>
-        {/* =====================
-            HOME PAGE
-        ====================== */}
-        <Route
-          path="/"
-          element={
-            <>
-              <SnapContainer>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    background: "#000",
-                  }}
-                >
-                  <Hero />
-                  <ClientsBar />
-                  <About />
-                </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SnapContainer>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                    }}
+                  >
+                    <Hero />
+                    <ClientsBar />
+                    <About />
+                  </div>
 
-                <Statistics />
-                <IndustriesSection />
-                <Expertise />
-                <ContactForm />
-              </SnapContainer>
+                  <Statistics />
+                  <IndustriesSection />
+                  <Expertise />
+                  <ContactForm />
+                </SnapContainer>
 
-              <div style={{ marginTop: "4rem" }} />
-              <Footer />
-            </>
-          }
-        />
+                <div style={{ marginTop: "4rem" }} />
+                <Footer />
+              </>
+            }
+          />
 
-        {/* =====================
-            FULL PAGES
-        ====================== */}
-        <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/ai-solutions" element={<AISolutions />} />
-        <Route path="/insights" element={<Insights />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/ai-solutions" element={<AISolutions />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contactus" element={<ContactUs />} />
 
-        {/* =====================
-            SERVICE DETAILS
-        ====================== */}
-        <Route path="/services/agentic-ai" element={<AgenticAI />} />
-        <Route path="/services/nlp" element={<NLP />} />
-        <Route path="/services/llm" element={<LLM />} />
-        <Route path="/services/machine-learning" element={<MachineLearning />} />
-        <Route path="/services/computer-vision" element={<ComputerVision />} />
-        <Route path="/services/ai-consulting" element={<AIConsulting />} />
+          <Route path="/services/agentic-ai" element={<AgenticAI />} />
+          <Route path="/services/nlp" element={<NLP />} />
+          <Route path="/services/llm" element={<LLM />} />
+          <Route path="/services/machine-learning" element={<MachineLearning />} />
+          <Route path="/services/computer-vision" element={<ComputerVision />} />
+          <Route path="/services/ai-consulting" element={<AIConsulting />} />
 
-        {/* =====================
-            INDUSTRIES
-        ====================== */}
-        <Route path="/industries/finance" element={<Finance />} />
-        <Route path="/industries/healthcare" element={<Healthcare />} />
-        <Route path="/industries/manufacturing" element={<Manufacturing />} />
-        <Route path="/industries/retail" element={<Retail />} />
-        <Route path="/industries/media" element={<MediaEntertainment />} />
-        <Route path="/industries/communications" element={<Communications />} />
+          <Route path="/industries/finance" element={<Finance />} />
+          <Route path="/industries/healthcare" element={<Healthcare />} />
+          <Route path="/industries/manufacturing" element={<Manufacturing />} />
+          <Route path="/industries/retail" element={<Retail />} />
+          <Route path="/industries/media" element={<MediaEntertainment />} />
+          <Route path="/industries/communications" element={<Communications />} />
 
-        {/* =====================
-            ABOUT ALTARIC
-        ====================== */}
-        <Route path="/about-altaric" element={<AboutAltaric />} />
-      </Routes>
-    </AppContainer>
+          <Route path="/about-altaric" element={<AboutAltaric />} />
+
+
+
+          <Route path="/careers/ai-engineer" element={<CareerDetail role="ai-engineer" />} />
+          <Route path="/careers/ai-intern" element={<CareerDetail role="ai-intern" />} />
+          <Route path="/careers/frontend-engineer" element={<CareerDetail role="frontend-engineer" />} />
+          <Route path="/careers/ai-strategy-consultant" element={<CareerDetail role="ai-strategy-consultant" />} />
+
+        </Routes>
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
