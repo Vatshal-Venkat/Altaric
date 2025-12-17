@@ -7,3 +7,4 @@ pydantic-settings
 email-validator
 python-dotenv
 gunicorn
+python-multipart
