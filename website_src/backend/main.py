@@ -1,12 +1,22 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base
 import models, schemas
 from fastapi.middleware.cors import CORSMiddleware
 
-
 import os
+import shutil
+import smtplib
+from email.message import EmailMessage
+from datetime import datetime
+
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 
 # Create tables automatically
 Base.metadata.create_all(bind=engine)
@@ -28,9 +38,8 @@ app.add_middleware(
         "https://altaric.com",
         "https://www.altaric.com",
         "https://api.altaric.com",
-        "https://altaric.vercel.app",   # your frontend on vercel
+        "https://altaric.vercel.app",
         "https://altaric-backend.onrender.com",
-        
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -38,7 +47,7 @@ app.add_middleware(
 )
 
 # -------------------------------
-# CREATE (POST)
+# MEETINGS (UNCHANGED)
 # -------------------------------
 @app.post("/meetings/", response_model=schemas.MeetingResponse)
 def create_meeting(meeting: schemas.MeetingCreate, db: Session = Depends(get_db)):
@@ -48,18 +57,10 @@ def create_meeting(meeting: schemas.MeetingCreate, db: Session = Depends(get_db)
     db.refresh(new_meeting)
     return new_meeting
 
-
-# -------------------------------
-# READ ALL (GET)
-# -------------------------------
 @app.get("/meetings/", response_model=list[schemas.MeetingResponse])
 def get_meetings(db: Session = Depends(get_db)):
     return db.query(models.Meeting).all()
 
-
-# -------------------------------
-# READ ONE (GET by ID)
-# -------------------------------
 @app.get("/meetings/{meeting_id}", response_model=schemas.MeetingResponse)
 def get_meeting(meeting_id: int, db: Session = Depends(get_db)):
     meeting = db.query(models.Meeting).filter(models.Meeting.id == meeting_id).first()
@@ -67,10 +68,6 @@ def get_meeting(meeting_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Meeting not found")
     return meeting
 
-
-# -------------------------------
-# UPDATE (PUT)
-# -------------------------------
 @app.put("/meetings/{meeting_id}", response_model=schemas.MeetingResponse)
 def update_meeting(meeting_id: int, updated: schemas.MeetingCreate, db: Session = Depends(get_db)):
     meeting = db.query(models.Meeting).filter(models.Meeting.id == meeting_id).first()
@@ -84,10 +81,6 @@ def update_meeting(meeting_id: int, updated: schemas.MeetingCreate, db: Session 
     db.refresh(meeting)
     return meeting
 
-
-# -------------------------------
-# DELETE (DELETE)
-# -------------------------------
 @app.delete("/meetings/{meeting_id}")
 def delete_meeting(meeting_id: int, db: Session = Depends(get_db)):
     meeting = db.query(models.Meeting).filter(models.Meeting.id == meeting_id).first()
@@ -98,7 +91,87 @@ def delete_meeting(meeting_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": f"Meeting with ID {meeting_id} deleted"}
 
+# -------------------------------
+# CAREER APPLICATION
+# -------------------------------
+UPLOAD_DIR = "resumes"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+APPLICATIONS = []  # in-memory (replace with DB later)
+
+def send_admin_email(subject: str, body: str):
+    if not SMTP_HOST:
+        return
+
+    msg = EmailMessage()
+    msg["From"] = SMTP_USER
+    msg["To"] = ADMIN_EMAIL
+    msg["Subject"] = subject
+    msg.set_content(body)
+
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.send_message(msg)
+
+@app.post("/api/apply")
+async def apply_for_role(
+    role: str = Form(...),
+    name: str = Form(...),
+    email: str = Form(...),
+    message: str = Form(""),
+    resume: UploadFile = File(...)
+):
+    timestamp = datetime.utcnow().isoformat()
+    filename = f"{role}_{name}_{resume.filename}".replace(" ", "_")
+    file_path = os.path.join(UPLOAD_DIR, filename)
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(resume.file, buffer)
+
+    record = {
+        "role": role,
+        "name": name,
+        "email": email,
+        "message": message,
+        "resume": filename,
+        "submitted_at": timestamp,
+    }
+
+    APPLICATIONS.append(record)
+
+    send_admin_email(
+        subject=f"New Application: {role}",
+        body=f"""
+New Career Application Received
+
+Role: {role}
+Name: {name}
+Email: {email}
+
+Message:
+{message}
+
+Resume File:
+{filename}
+
+Submitted At:
+{timestamp}
+""",
+    )
+
+    return {"status": "success"}
+
+# -------------------------------
+# ADMIN REVIEW PANEL (API)
+# -------------------------------
+@app.get("/admin/applications")
+def get_applications():
+    return APPLICATIONS
+
+# -------------------------------
+# HEALTH CHECK
+# -------------------------------
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
