@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
-import CustomCursor from "./components/CustomCursor"; // ✅ active premium cursor
+import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 
 // LANDING PAGE SECTIONS
@@ -33,6 +33,7 @@ import MachineLearning from "./pages/MachineLearning";
 import ComputerVision from "./pages/ComputerVision";
 import AIConsulting from "./pages/AIConsulting";
 
+// INDUSTRIES
 import Finance from "./pages/Finance";
 import Healthcare from "./pages/Healthcare";
 import Manufacturing from "./pages/Manufacturing";
@@ -40,11 +41,11 @@ import Retail from "./pages/Retail";
 import MediaEntertainment from "./pages/MediaEntertainment";
 import Communications from "./pages/Communications";
 
+// CAREERS
 import CareerDetail from "./pages/CareerDetail";
 
-
 /* ================================
-   THEME DEFINITIONS
+   THEME
 ================================ */
 const darkTheme = {
   bg: "#000000",
@@ -53,16 +54,6 @@ const darkTheme = {
   border: "rgba(255,255,255,0.12)",
 };
 
-const lightTheme = {
-  bg: "#ffffff",
-  bgAlt: "#f5f7fa",
-  text: "#0a0c12",
-  border: "#e5e7eb",
-};
-
-/* ================================
-   GLOBAL STYLES
-================================ */
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -71,15 +62,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     background: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.text};
     overflow-x: hidden;
-
-    /* Hide default cursor (required for premium custom cursor) */
     cursor: none;
-
-    transition: background 0.3s ease, color 0.3s ease;
   }
 
   input, textarea, select, button, a {
@@ -105,13 +92,7 @@ const SnapContainer = styled.div`
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
-  const [themeMode, setThemeMode] = useState("dark");
 
-  const toggleTheme = () => {
-    setThemeMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
-  // Track mouse position (used by premium cursor)
   useEffect(() => {
     const handler = (e) =>
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -119,7 +100,6 @@ function App() {
     return () => window.removeEventListener("mousemove", handler);
   }, []);
 
-  // Loader logic
   useEffect(() => {
     const t = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(t);
@@ -127,7 +107,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
+      <ThemeProvider theme={darkTheme}>
         <AppContainer>
           <GlobalStyle />
           <motion.div
@@ -160,13 +140,12 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <AppContainer>
         <GlobalStyle />
 
         <CustomCursor mousePosition={mousePosition} />
-
-        <Navbar toggleTheme={toggleTheme} themeMode={themeMode} />
+        <Navbar />
 
         <Routes>
           <Route
@@ -174,24 +153,14 @@ function App() {
             element={
               <>
                 <SnapContainer>
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                    }}
-                  >
-                    <Hero />
-                    <ClientsBar />
-                    <About />
-                  </div>
-
+                  <Hero />
+                  <ClientsBar />
+                  <About />
                   <Statistics />
                   <IndustriesSection />
                   <Expertise />
                   <ContactForm />
                 </SnapContainer>
-
-                <div style={{ marginTop: "4rem" }} />
                 <Footer />
               </>
             }
@@ -202,6 +171,7 @@ function App() {
           <Route path="/ai-solutions" element={<AISolutions />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/careers/:role" element={<CareerDetail />} />
           <Route path="/contactus" element={<ContactUs />} />
 
           <Route path="/services/agentic-ai" element={<AgenticAI />} />
@@ -219,14 +189,6 @@ function App() {
           <Route path="/industries/communications" element={<Communications />} />
 
           <Route path="/about-altaric" element={<AboutAltaric />} />
-
-
-
-          <Route path="/careers/ai-engineer" element={<CareerDetail role="ai-engineer" />} />
-          <Route path="/careers/ai-intern" element={<CareerDetail role="ai-intern" />} />
-          <Route path="/careers/frontend-engineer" element={<CareerDetail role="frontend-engineer" />} />
-          <Route path="/careers/ai-strategy-consultant" element={<CareerDetail role="ai-strategy-consultant" />} />
-
         </Routes>
       </AppContainer>
     </ThemeProvider>
