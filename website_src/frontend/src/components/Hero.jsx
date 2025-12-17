@@ -152,7 +152,7 @@ const HeroButton = styled(motion.a)`
   transition: 0.25s ease;
 
   &:hover {
-    background: #ffffff;
+    background: #1ab2dcff;
     transform: translateY(-4px) scale(1.05);
   }
 `;

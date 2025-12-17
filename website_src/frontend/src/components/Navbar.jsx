@@ -165,7 +165,7 @@ const Navbar = ({ theme, setTheme }) => {
       <NavWrapper themeColors={themeColors} scrolled={scrolled}>
         <NavContainer scrolled={scrolled}>
           <Logo themeColors={themeColors} to="/">
-            ALTARIC
+            altaric
           </Logo>
 
           <CenterMenu>
