@@ -13,7 +13,7 @@ const Page = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 920px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
@@ -34,6 +34,7 @@ const BackLink = styled(Link)`
 ================================ */
 const Header = styled.div`
   margin-bottom: 3.5rem;
+  max-width: 800px;
 `;
 
 const Title = styled.h1`
@@ -45,14 +46,27 @@ const Subtitle = styled.p`
   color: #cbd8e3;
   font-size: 1.15rem;
   line-height: 1.6;
-  max-width: 760px;
+`;
+
+/* ================================
+   GRID
+================================ */
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 /* ================================
    CONTENT SECTIONS
 ================================ */
 const Section = styled.section`
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   padding: 2.2rem;
   background: rgba(255,255,255,0.035);
   border: 1px solid rgba(255,255,255,0.08);
@@ -66,7 +80,6 @@ const Section = styled.section`
   p {
     color: #dfe8ef;
     line-height: 1.7;
-    max-width: 760px;
   }
 
   ul {
@@ -82,19 +95,23 @@ const Section = styled.section`
 `;
 
 /* ================================
-   APPLY FORM
+   APPLY FORM (RIGHT COLUMN)
 ================================ */
-const ApplySection = styled(Section)`
-  border-color: rgba(0,229,204,0.25);
+const ApplyCard = styled.div`
+  position: sticky;
+  top: 6.5rem;
+  padding: 2.2rem;
   background: linear-gradient(
     180deg,
-    rgba(0,229,204,0.06),
+    rgba(0,229,204,0.08),
     rgba(255,255,255,0.03)
   );
+  border: 1px solid rgba(0,229,204,0.25);
+  border-radius: 18px;
 `;
 
 const Form = styled.form`
-  margin-top: 1.4rem;
+  margin-top: 1.2rem;
 `;
 
 const Field = styled.div`
@@ -125,8 +142,9 @@ const Field = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  margin-top: 0.8rem;
-  padding: 0.75rem 2.4rem;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.75rem 0;
   border-radius: 999px;
   background: #1f2933;
   border: 1px solid rgba(255,255,255,0.18);
@@ -155,7 +173,7 @@ const ROLE_DATA = {
     skills: [
       "Strong fundamentals in Python",
       "Basic understanding of machine learning concepts",
-      "Familiarity with libraries such as NumPy, Pandas, or PyTorch/TensorFlow",
+      "Familiarity with NumPy, Pandas, or PyTorch/TensorFlow",
       "Interest in NLP, Computer Vision, or AI systems",
       "Good analytical and problem-solving skills",
       "Willingness to learn and adapt",
@@ -167,7 +185,7 @@ const ROLE_DATA = {
     subtitle:
       "Design, build, and deploy scalable AI systems for enterprise applications.",
     description:
-      "You will be responsible for developing end-to-end AI solutions, collaborating closely with consulting and engineering teams to deliver production-ready systems aligned with client needs.",
+      "You will develop end-to-end AI solutions, collaborating with consulting and engineering teams to deliver production-grade systems aligned with client needs.",
     skills: [
       "Strong experience with Python and ML frameworks",
       "Hands-on experience with NLP, CV, or deep learning",
@@ -197,7 +215,7 @@ const ROLE_DATA = {
     subtitle:
       "Guide enterprises through AI adoption and transformation initiatives.",
     description:
-      "You will work with senior stakeholders to define AI roadmaps, identify high-impact opportunities, and ensure responsible and effective AI adoption.",
+      "You will work with senior stakeholders to define AI roadmaps, identify high-impact opportunities, and ensure responsible AI adoption.",
     skills: [
       "Strong analytical and communication skills",
       "Experience in AI or technology consulting",
@@ -262,59 +280,65 @@ const CareerDetail = () => {
           <Subtitle>{data.subtitle}</Subtitle>
         </Header>
 
-        <Section>
-          <h3>Role Description</h3>
-          <p>{data.description}</p>
-        </Section>
+        <Grid>
+          {/* LEFT COLUMN */}
+          <div>
+            <Section>
+              <h3>Role Description</h3>
+              <p>{data.description}</p>
+            </Section>
 
-        <Section>
-          <h3>Skills Required</h3>
-          <ul>
-            {data.skills.map((skill, i) => (
-              <li key={i}>{skill}</li>
-            ))}
-          </ul>
-        </Section>
+            <Section>
+              <h3>Skills Required</h3>
+              <ul>
+                {data.skills.map((skill, i) => (
+                  <li key={i}>{skill}</li>
+                ))}
+              </ul>
+            </Section>
+          </div>
 
-        <ApplySection>
-          <h3>Apply for this role</h3>
+          {/* RIGHT COLUMN */}
+          <ApplyCard>
+            <h3>Apply for this role</h3>
 
-          <Form onSubmit={handleSubmit}>
-            <Field>
-              <label>Full Name</label>
-              <input
-                name="name"
-                required
-                value={form.name}
-                onChange={handleChange}
-              />
-            </Field>
+            <Form onSubmit={handleSubmit}>
+              <Field>
+                <label>Full Name</label>
+                <input
+                  name="name"
+                  required
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              </Field>
 
-            <Field>
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-              />
-            </Field>
+              <Field>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={form.email}
+                  onChange={handleChange}
+                />
+              </Field>
 
-            <Field>
-              <label>Why should we consider you?</label>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-              />
-            </Field>
+              <Field>
+                <label>Why should we consider you?</label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                />
+              </Field>
 
-            <SubmitButton type="submit">
-              Submit Application →
-            </SubmitButton>
-          </Form>
-        </ApplySection>
+              <SubmitButton type="submit">
+                Submit Application →
+              </SubmitButton>
+            </Form>
+          </ApplyCard>
+        </Grid>
       </Container>
     </Page>
   );
