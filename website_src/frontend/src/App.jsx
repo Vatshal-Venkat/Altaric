@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import { motion } from "framer-motion";
 import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
@@ -25,6 +24,7 @@ import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import ContactUs from "./components/ContactUs";
+import AboutUs from "./components/AboutUs"; // ✅ added
 
 // SERVICE DETAIL PAGES
 import AgenticAI from "./pages/AgenticAI";
@@ -125,6 +125,7 @@ function App() {
         <Navbar />
 
         <Routes>
+          {/* HOME */}
           <Route
             path="/"
             element={
@@ -143,6 +144,9 @@ function App() {
             }
           />
 
+          {/* CORE PAGES */}
+          <Route path="/about" element={<AboutUs />} /> {/* ✅ FIX */}
+          <Route path="/about-altaric" element={<AboutAltaric />} />
           <Route path="/services" element={<Services />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/ai-solutions" element={<AISolutions />} />
@@ -151,21 +155,36 @@ function App() {
           <Route path="/careers/:role" element={<CareerDetail />} />
           <Route path="/contactus" element={<ContactUs />} />
 
+          {/* SERVICE DETAILS */}
           <Route path="/services/agentic-ai" element={<AgenticAI />} />
           <Route path="/services/nlp" element={<NLP />} />
           <Route path="/services/llm" element={<LLM />} />
-          <Route path="/services/machine-learning" element={<MachineLearning />} />
-          <Route path="/services/computer-vision" element={<ComputerVision />} />
+          <Route
+            path="/services/machine-learning"
+            element={<MachineLearning />}
+          />
+          <Route
+            path="/services/computer-vision"
+            element={<ComputerVision />}
+          />
           <Route path="/services/ai-consulting" element={<AIConsulting />} />
 
+          {/* INDUSTRIES */}
           <Route path="/industries/finance" element={<Finance />} />
           <Route path="/industries/healthcare" element={<Healthcare />} />
-          <Route path="/industries/manufacturing" element={<Manufacturing />} />
+          <Route
+            path="/industries/manufacturing"
+            element={<Manufacturing />}
+          />
           <Route path="/industries/retail" element={<Retail />} />
-          <Route path="/industries/media" element={<MediaEntertainment />} />
-          <Route path="/industries/communications" element={<Communications />} />
-
-          <Route path="/about-altaric" element={<AboutAltaric />} />
+          <Route
+            path="/industries/media"
+            element={<MediaEntertainment />}
+          />
+          <Route
+            path="/industries/communications"
+            element={<Communications />}
+          />
         </Routes>
       </AppContainer>
     </ThemeProvider>

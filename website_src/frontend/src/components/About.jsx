@@ -1,175 +1,102 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import heroImg from "../assets/altaric_hero_image.png"; // your imported image
+import { motion, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 
-// ------------------------ STYLES ------------------------
-
-const AboutSection = styled.section`
-  padding: 5rem 2rem;
-  background: #000;
+const Section = styled.section`
+  padding: 6rem 2rem;
+ background: radial-gradient(circle at top, #041014, #000);
   color: #fff;
-  position: relative;
-
-  @media (max-width: 768px) {
-    padding: 4rem 1rem;
-  }
 `;
 
-const AboutWrapper = styled.div`
-  max-width: 1350px;
-  margin: 0 auto;
+const Wrapper = styled.div`
+  max-width: 1300px;
+  margin: auto;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
+  gap: 3rem;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const AboutText = styled(motion.div)`
+const Text = styled(motion.div)`
   h2 {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #cde7ff, #ffffff);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    background: linear-gradient(90deg, #00eaff, #8cfbff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   p {
-    color: #d4d4d4;
+    margin-top: 1.4rem;
     font-size: 1.15rem;
+    color: #c7d2da;
     line-height: 1.7;
-    margin-bottom: 1.5rem;
   }
 `;
 
-const AboutButton = styled(motion.a)`
-  display: inline-flex;
-  padding: 0.95rem 1.8rem;
-  font-size: 1.05rem;
+const CTA = styled(motion.div)`
+  margin-top: 2.2rem;
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  border: 1px solid #00eaff;
+  color: #00eaff;
   font-weight: 600;
-  border-radius: 40px;
-  background: linear-gradient(135deg, #ffffff22, #ffffff07);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
   cursor: pointer;
-  transition: 0.4s ease;
-  text-decoration: none;
+  box-shadow: 0 0 22px rgba(0,234,255,0.25);
 
   &:hover {
-    background: linear-gradient(135deg, #ffffff33, #ffffff0a);
-    transform: translateY(-4px);
+    background: #00eaff;
+    color: #000;
   }
 `;
 
-const AboutImage = styled(motion.div)`
-  position: relative;
-  height: 500px;
+const Visual = styled(motion.div)`
   border-radius: 20px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.92;
-    transition: 0.6s ease;
-  }
-
-  &:hover img {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-
-  /* Smooth holographic shimmer */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      45deg,
-      transparent,
-      rgba(255,255,255,0.07),
-      transparent
-    );
-    animation: shimmer 3s ease-in-out infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-  }
-
-  @media (max-width: 768px) {
-    height: 300px;
-  }
+  border: 1px solid rgba(0,234,255,0.25);
+  background: linear-gradient(135deg, rgba(0,234,255,0.08), transparent);
+  box-shadow: inset 0 0 60px rgba(0,234,255,0.15);
+  height: 320px;
 `;
-
-// ------------------------ COMPONENT ------------------------
 
 const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const inView = useInView(ref, { once: true });
 
   return (
-    <AboutSection ref={ref}>
-      <AboutWrapper>
-        
-        {/* LEFT TEXT */}
-        <AboutText
+    <Section ref={ref}>
+      <Wrapper>
+        <Text
           initial={{ opacity: 0, x: -40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7 }}
         >
-          <h2>Pioneering the Future</h2>
-
+          <h2>Engineering the Future of AI</h2>
           <p>
-            Founded with a vision to revolutionize how businesses operate in the digital
-            age, Altaric has become a trusted partner for organizations worldwide seeking
-            to harness the power of artificial intelligence and digital transformation.
+            Altaric is an AI-first technology company focused on building
+            production-grade intelligent systems — from enterprise LLM platforms
+            to real-time computer vision and automation.
+          </p>
+          <p>
+            We bridge deep engineering with business strategy to turn AI into
+            real operational advantage.
           </p>
 
-          <p>
-            Our mission is to empower businesses with innovative technology solutions
-            that drive growth, efficiency, and competitive advantage in an ever-evolving
-            digital landscape.
-          </p>
+          <Link to="/about" style={{ textDecoration: "none" }}>
+            <CTA whileTap={{ scale: 0.96 }}>Learn More →</CTA>
+          </Link>
+        </Text>
 
-          <AboutButton
-            whileTap={{ scale: 0.97 }}
-            href="/about-altaric"
-          >
-            Learn More About Us ➜
-          </AboutButton>
-        </AboutText>
-
-        {/* RIGHT IMAGE */}
-        <AboutImage
-          style={{ y }}
-          initial={{ opacity: 0, x: 50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <img src={heroImg} alt="Altaric AI Vision" />
-        </AboutImage>
-
-      </AboutWrapper>
-    </AboutSection>
+        <Visual
+          initial={{ opacity: 0, x: 40 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        />
+      </Wrapper>
+    </Section>
   );
 };
 

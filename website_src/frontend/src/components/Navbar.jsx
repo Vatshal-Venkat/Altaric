@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
+import logo from "../assets/loader.png";
+
+
+/* ================= THEME ================= */
 
 const LIGHT = {
   headerBg: "rgba(255,255,255,0.66)",
@@ -30,6 +34,8 @@ const DARK = {
   mobileBg: "rgba(6,8,10,0.96)",
 };
 
+/* ================= STYLES ================= */
+
 const NavWrapper = styled.header`
   position: fixed;
   top: 0;
@@ -51,11 +57,21 @@ const NavContainer = styled.nav`
 `;
 
 const Logo = styled(Link)`
-  font-size: 1.45rem;
-  font-weight: 800;
-  text-decoration: none;
-  color: ${({ themeColors }) => themeColors.logoColor};
+  display: flex;
+  align-items: center;
 `;
+
+const LogoImg = styled.img`
+  height: 40px;
+  width: auto;
+  display: block;
+  transition: opacity 0.25s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+`;
+
 
 const CenterMenu = styled.ul`
   list-style: none;
@@ -71,9 +87,6 @@ const MenuItem = styled(NavLink)`
   text-decoration: none;
   color: ${({ themeColors }) => themeColors.textMuted};
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 4px;
   position: relative;
   transition: 0.25s;
 
@@ -133,16 +146,9 @@ const MobileOverlay = styled.div`
   background: ${({ themeColors }) => themeColors.mobileBg};
   z-index: 2000;
   padding: 3rem;
-  overflow-y: auto;
 `;
 
-const MobileLink = styled(Link)`
-  display: block;
-  color: ${({ themeColors }) => themeColors.text};
-  font-size: 1.4rem;
-  text-decoration: none;
-  margin-bottom: 1.2rem;
-`;
+/* ================= COMPONENT ================= */
 
 const Navbar = ({ theme, setTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -156,18 +162,16 @@ const Navbar = ({ theme, setTheme }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <>
       <NavWrapper themeColors={themeColors} scrolled={scrolled}>
         <NavContainer scrolled={scrolled}>
-          <Logo themeColors={themeColors} to="/">
-            altaric
+          {/* LOGO */}
+          <Logo to="/">
+            <LogoImg src={logo} alt="Altaric Logo" />
           </Logo>
 
+          {/* CENTER MENU */}
           <CenterMenu>
             {[
               "About",
@@ -178,16 +182,18 @@ const Navbar = ({ theme, setTheme }) => {
               "Careers",
             ].map((label) => (
               <li key={label}>
-                <MenuItem to={`/${label.toLowerCase().replace(" ", "-")}`} themeColors={themeColors}>
+                <MenuItem
+                  to={`/${label.toLowerCase().replace(" ", "-")}`}
+                  themeColors={themeColors}
+                >
                   {label}
                 </MenuItem>
               </li>
             ))}
           </CenterMenu>
 
+          {/* RIGHT */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            
-
             <ContactBtn themeColors={themeColors} to="/ContactUs">
               Contact Us
             </ContactBtn>

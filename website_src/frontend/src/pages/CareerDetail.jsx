@@ -6,10 +6,10 @@ import { useParams, Link } from "react-router-dom";
    PAGE LAYOUT
 ================================ */
 const Page = styled.div`
-  background: #000;
+  background: radial-gradient(circle at top, #0c0f12, #000 65%);
   color: #fff;
   min-height: 100vh;
-  padding: 6rem 2rem 5rem;
+  padding: 7rem 2rem 5rem;
 `;
 
 const Container = styled.div`
@@ -19,13 +19,13 @@ const Container = styled.div`
 
 const BackLink = styled(Link)`
   display: inline-block;
-  margin-bottom: 2rem;
-  color: #9baec1;
+  margin-bottom: 2.2rem;
+  color: #9fbac2;
   text-decoration: none;
   font-size: 0.95rem;
 
   &:hover {
-    color: #00e5cc;
+    color: #9fdde5;
   }
 `;
 
@@ -33,19 +33,37 @@ const BackLink = styled(Link)`
    HEADER
 ================================ */
 const Header = styled.div`
-  margin-bottom: 3.5rem;
-  max-width: 800px;
+  margin-bottom: 4rem;
+  max-width: 850px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(
+      circle,
+      rgba(140, 220, 230, 0.22),
+      transparent 70%
+    );
+    filter: blur(100px);
+    pointer-events: none;
+  }
 `;
 
 const Title = styled.h1`
-  font-size: clamp(2.6rem, 4vw, 3.2rem);
+  font-size: clamp(2.7rem, 4vw, 3.4rem);
   margin-bottom: 0.6rem;
+  letter-spacing: -0.5px;
 `;
 
 const Subtitle = styled.p`
-  color: #cbd8e3;
+  color: #cfdadd;
   font-size: 1.15rem;
-  line-height: 1.6;
+  line-height: 1.65;
 `;
 
 /* ================================
@@ -53,8 +71,8 @@ const Subtitle = styled.p`
 ================================ */
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 3.2rem;
   align-items: start;
 
   @media (max-width: 900px) {
@@ -66,31 +84,32 @@ const Grid = styled.div`
    CONTENT SECTIONS
 ================================ */
 const Section = styled.section`
-  margin-bottom: 2.5rem;
-  padding: 2.2rem;
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
+  margin-bottom: 2.8rem;
+  padding: 2.6rem 2.4rem;
+  background: linear-gradient(180deg, #12181d, #0b1014);
+  border: 1px solid rgba(160, 210, 220, 0.14);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 
   h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.9rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
   }
 
   p {
-    color: #dfe8ef;
-    line-height: 1.7;
+    color: #d7e3e7;
+    line-height: 1.75;
   }
 
   ul {
     padding-left: 1.2rem;
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
   }
 
   li {
-    color: #dfe8ef;
-    line-height: 1.7;
-    margin-bottom: 0.5rem;
+    color: #d7e3e7;
+    line-height: 1.75;
+    margin-bottom: 0.55rem;
   }
 `;
 
@@ -99,64 +118,61 @@ const Section = styled.section`
 ================================ */
 const ApplyCard = styled.div`
   position: sticky;
-  top: 6.5rem;
-  padding: 2.2rem;
-  background: linear-gradient(
-    180deg,
-    rgba(0,229,204,0.08),
-    rgba(255,255,255,0.03)
-  );
-  border: 1px solid rgba(0,229,204,0.25);
-  border-radius: 18px;
+  top: 6.8rem;
+  padding: 2.6rem 2.4rem;
+  background: linear-gradient(180deg, #141e23, #0b1014);
+  border: 1px solid rgba(160, 220, 230, 0.22);
+  border-radius: 22px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
 `;
 
 const Form = styled.form`
-  margin-top: 1.2rem;
+  margin-top: 1.4rem;
 `;
 
 const Field = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.3rem;
 
   label {
     font-size: 0.9rem;
-    margin-bottom: 0.35rem;
-    color: #cbd8e3;
+    margin-bottom: 0.45rem;
+    color: #cbd8de;
   }
 
   input,
   textarea {
-    background: #020409;
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 8px;
-    padding: 0.7rem 0.85rem;
+    background: #05090d;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
     color: #fff;
     font-size: 0.95rem;
   }
 
   textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 110px;
   }
 `;
 
 const SubmitButton = styled.button`
   width: 100%;
-  margin-top: 0.6rem;
-  padding: 0.75rem 0;
+  margin-top: 0.8rem;
+  padding: 0.85rem 0;
   border-radius: 999px;
-  background: #1f2933;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #e5e7eb;
+  background: transparent;
+  border: 1px solid rgba(160, 220, 230, 0.45);
+  color: #cfeaed;
   font-weight: 600;
   cursor: pointer;
   transition: 0.25s ease;
 
   &:hover {
-    background: #00e5cc;
+    background: linear-gradient(90deg, #9fdde5, #5fcad6);
     color: #000;
-    border-color: #00e5cc;
+    border-color: transparent;
   }
 `;
 
@@ -164,18 +180,22 @@ const SubmitButton = styled.button`
    SUCCESS STATE
 ================================ */
 const SuccessBox = styled.div`
-  padding: 3rem;
-  border-radius: 18px;
-  background: rgba(0,229,204,0.12);
-  border: 1px solid rgba(0,229,204,0.35);
+  padding: 3.6rem;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #141e23, #0b1014);
+  border: 1px solid rgba(160, 220, 230, 0.3);
   text-align: center;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
 
   h2 {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
   }
 
   p {
-    color: #cbd8e3;
+    color: #cfdadd;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 `;
 
@@ -186,9 +206,9 @@ const ROLE_DATA = {
   "ai-intern": {
     title: "AI Intern",
     subtitle:
-      "An opportunity to gain hands-on experience working on real-world artificial intelligence systems.",
+      "Gain hands-on experience working on real-world artificial intelligence systems.",
     description:
-      "As an AI Intern at Altaric, you will work alongside experienced engineers and consultants on applied AI projects. The role emphasizes practical exposure to machine learning workflows, experimentation, and evaluation in real business contexts.",
+      "As an AI Intern at Altaric, you will work alongside experienced engineers and consultants on applied AI projects, focusing on experimentation, evaluation, and real-world deployment contexts.",
     skills: [
       "Strong fundamentals in Python",
       "Basic understanding of machine learning concepts",
@@ -273,10 +293,7 @@ const CareerDetail = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setForm({
-      ...form,
-      [name]: files ? files[0] : value,
-    });
+    setForm({ ...form, [name]: files ? files[0] : value });
   };
 
   const handleSubmit = async (e) => {
@@ -295,9 +312,8 @@ const CareerDetail = () => {
         method: "POST",
         body: payload,
       });
-
       setSubmitted(true);
-    } catch (err) {
+    } catch {
       alert("Submission failed. Please try again.");
     } finally {
       setLoading(false);
@@ -343,7 +359,7 @@ const CareerDetail = () => {
         </Header>
 
         <Grid>
-          {/* LEFT COLUMN */}
+          {/* LEFT */}
           <div>
             <Section>
               <h3>Role Description</h3>
@@ -360,49 +376,29 @@ const CareerDetail = () => {
             </Section>
           </div>
 
-          {/* RIGHT COLUMN */}
+          {/* RIGHT */}
           <ApplyCard>
             <h3>Apply for this role</h3>
 
             <Form onSubmit={handleSubmit}>
               <Field>
                 <label>Full Name</label>
-                <input
-                  name="name"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                />
+                <input name="name" required value={form.name} onChange={handleChange} />
               </Field>
 
               <Field>
                 <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                />
+                <input type="email" name="email" required value={form.email} onChange={handleChange} />
               </Field>
 
               <Field>
                 <label>Resume (PDF / DOC)</label>
-                <input
-                  type="file"
-                  name="resume"
-                  required
-                  onChange={handleChange}
-                />
+                <input type="file" name="resume" required onChange={handleChange} />
               </Field>
 
               <Field>
                 <label>Why should we consider you?</label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                />
+                <textarea name="message" value={form.message} onChange={handleChange} />
               </Field>
 
               <SubmitButton type="submit" disabled={loading}>
