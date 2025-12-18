@@ -1,10 +1,24 @@
-/* Keep default mouse cursor */
-body, * {
-  cursor: auto !important;
+/* -----------------------------
+   DEFAULT CURSOR BEHAVIOR
+------------------------------*/
+body {
+  cursor: default;
+}
+
+a,
+button,
+input,
+textarea,
+select,
+label,
+[role="button"],
+[onclick],
+.clickable {
+  cursor: pointer;
 }
 
 /* -----------------------------
-   MAIN TRAIL ORB 
+   MAIN CURSOR ORB
 ------------------------------*/
 .cursor-main {
   position: fixed;
@@ -12,39 +26,56 @@ body, * {
   height: 14px;
   border-radius: 50%;
   pointer-events: none;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   z-index: 9999;
 
-  background: rgba(24, 120, 147, 0.9); 
+  background: rgba(24, 120, 147, 0.95);
   box-shadow:
     0 0 12px rgba(40, 121, 145, 0.7),
-    0 0 22px rgba(33, 138, 157, 0.4),
-    0 0 38px rgba(14, 161, 187, 0.2);
+    0 0 24px rgba(33, 138, 157, 0.4),
+    0 0 40px rgba(14, 161, 187, 0.25);
 
-  transition: opacity 0.2s ease;
-  opacity: 1;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.25s ease,
+    opacity 0.2s ease;
+}
+
+/* Hover over interactive elements */
+.cursor-hover {
+  transform: translate(-50%, -50%) scale(1.8);
+  box-shadow:
+    0 0 18px rgba(0, 255, 200, 0.9),
+    0 0 36px rgba(0, 255, 200, 0.6),
+    0 0 60px rgba(0, 255, 200, 0.35);
+}
+
+/* Click feedback */
+.cursor-click {
+  transform: translate(-50%, -50%) scale(0.9);
 }
 
 /* -----------------------------
-   LARGE GLOW ORB (blur halo)
+   GLOW HALO
 ------------------------------*/
 .cursor-glow {
   position: fixed;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9998;
 
-  background: rgba(0,255,200,0.15);
-  filter: blur(18px);
-  opacity: 0.9;
+  background: rgba(0, 255, 200, 0.15);
+  filter: blur(20px);
+  opacity: 0.85;
+
   transition: opacity 0.25s ease;
 }
 
 /* -----------------------------
-   CYBER DUST PARTICLES
+   TRAIL PARTICLES
 ------------------------------*/
 .cursor-particle {
   position: fixed;
@@ -54,13 +85,13 @@ body, * {
   pointer-events: none;
   z-index: 9997;
 
-  background: rgba(0,255,200,0.3);
+  background: rgba(0, 255, 200, 0.35);
   filter: blur(2px);
   transform: translate(-50%, -50%);
   transition: opacity 0.3s ease;
 }
 
-/* Hide trail when cursor leaves window */
+/* Hide cursor when leaving window */
 body:not(:hover) .cursor-main,
 body:not(:hover) .cursor-glow,
 body:not(:hover) .cursor-particle {

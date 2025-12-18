@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { Brain, Cpu, Eye, Target } from "lucide-react";
 
 // ---------------------- STYLES ----------------------
 
@@ -32,6 +33,20 @@ const PageHero = styled.div`
   }
 `;
 
+const Divider = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  height: 1px;
+  margin: 3.5rem auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 212, 255, 0.6),
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.35);
+`;
+
 const Section = styled.section`
   padding: 4rem 2rem;
   max-width: 1300px;
@@ -58,6 +73,17 @@ const CardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   gap: 2rem;
+`;
+
+const IconWrap = styled.div`
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 212, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
 `;
 
 const Card = styled(motion.div)`
@@ -98,6 +124,9 @@ const Services = () => {
         <p>AI strategy, engineering, and implementation for modern enterprises.</p>
       </PageHero>
 
+      {/* HERO DIVIDER */}
+      <Divider />
+
       {/* SECTION 1 */}
       <Section>
         <h2>What We Offer</h2>
@@ -107,31 +136,79 @@ const Services = () => {
         </p>
 
         <CardGrid>
-          <Card whileHover={{ scale: 1.02 }}>
+          <Card
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <IconWrap>
+              <Brain size={22} color="#00d4ff" />
+            </IconWrap>
+            <h3>Generative AI</h3>
+            <p>
+              Production-grade Generative AI systems including LLM-powered assistants,
+              RAG pipelines, multimodal AI, and enterprise knowledge copilots built on
+              your proprietary data.
+            </p>
+          </Card>
+
+          <Card
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <IconWrap>
+              <Target size={22} color="#00d4ff" />
+            </IconWrap>
             <h3>AI Strategy</h3>
             <p>
               Capability roadmaps, transformation planning, and ROI-driven execution
-              tailored to your business goals.
+              aligned to business and technical realities.
             </p>
           </Card>
 
-          <Card whileHover={{ scale: 1.02 }}>
+          <Card
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.16 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <IconWrap>
+              <Cpu size={22} color="#00d4ff" />
+            </IconWrap>
             <h3>Machine Learning Engineering</h3>
             <p>
-              End-to-end ML pipeline design including development, evaluation,
-              deployment, optimization, and monitoring.
+              End-to-end ML system design covering data pipelines, model development,
+              evaluation, deployment, optimization, and monitoring.
             </p>
           </Card>
 
-          <Card whileHover={{ scale: 1.02 }}>
+          <Card
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <IconWrap>
+              <Eye size={22} color="#00d4ff" />
+            </IconWrap>
             <h3>Computer Vision</h3>
             <p>
-              Advanced image and video AI such as detection, OCR, inspection,
-              tracking, and real-time analytics.
+              Advanced image and video intelligence including detection, OCR,
+              inspection, tracking, and real-time analytics at scale.
             </p>
           </Card>
         </CardGrid>
       </Section>
+
+      {/* SECTION DIVIDER */}
+      <Divider />
 
       {/* SECTION 2 */}
       <Section>
@@ -141,24 +218,24 @@ const Services = () => {
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Proven Delivery</h3>
             <p>
-              Expert engineering teams using enterprise-grade tooling and best practices
-              for reliable AI production systems.
+              Engineering-first teams delivering reliable, secure, and production-ready
+              AI systems using enterprise-grade practices.
             </p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>Scalable Architecture</h3>
             <p>
-              Scalable ML systems designed with long-term maintainability and
-              high-performance infrastructure.
+              Systems designed for long-term scalability, maintainability, and
+              performance — not one-off demos.
             </p>
           </Card>
 
           <Card whileHover={{ scale: 1.02 }}>
             <h3>End-to-End Ownership</h3>
             <p>
-              From ideation to deployment, we partner across every stage for successful
-              implementation and adoption.
+              From strategy to deployment, we take full ownership to ensure
+              real-world adoption and impact.
             </p>
           </Card>
         </CardGrid>

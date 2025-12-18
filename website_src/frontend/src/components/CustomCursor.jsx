@@ -7,60 +7,64 @@ const CustomCursor = () => {
   const particlesRef = useRef([]);
 
   useEffect(() => {
-    let mouseX = -50;
-    let mouseY = -50;
+    let mouseX = -100;
+    let mouseY = -100;
 
-    let trailX = -50;
-    let trailY = -50;
+    let trailX = -100;
+    let trailY = -100;
 
-    let lastX = 0;
-    let lastY = 0;
-
-    const speedFactor = 0.12;
+    const speedFactor = 0.15;
 
     const handleMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     };
 
+    const handleHover = (e) => {
+      const target = e.target.closest(
+        "a, button, input, textarea, select, label, [role='button'], [onclick], .clickable"
+      );
+      if (target && mainRef.current) {
+        mainRef.current.classList.add("cursor-hover");
+      }
+    };
+
+    const handleLeave = () => {
+      if (mainRef.current) {
+        mainRef.current.classList.remove("cursor-hover");
+      }
+    };
+
+    const handleDown = () => {
+      if (mainRef.current) {
+        mainRef.current.classList.add("cursor-click");
+      }
+    };
+
+    const handleUp = () => {
+      if (mainRef.current) {
+        mainRef.current.classList.remove("cursor-click");
+      }
+    };
+
     const animate = () => {
-      const dx = mouseX - lastX;
-      const dy = mouseY - lastY;
-      const speed = Math.sqrt(dx * dx + dy * dy);
-
-      lastX = mouseX;
-      lastY = mouseY;
-
-      // Smooth follow (LERP)
       trailX += (mouseX - trailX) * speedFactor;
       trailY += (mouseY - trailY) * speedFactor;
 
-      // Main orb position
       if (mainRef.current) {
         mainRef.current.style.left = `${trailX}px`;
         mainRef.current.style.top = `${trailY}px`;
-
-        // Speed-reactive glow (0 to 1)
-        const intensity = Math.min(speed / 25, 1);
-
-        mainRef.current.style.boxShadow = `
-          0 0 ${10 + intensity * 10}px rgba(0,255,200,0.7),
-          0 0 ${20 + intensity * 20}px rgba(0,255,200,0.4),
-          0 0 ${35 + intensity * 30}px rgba(0,255,200,0.2)
-        `;
       }
 
-      // Glow orb follows slower
       if (glowRef.current) {
         glowRef.current.style.left = `${trailX}px`;
         glowRef.current.style.top = `${trailY}px`;
       }
 
-      // Cyber dust particles
       particlesRef.current.forEach((p, i) => {
-        const delay = (i + 1) * 0.04;
-        p.style.left = `${trailX - dx * delay}px`;
-        p.style.top = `${trailY - dy * delay}px`;
+        const delay = (i + 1) * 0.05;
+        p.style.left = `${trailX}px`;
+        p.style.top = `${trailY}px`;
         p.style.opacity = 0.5 - i * 0.12;
       });
 
@@ -68,9 +72,20 @@ const CustomCursor = () => {
     };
 
     window.addEventListener("mousemove", handleMove);
+    document.addEventListener("mouseover", handleHover);
+    document.addEventListener("mouseout", handleLeave);
+    window.addEventListener("mousedown", handleDown);
+    window.addEventListener("mouseup", handleUp);
+
     animate();
 
-    return () => window.removeEventListener("mousemove", handleMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseover", handleHover);
+      document.removeEventListener("mouseout", handleLeave);
+      window.removeEventListener("mousedown", handleDown);
+      window.removeEventListener("mouseup", handleUp);
+    };
   }, []);
 
   return (
