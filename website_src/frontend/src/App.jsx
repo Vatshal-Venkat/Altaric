@@ -7,6 +7,7 @@ import AboutAltaric from "./pages/AboutAltaric";
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 
 // LANDING PAGE SECTIONS
 import Hero from "./components/Hero";
@@ -105,36 +106,12 @@ function App() {
     return () => clearTimeout(t);
   }, []);
 
+  // 🔥 IMAGE-ONLY LOADER
   if (isLoading) {
     return (
       <ThemeProvider theme={darkTheme}>
-        <AppContainer>
-          <GlobalStyle />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            style={{
-              height: "100vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              style={{
-                fontSize: "3rem",
-                fontWeight: "900",
-                background: "linear-gradient(45deg, #fff, #bbb)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              ALTARIC
-            </motion.div>
-          </motion.div>
-        </AppContainer>
+        <GlobalStyle />
+        <Loader />
       </ThemeProvider>
     );
   }
