@@ -4,12 +4,26 @@ export default function ComputerVision() {
   return (
     <ServiceTemplate
       title="Computer Vision"
-      description="AI-powered vision systems that interpret and analyze images and video with exceptional accuracy."
+      description="AI vision systems that interpret images and video to enable automation, monitoring, and real-time insight."
       features={[
-        "Object detection & tracking",
-        "Image classification",
-        "Facial recognition",
-        "Video analytics & surveillance AI",
+        "Object detection and tracking",
+        "Image and video classification",
+        "Visual anomaly detection",
+        "Real-time video analytics",
+      ]}
+      useCases={[
+        {
+          title: "Quality Inspection",
+          text: "Automated visual inspection systems for defect detection and quality assurance."
+        },
+        {
+          title: "Smart Surveillance",
+          text: "AI-driven monitoring for safety, security, and operational awareness."
+        },
+        {
+          title: "Industrial Vision Systems",
+          text: "Vision-based automation for manufacturing and logistics environments."
+        }
       ]}
     />
   );

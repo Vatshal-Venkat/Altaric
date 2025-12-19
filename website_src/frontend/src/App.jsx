@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { AnimatePresence } from "framer-motion";
+
 import AboutAltaric from "./pages/AboutAltaric";
 
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import ScrollToTop from "./components/ScrollToTop";
+import PageTransition from "./components/PageTransition";
 
 // LANDING PAGE SECTIONS
 import Hero from "./components/Hero";
@@ -24,7 +28,7 @@ import AISolutions from "./pages/AISolutions";
 import Insights from "./pages/Insights";
 import Careers from "./pages/Careers";
 import ContactUs from "./components/ContactUs";
-import AboutUs from "./components/AboutUs"; // ✅ added
+import AboutUs from "./components/AboutUs";
 
 // SERVICE DETAIL PAGES
 import AgenticAI from "./pages/AgenticAI";
@@ -75,7 +79,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* kept for normal scrolling */
   }
 `;
 
@@ -91,6 +95,8 @@ const SnapContainer = styled.div`
 `;
 
 function App() {
+  const location = useLocation();
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -106,7 +112,6 @@ function App() {
     return () => clearTimeout(t);
   }, []);
 
-  // 🔥 IMAGE-ONLY LOADER
   if (isLoading) {
     return (
       <ThemeProvider theme={darkTheme}>
@@ -121,71 +126,126 @@ function App() {
       <AppContainer>
         <GlobalStyle />
 
+        {/* GLOBAL UTILITIES */}
+        <ScrollToTop />
         <CustomCursor mousePosition={mousePosition} />
         <Navbar />
 
-        <Routes>
-          {/* HOME */}
-          <Route
-            path="/"
-            element={
-              <>
-                <SnapContainer>
-                  <Hero />
-                  <ClientsBar />
-                  <About />
-                  <Statistics />
-                  <IndustriesSection />
-                  <Expertise />
-                  <ContactForm />
-                </SnapContainer>
-                <Footer />
-              </>
-            }
-          />
+        {/* ROUTES WITH CINEMATIC FADE */}
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            {/* HOME */}
+            <Route
+              path="/"
+              element={
+                <PageTransition>
+                  <>
+                    <SnapContainer>
+                      <Hero />
+                      <ClientsBar />
+                      <About />
+                      <Statistics />
+                      <IndustriesSection />
+                      <Expertise />
+                      <ContactForm />
+                    </SnapContainer>
+                    <Footer />
+                  </>
+                </PageTransition>
+              }
+            />
 
-          {/* CORE PAGES */}
-          <Route path="/about" element={<AboutUs />} /> {/* ✅ FIX */}
-          <Route path="/about-altaric" element={<AboutAltaric />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/industries" element={<Industries />} />
-          <Route path="/ai-solutions" element={<AISolutions />} />
-          <Route path="/insights" element={<Insights />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/careers/:role" element={<CareerDetail />} />
-          <Route path="/contactus" element={<ContactUs />} />
+            {/* CORE PAGES */}
+            <Route
+              path="/about"
+              element={<PageTransition><AboutUs /></PageTransition>}
+            />
+            <Route
+              path="/about-altaric"
+              element={<PageTransition><AboutAltaric /></PageTransition>}
+            />
+            <Route
+              path="/services"
+              element={<PageTransition><Services /></PageTransition>}
+            />
+            <Route
+              path="/industries"
+              element={<PageTransition><Industries /></PageTransition>}
+            />
+            <Route
+              path="/ai-solutions"
+              element={<PageTransition><AISolutions /></PageTransition>}
+            />
+            <Route
+              path="/insights"
+              element={<PageTransition><Insights /></PageTransition>}
+            />
+            <Route
+              path="/careers"
+              element={<PageTransition><Careers /></PageTransition>}
+            />
+            <Route
+              path="/careers/:role"
+              element={<PageTransition><CareerDetail /></PageTransition>}
+            />
+            <Route
+              path="/contactus"
+              element={<PageTransition><ContactUs /></PageTransition>}
+            />
 
-          {/* SERVICE DETAILS */}
-          <Route path="/services/agentic-ai" element={<AgenticAI />} />
-          <Route path="/services/nlp" element={<NLP />} />
-          <Route path="/services/llm" element={<LLM />} />
-          <Route
-            path="/services/machine-learning"
-            element={<MachineLearning />}
-          />
-          <Route
-            path="/services/computer-vision"
-            element={<ComputerVision />}
-          />
-          <Route path="/services/ai-consulting" element={<AIConsulting />} />
+            {/* SERVICE DETAILS */}
+            <Route
+              path="/services/agentic-ai"
+              element={<PageTransition><AgenticAI /></PageTransition>}
+            />
+            <Route
+              path="/services/nlp"
+              element={<PageTransition><NLP /></PageTransition>}
+            />
+            <Route
+              path="/services/llm"
+              element={<PageTransition><LLM /></PageTransition>}
+            />
+            <Route
+              path="/services/machine-learning"
+              element={<PageTransition><MachineLearning /></PageTransition>}
+            />
+            <Route
+              path="/services/computer-vision"
+              element={<PageTransition><ComputerVision /></PageTransition>}
+            />
+            <Route
+              path="/services/ai-consulting"
+              element={<PageTransition><AIConsulting /></PageTransition>}
+            />
 
-          {/* INDUSTRIES */}
-          <Route path="/industries/finance" element={<Finance />} />
-          <Route path="/industries/healthcare" element={<Healthcare />} />
-          <Route
-            path="/industries/manufacturing"
-            element={<Manufacturing />}
-          />
-          <Route path="/industries/retail" element={<Retail />} />
-          <Route
-            path="/industries/media"
-            element={<MediaEntertainment />}
-          />
-          <Route
-            path="/industries/communications"
-            element={<Communications />}
-          />
-        </Routes>
+            {/* INDUSTRIES */}
+            <Route
+              path="/industries/finance"
+              element={<PageTransition><Finance /></PageTransition>}
+            />
+            <Route
+              path="/industries/healthcare"
+              element={<PageTransition><Healthcare /></PageTransition>}
+            />
+            <Route
+              path="/industries/manufacturing"
+              element={<PageTransition><Manufacturing /></PageTransition>}
+            />
+            <Route
+              path="/industries/retail"
+              element={<PageTransition><Retail /></PageTransition>}
+            />
+            <Route
+              path="/industries/media"
+              element={<PageTransition><MediaEntertainment /></PageTransition>}
+            />
+            <Route
+              path="/industries/communications"
+              element={<PageTransition><Communications /></PageTransition>}
+            />
+          </Routes>
+        </AnimatePresence>
       </AppContainer>
     </ThemeProvider>
   );

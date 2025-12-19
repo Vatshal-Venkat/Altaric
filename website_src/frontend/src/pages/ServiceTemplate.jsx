@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 /* =======================
    PAGE FOUNDATION
@@ -8,22 +8,16 @@ import { Link, useLocation } from "react-router-dom";
 
 const PageWrapper = styled.div`
   min-height: 100vh;
-  color: #e7e9ec;
+  color: #e8ebf0;
   background:
-    linear-gradient(180deg, #0b0d10 0%, #050607 100%),
-    linear-gradient(
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
+    radial-gradient(circle at top, rgba(90, 200, 190, 0.12), transparent 45%),
+    linear-gradient(180deg, #020408 0%, #000000 100%),
+    repeating-linear-gradient(
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 48px
     );
-  background-size:
-    100% 100%,
-    48px 48px,
-    48px 48px;
 `;
 
 /* =======================
@@ -32,54 +26,65 @@ const PageWrapper = styled.div`
 
 const HeroSection = styled.section`
   position: relative;
-  padding: 6.5rem 2rem 4.5rem;
+  padding: 7rem 2rem 4.5rem;
   max-width: 1100px;
   margin: 0 auto;
 `;
 
-const HeroGlow = styled.div`
+const StarGlow = styled.div`
   position: absolute;
-  top: -120px;
-  left: 60%;
-  width: 420px;
-  height: 420px;
+  top: -180px;
+  right: -120px;
+  width: 520px;
+  height: 520px;
   background: radial-gradient(
     circle,
-    rgba(90, 200, 190, 0.18),
+    rgba(120, 255, 230, 0.22),
     transparent 70%
   );
-  filter: blur(140px);
+  filter: blur(160px);
   pointer-events: none;
 `;
 
+const EnergyLine = styled.div`
+  width: 120px;
+  height: 2px;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, transparent, #7fffd4, transparent);
+  opacity: 0.8;
+`;
+
 const HeroTitle = styled(motion.h1)`
-  font-size: clamp(2.8rem, 5vw, 4.1rem);
+  font-size: clamp(3rem, 5vw, 4.3rem);
   font-weight: 700;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
   margin-bottom: 0.8rem;
-  color: #f4f6f8;
+  background: linear-gradient(90deg, #eafffb, #7fffd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const HeroSubtitle = styled(motion.p)`
   max-width: 720px;
-  font-size: 1.12rem;
+  font-size: 1.15rem;
   line-height: 1.6;
-  color: #c8cdd4;
+  color: #c7ccd4;
 `;
 
 /* =======================
    BREADCRUMBS
 ======================= */
 
-const BreadcrumbsWrapper = styled.div`
+const Breadcrumbs = styled.div`
   max-width: 1100px;
   margin: 0 auto 2.5rem;
   padding: 0 2rem;
   font-size: 0.9rem;
+  color: #8e949d;
 `;
 
 const Crumb = styled(Link)`
-  color: #9aa0a8;
+  color: #8e949d;
   text-decoration: none;
 
   &:hover {
@@ -87,62 +92,96 @@ const Crumb = styled(Link)`
   }
 `;
 
-const CrumbCurrent = styled.span`
-  color: #ffffff;
-  font-weight: 600;
-`;
-
 /* =======================
-   MAIN SECTION
+   SECTIONS
 ======================= */
 
 const Section = styled(motion.section)`
-  max-width: 900px;
-  margin: 0 auto 4rem;
-  padding: 2.6rem 2.4rem;
-  background: linear-gradient(180deg, #0f1114, #0b0c0e);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
+  max-width: 960px;
+  margin: 0 auto 3.8rem;
+  padding: 2.8rem;
+  background: linear-gradient(180deg, rgba(15, 18, 24, 0.9), rgba(8, 10, 14, 0.9));
+  border-radius: 18px;
+  border: 1px solid rgba(120, 200, 190, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(120, 200, 190, 0.05),
+    0 18px 50px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+  color: #7fffd4;
 `;
 
 /* =======================
-   FEATURE GRID
+   CAPABILITIES
 ======================= */
 
 const FeatureGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.4rem;
+  gap: 1.5rem;
 `;
 
 const FeatureItem = styled.div`
-  padding: 1.2rem 1.3rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.3rem 1.4rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(120, 200, 190, 0.15);
   font-size: 0.98rem;
   line-height: 1.55;
-  color: #c3c8cf;
+  color: #d0d5dc;
+`;
+
+/* =======================
+   USE CASES
+======================= */
+
+const UseCaseGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.6rem;
+`;
+
+const UseCaseCard = styled.div`
+  padding: 1.6rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #0b0f14, #070a0e);
+  border: 1px solid rgba(160, 170, 255, 0.16);
+
+  h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    color: #e9ecf1;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #c3c9d1;
+  }
 `;
 
 /* =======================
    COMPONENT
 ======================= */
 
-export default function ServiceTemplate({ title, description, features }) {
-  const location = useLocation();
-
+export default function ServiceTemplate({
+  title,
+  description,
+  features,
+  useCases = []
+}) {
   return (
     <PageWrapper>
       {/* HERO */}
       <HeroSection>
-        <HeroGlow />
+        <StarGlow />
+        <EnergyLine />
 
-        <HeroTitle
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+        <HeroTitle initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
           {title}
         </HeroTitle>
 
@@ -156,24 +195,39 @@ export default function ServiceTemplate({ title, description, features }) {
       </HeroSection>
 
       {/* BREADCRUMBS */}
-      <BreadcrumbsWrapper>
-        <Crumb to="/">Home</Crumb> ›{" "}
-        <Crumb to="/services">Services</Crumb> ›{" "}
-        <CrumbCurrent>{title}</CrumbCurrent>
-      </BreadcrumbsWrapper>
+      <Breadcrumbs>
+        <Crumb to="/">Home</Crumb> › <Crumb to="/services">Services</Crumb> ›{" "}
+        <strong>{title}</strong>
+      </Breadcrumbs>
 
-      {/* MAIN CONTENT */}
-      <Section
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      {/* CAPABILITIES */}
+      <Section initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }}>
+        <SectionTitle>Core Capabilities</SectionTitle>
         <FeatureGrid>
-          {features.map((feature, index) => (
-            <FeatureItem key={index}>{feature}</FeatureItem>
+          {features.map((f, i) => (
+            <FeatureItem key={i}>{f}</FeatureItem>
           ))}
         </FeatureGrid>
       </Section>
+
+      {/* USE CASES */}
+      {useCases.length > 0 && (
+        <Section
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08 }}
+        >
+          <SectionTitle>Typical Use Cases</SectionTitle>
+          <UseCaseGrid>
+            {useCases.map((u, i) => (
+              <UseCaseCard key={i}>
+                <h4>{u.title}</h4>
+                <p>{u.text}</p>
+              </UseCaseCard>
+            ))}
+          </UseCaseGrid>
+        </Section>
+      )}
     </PageWrapper>
   );
 }
