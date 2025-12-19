@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import altaricHero from "../assets/altaric_hero_image.png";
+import altaricHero from "../assets/altaric-hero.png";
+
 
 /* =======================
    Styled Components
