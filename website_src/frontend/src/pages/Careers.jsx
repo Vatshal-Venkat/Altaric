@@ -3,94 +3,96 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-// ---------------------- STYLES ----------------------
+/* ===================== PAGE ===================== */
 
 const Page = styled.div`
-  background: radial-gradient(circle at top, #0c0f12, #000 65%);
-  color: #fff;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(80,120,255,0.08), transparent 35%),
+    radial-gradient(circle at 80% 20%, rgba(255,200,120,0.06), transparent 40%),
+    linear-gradient(180deg, #07090c 0%, #000 100%);
+  color: #eef6f8;
   min-height: 100vh;
   padding-bottom: 5rem;
 `;
 
-const Hero = styled.div`
+/* ===================== HERO ===================== */
+
+const Hero = styled.section`
   position: relative;
-  padding: 9rem 2rem 6rem;
+  padding: 8rem 2rem 6rem;
   text-align: center;
-  background: linear-gradient(180deg, #141a1f, #000);
+  background:
+    radial-gradient(circle at center, rgba(120,200,255,0.14), transparent 55%),
+    linear-gradient(180deg, #0a0d12, #000);
   overflow: hidden;
 
-  &::before {
+  &::after {
     content: "";
     position: absolute;
-    top: -160px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 520px;
-    height: 520px;
-    background: radial-gradient(
-      circle,
-      rgba(120, 200, 210, 0.22),
-      transparent 70%
-    );
-    filter: blur(110px);
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.12;
     pointer-events: none;
   }
 
   h1 {
-    font-size: clamp(3.2rem, 5vw, 4.6rem);
-    font-weight: 700;
-    letter-spacing: -1px;
+    font-size: clamp(3.4rem, 6vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    background: linear-gradient(
+      90deg,
+      #f5f7fa,
+      #9fdde5,
+      #e9d8a6
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   p {
-    color: #cfdadd;
-    font-size: 1.15rem;
-    max-width: 760px;
-    margin: 0.6rem auto 0;
+    margin-top: 1rem;
+    font-size: 1.18rem;
+    max-width: 820px;
+    margin-inline: auto;
+    color: #c3d2d9;
+    line-height: 1.6;
   }
 `;
 
-const Divider = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  height: 1px;
-  margin: 4rem auto;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(140, 200, 210, 0.6),
-    transparent
-  );
-  box-shadow: 0 0 14px rgba(140, 200, 210, 0.35);
-`;
+/* ===================== SECTION ===================== */
 
 const Section = styled.section`
-  padding: 4.5rem 2rem;
-  max-width: 1300px;
+  max-width: 1350px;
   margin: 0 auto;
+  padding: 4.5rem 2rem 3.5rem;
 
   h2 {
-    font-size: 2.4rem;
-    background: linear-gradient(45deg, #e5eef1, #a9cfd6);
+    font-size: 2.6rem;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(45deg, #ffffff, #9fb3ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
   }
 
   .lead {
-    max-width: 850px;
+    max-width: 860px;
+    color: #b8c6cc;
+    font-size: 1.08rem;
+    line-height: 1.75;
     margin-bottom: 3rem;
-    color: #cfdadd;
-    line-height: 1.65;
-    font-size: 1.1rem;
   }
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2.8rem;
 `;
+
+/* ===================== CARD ===================== */
 
 const CardLink = styled(Link)`
   text-decoration: none;
@@ -99,167 +101,176 @@ const CardLink = styled(Link)`
 
 const Card = styled(motion.div)`
   position: relative;
-  background: linear-gradient(180deg, #12181d, #0b1014);
-  border: 1px solid rgba(160, 210, 220, 0.14);
-  padding: 2.4rem 2.2rem;
-  border-radius: 20px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: 0.35s ease;
+  padding: 2.8rem;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, #0d1118, #070a0f);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 30px 80px rgba(0,0,0,0.8);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  transition: 0.4s ease;
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
+    inset: 0;
     background: linear-gradient(
-      90deg,
+      120deg,
       transparent,
-      rgba(140, 220, 230, 0.9),
+      rgba(120,180,255,0.25),
+      rgba(255,210,150,0.22),
       transparent
     );
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.4s ease;
   }
 
-  &:hover::after {
+  &:hover::before {
     opacity: 1;
   }
 
   &:hover {
-    transform: translateY(-10px);
-    background: linear-gradient(180deg, #182127, #11181d);
-    box-shadow: 0 25px 55px rgba(90, 170, 180, 0.35);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.1),
+      0 45px 120px rgba(80,140,255,0.45);
   }
 
   h3 {
-    margin-bottom: 0.7rem;
+    font-size: 1.55rem;
+    margin-bottom: 0.8rem;
     font-weight: 600;
-    font-size: 1.45rem;
   }
 
   p {
-    color: #d4e2e6;
-    margin-bottom: 1.6rem;
-    line-height: 1.6;
+    color: #c9d6dc;
+    line-height: 1.65;
+    font-size: 1.02rem;
   }
 `;
 
 const ApplyButton = styled.a`
-  align-self: flex-start;
-  padding: 0.6rem 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.8rem;
+  padding: 0.75rem 2rem;
   border-radius: 999px;
-  background: transparent;
-  border: 1px solid rgba(160, 220, 230, 0.45);
-  color: #cfeaed;
+  background: linear-gradient(
+    135deg,
+    #9fdde5,
+    #6fa8ff,
+    #e9d8a6
+  );
+  color: #000;
+  font-weight: 600;
   font-size: 0.95rem;
-  font-weight: 500;
   text-decoration: none;
-  transition: 0.25s ease;
+  box-shadow: 0 10px 30px rgba(120,180,255,0.45);
+  transition: transform 0.25s ease;
 
   &:hover {
-    background: linear-gradient(90deg, #9fdde5, #5fcad6);
-    color: #000;
-    border-color: transparent;
+    transform: translateY(-2px);
   }
 `;
 
+/* ===================== CTA ===================== */
+
 const CTA = styled.section`
-  max-width: 1100px;
+  max-width: 1150px;
   margin: 6rem auto 2rem;
   padding: 3.8rem 3rem;
-  border-radius: 26px;
-  background: linear-gradient(180deg, #121a1f, #0b1014);
-  border: 1px solid rgba(160, 210, 220, 0.18);
   text-align: center;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, #0c1016, #070a0f);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
 
   h2 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+    font-size: 2.4rem;
+    margin-bottom: 0.9rem;
+    background: linear-gradient(90deg, #ffffff, #e9d8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   p {
-    color: #cfdadd;
-    max-width: 720px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
+    max-width: 760px;
+    margin: 0 auto 2.2rem;
+    color: #bfcdd3;
+    line-height: 1.7;
   }
 
   a {
     display: inline-block;
-    padding: 0.9rem 2.4rem;
+    padding: 1rem 2.6rem;
     border-radius: 999px;
-    background: linear-gradient(90deg, #9fdde5, #5fcad6);
+    background: linear-gradient(135deg, #6fa8ff, #9fdde5);
     color: #000;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-
-    &:hover {
-      opacity: 0.9;
-    }
   }
 `;
 
-// ---------------------- COMPONENT ----------------------
+/* ===================== COMPONENT ===================== */
 
 const Careers = () => {
+  const roles = [
+    {
+      title: "AI Engineer",
+      desc:
+        "Design and deploy production-grade AI systems across ML, NLP, CV, and agentic workflows.",
+      mail: "AI%20Engineer"
+    },
+    {
+      title: "AI Intern",
+      desc:
+        "Work on real-world AI systems while building strong theoretical and practical foundations.",
+      mail: "AI%20Intern"
+    },
+    {
+      title: "Frontend Engineer",
+      desc:
+        "Build high-performance, design-forward interfaces for enterprise AI platforms.",
+      mail: "Frontend%20Engineer"
+    },
+    {
+      title: "AI Strategy Consultant",
+      desc:
+        "Bridge business objectives with scalable AI adoption strategies.",
+      mail: "AI%20Strategy%20Consultant"
+    }
+  ];
+
   return (
     <Page>
-      {/* HERO */}
       <Hero>
         <h1>Careers at Altaric</h1>
-        <p>Build advanced AI systems with a team that values depth, rigor, and real-world impact.</p>
+        <p>
+          We build serious AI systems. Depth, rigor, and impact are not optional
+          here — they are the baseline.
+        </p>
       </Hero>
 
-      <Divider />
-
-      {/* ROLES */}
       <Section>
         <h2>Open Roles</h2>
         <p className="lead">
-          We’re looking for engineers, strategists, and builders who care about
-          solving meaningful problems — not chasing buzzwords.
+          We’re hiring people who care about craftsmanship, long-term thinking,
+          and building systems that actually survive production.
         </p>
 
         <Grid>
-          {[
-            {
-              title: "AI Engineer",
-              desc:
-                "Design and deploy end-to-end AI systems including ML, NLP, computer vision, and agent-based architectures.",
-              mail: "AI%20Engineer"
-            },
-            {
-              title: "AI Intern",
-              desc:
-                "Work closely with senior engineers on real-world AI systems while building strong fundamentals.",
-              mail: "AI%20Intern"
-            },
-            {
-              title: "Frontend Engineer",
-              desc:
-                "Craft high-quality user interfaces and enterprise-grade digital experiences using React.",
-              mail: "Frontend%20Engineer"
-            },
-            {
-              title: "AI Strategy Consultant",
-              desc:
-                "Help enterprises define, adopt, and scale AI-driven transformation strategies.",
-              mail: "AI%20Strategy%20Consultant"
-            }
-          ].map((role, i) => (
-            <CardLink key={i} to={`/careers/${role.title.toLowerCase().replace(/ /g, "-")}`}>
-              <Card whileHover={{ scale: 1.01 }}>
-                <div>
-                  <h3>{role.title}</h3>
-                  <p>{role.desc}</p>
-                </div>
+          {roles.map((role, i) => (
+            <CardLink
+              key={i}
+              to={`/careers/${role.title.toLowerCase().replace(/ /g, "-")}`}
+            >
+              <Card whileHover={{}}>
+                <h3>{role.title}</h3>
+                <p>{role.desc}</p>
                 <ApplyButton
                   href={`mailto:tarun@altaric.com?subject=Application%20for%20${role.mail}`}
                 >
@@ -271,15 +282,14 @@ const Careers = () => {
         </Grid>
       </Section>
 
-      {/* CTA */}
       <CTA>
-        <h2>Don’t See the Right Role?</h2>
+        <h2>Didn’t Find Your Role?</h2>
         <p>
-          If you believe you can add value, we want to hear from you.
-          Reach out with your profile and what you’re excited to build.
+          If you believe you can create real impact here, don’t wait for a job
+          title. Reach out.
         </p>
         <a href="mailto:tarun@altaric.com?subject=General%20Application">
-          Get in Touch
+          Contact Us
         </a>
       </CTA>
     </Page>

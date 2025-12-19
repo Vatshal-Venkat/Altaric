@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";   // ⭐ Needed for clickable buttons
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import {
@@ -14,8 +14,8 @@ import {
 // ------------------------ STYLES ------------------------
 
 const IndustriesContainer = styled.section`
-  padding: 4rem 0 3rem 0;
-  background: #f5f5f5;
+  padding: 3.5rem 0 3rem; /* reduced */
+  background: radial-gradient(circle at top, #0c1014, #000 65%);
   position: relative;
   overflow: hidden;
 
@@ -31,112 +31,104 @@ const ContentWrapper = styled.div`
 
 const SectionHeader = styled(motion.div)`
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.8rem; /* reduced */
 `;
 
 const SectionTitle = styled.h2`
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, #000, #333);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+  background: linear-gradient(45deg, #ffffff, #cfd8dc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
 const SectionSubtitle = styled.p`
-  font-size: 1.2rem;
-  color: rgba(0, 0, 0, 0.65);
-  max-width: 620px;
+  font-size: 1.1rem;
+  color: #bcc9cd;
+  max-width: 680px;
   line-height: 1.6;
   margin: 0 auto;
 `;
 
 const IndustriesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.1rem; /* tighter */
 `;
 
 const IndustryCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 20px;
-  padding: 2.2rem 1.8rem;
-
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, #12161a, #0b0f13);
+  border-radius: 18px;
+  padding: 2.1rem 1.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 480px;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transition: 0.35s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease;
   cursor: pointer;
-  transform-style: preserve-3d;
 
   &:hover {
-    transform: translateY(-10px) rotateX(6deg) rotateY(6deg) scale(1.02);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.65);
   }
 `;
 
 const IndustryIcon = styled.div`
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #000, #333);
-  border-radius: 18px;
-  color: #fff;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #9fdde5, #5fcad6);
+  border-radius: 14px;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-bottom: 1.7rem;
-  transform: translateZ(20px);
+  margin-bottom: 1.2rem;
 `;
 
 const IndustryTitle = styled.h3`
-  font-size: 1.55rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  color: #000;
-  transform: translateZ(15px);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: #eef7f9;
 `;
 
 const IndustryDescription = styled.p`
-  font-size: 1rem;
-  color: rgba(0, 0, 0, 0.7);
-  margin-bottom: 1rem;
+  font-size: 0.98rem;
+  color: #c6d4d8;
+  margin-bottom: 0.9rem;
   line-height: 1.55;
-  transform: translateZ(10px);
 `;
 
 const IndustryFeatures = styled.ul`
-  padding-left: 1.2rem;
-  margin-bottom: 1.3rem;
-  transform: translateZ(10px);
+  padding-left: 1.1rem;
+  margin-bottom: 1.1rem;
 `;
 
 const IndustryFeature = styled.li`
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.9rem;
+  margin-bottom: 0.45rem;
+  color: #b8c6cb;
 `;
 
 const LearnMoreButton = styled(motion.button)`
   margin-top: auto;
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  padding: 0.75rem 1.8rem;
-  border-radius: 30px;
-  font-size: 0.95rem;
+  border: 1px solid rgba(160, 220, 230, 0.45);
+  padding: 0.65rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
   cursor: pointer;
-
-  transition: 0.3s ease;
-  transform: translateZ(20px);
+  color: #cfeaed;
+  transition: 0.25s ease;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, #9fdde5, #5fcad6);
+    color: #000;
+    border-color: transparent;
   }
 `;
 
@@ -155,7 +147,7 @@ const industryRoutes = {
 
 const industriesList = [
   {
-    icon: <DollarSign size={38} />,
+    icon: <DollarSign size={32} />,
     title: "Finance",
     description:
       "AI is redefining financial operations—from automated risk assessment and fraud detection to intelligent portfolio management.",
@@ -167,7 +159,7 @@ const industriesList = [
     ],
   },
   {
-    icon: <Heart size={38} />,
+    icon: <Heart size={32} />,
     title: "Healthcare",
     description:
       "AI-driven healthcare solutions enabling precision medicine, advanced diagnostics, and workflow automation.",
@@ -179,10 +171,10 @@ const industriesList = [
     ],
   },
   {
-    icon: <Building2 size={38} />,
+    icon: <Building2 size={32} />,
     title: "Manufacturing",
     description:
-      "AI-powered automation, predictive maintenance, and quality assurance for smarter, efficient manufacturing.",
+      "AI-powered automation, predictive maintenance, and quality assurance for smarter manufacturing.",
     features: [
       "Predictive maintenance AI",
       "Quality control automation",
@@ -191,7 +183,7 @@ const industriesList = [
     ],
   },
   {
-    icon: <ShoppingCart size={38} />,
+    icon: <ShoppingCart size={32} />,
     title: "Retail & E-commerce",
     description:
       "AI-powered personalization, forecasting, and customer insights driving commerce innovation.",
@@ -203,7 +195,7 @@ const industriesList = [
     ],
   },
   {
-    icon: <Radio size={38} />,
+    icon: <Radio size={32} />,
     title: "Media & Entertainment",
     description:
       "AI automation transforming content creation, analysis, and personalization in the media world.",
@@ -215,7 +207,7 @@ const industriesList = [
     ],
   },
   {
-    icon: <MessageSquare size={38} />,
+    icon: <MessageSquare size={32} />,
     title: "Communication & Networks",
     description:
       "AI-powered optimization of communication systems, routing, and infrastructure management.",
@@ -235,12 +227,12 @@ const IndustriesSection = () => {
   const isInView = useInView(containerRef, { once: true });
 
   return (
-    <IndustriesContainer id="industries" ref={containerRef}>
+    <IndustriesContainer ref={containerRef}>
       <ContentWrapper>
         <SectionHeader>
-          <SectionTitle>Key Industries</SectionTitle>
+          <SectionTitle>Industries</SectionTitle>
           <SectionSubtitle>
-            AI-powered solutions that accelerate digital transformation across global industries.
+            AI-powered solutions built for complex, regulated, and high-scale industries.
           </SectionSubtitle>
         </SectionHeader>
 
@@ -248,9 +240,9 @@ const IndustriesSection = () => {
           {industriesList.map((item, index) => (
             <IndustryCard
               key={index}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.07 }}
             >
               <IndustryIcon>{item.icon}</IndustryIcon>
               <IndustryTitle>{item.title}</IndustryTitle>
@@ -262,13 +254,14 @@ const IndustriesSection = () => {
                 ))}
               </IndustryFeatures>
 
-              {/* ⭐ Fully Clickable Learn More Button */}
-              <Link to={industryRoutes[item.title]} style={{ textDecoration: "none" }}>
+              <Link
+                to={industryRoutes[item.title]}
+                style={{ textDecoration: "none" }}
+              >
                 <LearnMoreButton whileTap={{ scale: 0.95 }}>
-                  Learn More
+                  Learn More →
                 </LearnMoreButton>
               </Link>
-
             </IndustryCard>
           ))}
         </IndustriesGrid>

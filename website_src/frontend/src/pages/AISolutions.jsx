@@ -5,15 +5,15 @@ import { motion } from "framer-motion";
 // ---------------------- STYLES ----------------------
 
 const PageContainer = styled.div`
-  background: radial-gradient(circle at top, #0c0f12, #000 65%);
-  color: #fff;
+  background: radial-gradient(circle at top, #0c1014, #000 65%);
+  color: #eef7f9;
   min-height: 100vh;
-  padding-bottom: 4rem;
+  padding-bottom: 3.5rem; /* reduced */
 `;
 
 const PageHero = styled.div`
   position: relative;
-  padding: 9rem 2rem 6rem;
+  padding: 6.5rem 2rem 4rem; /* ⬅ reduced */
   text-align: center;
   background: linear-gradient(180deg, #0f1a1c, #000);
   overflow: hidden;
@@ -21,14 +21,14 @@ const PageHero = styled.div`
   &::before {
     content: "";
     position: absolute;
-    top: -140px;
+    top: -160px;
     left: 50%;
     transform: translateX(-50%);
-    width: 520px;
-    height: 520px;
+    width: 460px;
+    height: 460px;
     background: radial-gradient(
       circle,
-      rgba(90, 200, 210, 0.22),
+      rgba(90, 200, 210, 0.16),
       transparent 70%
     );
     filter: blur(100px);
@@ -36,71 +36,72 @@ const PageHero = styled.div`
   }
 
   h1 {
-    font-size: clamp(3.2rem, 5vw, 4.6rem);
+    font-size: clamp(3rem, 5vw, 4.2rem);
     font-weight: 700;
-    letter-spacing: -1px;
+    letter-spacing: -0.8px;
+    margin-bottom: 0.6rem; /* tighter */
   }
 
   p {
-    color: #cfeff3;
-    font-size: 1.2rem;
-    max-width: 760px;
-    margin: 0.6rem auto 0;
+    color: #cfe7eb;
+    font-size: 1.12rem;
+    max-width: 720px;
+    margin: 0.4rem auto 0;
   }
 `;
 
 const Divider = styled.div`
   width: 100%;
   max-width: 1200px;
-  height: 1px;
-  margin: 4rem auto;
+  height: 0.75px;
+  margin: 2.6rem auto; /* ⬅ reduced */
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(120, 210, 220, 0.65),
+    rgba(120, 210, 220, 0.55),
     transparent
   );
-  box-shadow: 0 0 14px rgba(120, 210, 220, 0.35);
+  box-shadow: 0 0 10px rgba(120, 210, 220, 0.25);
 `;
 
 const Section = styled.section`
-  padding: 4.5rem 2rem;
+  padding: 3.2rem 2rem; /* ⬅ reduced */
   max-width: 1300px;
   margin: 0 auto;
 
   h2 {
-    font-size: 2.4rem;
-    background: linear-gradient(45deg, #e6f8fb, #9fdde5);
+    font-size: 2.2rem;
+    background: linear-gradient(45deg, #e6f8fb, #b3e2e9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
   }
 
   .lead {
-    color: #d3eef1;
-    font-size: 1.1rem;
-    max-width: 850px;
+    color: #c9e2e6;
+    font-size: 1.05rem;
+    max-width: 820px;
     line-height: 1.65;
-    margin-bottom: 3rem;
+    margin-bottom: 2.2rem; /* ⬅ reduced */
   }
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.1rem; /* slightly tighter */
 `;
 
 const Card = styled(motion.div)`
   position: relative;
-  background: linear-gradient(180deg, #0f1618, #0b1012);
-  border: 1px solid rgba(160, 230, 240, 0.12);
-  padding: 2.4rem 2.2rem;
-  border-radius: 20px;
+  background: linear-gradient(180deg, #0f171a, #0b1012);
+  border: 1px solid rgba(160, 230, 240, 0.1);
+  padding: 2.2rem;
+  border-radius: 18px;
   cursor: pointer;
   overflow: hidden;
-  transition: 0.35s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  transition: 0.3s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
 
   &::after {
     content: "";
@@ -112,11 +113,11 @@ const Card = styled(motion.div)`
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(140, 225, 235, 0.95),
+      rgba(140, 225, 235, 0.8),
       transparent
     );
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
   }
 
   &:hover::after {
@@ -124,18 +125,18 @@ const Card = styled(motion.div)`
   }
 
   &:hover {
-    transform: translateY(-10px);
-    background: linear-gradient(180deg, #141e21, #0f171a);
-    box-shadow: 0 25px 55px rgba(80, 160, 170, 0.35);
+    transform: translateY(-6px); /* ⬅ less jumpy */
+    background: linear-gradient(180deg, #142126, #0f181c);
+    box-shadow: 0 22px 46px rgba(80, 160, 170, 0.28);
   }
 
   h3 {
-    font-size: 1.45rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.35rem;
+    margin-bottom: 0.7rem;
   }
 
   p {
-    color: #cfe8eb;
+    color: #c6e0e4;
     line-height: 1.6;
   }
 `;
@@ -148,7 +149,9 @@ const AISolutions = () => {
       {/* HERO */}
       <PageHero>
         <h1>AI Solutions</h1>
-        <p>Modular, production-ready AI components built for enterprise deployment.</p>
+        <p>
+          Modular, production-ready AI components built for enterprise deployment.
+        </p>
       </PageHero>
 
       <Divider />
@@ -181,11 +184,11 @@ const AISolutions = () => {
           ].map((item, i) => (
             <Card
               key={i}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
-              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.5, delay: i * 0.07 }}
+              whileHover={{ scale: 1.015 }}
             >
               <h3>{item.title}</h3>
               <p>{item.text}</p>
@@ -218,7 +221,7 @@ const AISolutions = () => {
                 "Compliance-ready solutions with data isolation, access control, and governance built in."
             }
           ].map((item, i) => (
-            <Card key={i} whileHover={{ scale: 1.02 }}>
+            <Card key={i} whileHover={{ scale: 1.015 }}>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </Card>
