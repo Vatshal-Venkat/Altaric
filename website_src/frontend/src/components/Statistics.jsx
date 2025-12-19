@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+/*import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { TrendingUp, Users, Globe, Award } from 'lucide-react';
@@ -219,4 +219,4 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
+export default Statistics;*/

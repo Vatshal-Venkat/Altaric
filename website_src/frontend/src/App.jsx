@@ -17,7 +17,7 @@ import Hero from "./components/Hero";
 import ClientsBar from "./components/ClientsBar";
 import About from "./components/About";
 import IndustriesSection from "./components/Industries";
-import Statistics from "./components/Statistics";
+//import Statistics from "./components/Statistics";
 import Expertise from "./components/Expertise";
 import ContactForm from "./components/ContactForm";
 
@@ -144,7 +144,7 @@ function App() {
                       <Hero />
                       <ClientsBar />
                       <About />
-                      <Statistics />
+                      
                       <IndustriesSection />
                       <Expertise />
                       <ContactForm />
