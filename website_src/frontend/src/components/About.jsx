@@ -3,9 +3,15 @@ import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 
+import altaricHero from "../assets/altaric_hero_Image.png";
+
+/* =======================
+   Styled Components
+======================= */
+
 const Section = styled.section`
   padding: 6rem 2rem;
- background: radial-gradient(circle at top, #041014, #000);
+  background: radial-gradient(circle at top, #041014, #000);
   color: #fff;
 `;
 
@@ -46,7 +52,7 @@ const CTA = styled(motion.div)`
   color: #00eaff;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 22px rgba(0,234,255,0.25);
+  box-shadow: 0 0 22px rgba(0, 234, 255, 0.25);
 
   &:hover {
     background: #00eaff;
@@ -56,11 +62,24 @@ const CTA = styled(motion.div)`
 
 const Visual = styled(motion.div)`
   border-radius: 20px;
-  border: 1px solid rgba(0,234,255,0.25);
-  background: linear-gradient(135deg, rgba(0,234,255,0.08), transparent);
-  box-shadow: inset 0 0 60px rgba(0,234,255,0.15);
+  border: 1px solid rgba(0, 234, 255, 0.25);
+  background: linear-gradient(135deg, rgba(0, 234, 255, 0.08), transparent);
+  box-shadow: inset 0 0 60px rgba(0, 234, 255, 0.15);
   height: 320px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.95;
+  }
 `;
+
+/* =======================
+   Component
+======================= */
 
 const About = () => {
   const ref = useRef(null);
@@ -94,7 +113,19 @@ const About = () => {
           initial={{ opacity: 0, x: 40 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-        />
+        >
+          <motion.img
+            src={altaricHero}
+            alt="Altaric AI Core Visualization"
+            initial={{ scale: 1.05 }}
+            animate={{ scale: [1.05, 1, 1.05] }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </Visual>
       </Wrapper>
     </Section>
   );
