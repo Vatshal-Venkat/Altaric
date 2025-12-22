@@ -3,18 +3,19 @@ import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import { Calendar, Clock, Phone, Mail, Send, Building } from "lucide-react";
 
-// ------------------ API URL ------------------
+/* ------------------ API URL (UNCHANGED) ------------------ */
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-// ------------------ Styled Components ------------------
+/* ===================== CONTAINER ===================== */
+
 const ContactFormContainer = styled.section`
   padding: 8rem 2rem;
-  background: linear-gradient(135deg, #ffe4b5 0%, #fffbe6 100%);
+  background: radial-gradient(circle at top, #0b0f14, #000 75%);
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 4rem 1rem;
+    padding: 5rem 1rem;
   }
 `;
 
@@ -25,224 +26,222 @@ const ContentWrapper = styled.div`
   z-index: 2;
 `;
 
+/* ===================== HEADER ===================== */
+
 const SectionHeader = styled(motion.div)`
   text-align: center;
-  margin-bottom: 6rem;
-
-  @media (max-width: 768px) {
-    margin-bottom: 4rem;
-  }
+  margin-bottom: 5rem;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #333;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+  color: #ffffff;
 `;
 
 const SectionSubtitle = styled.p`
-  font-size: 1.2rem;
-  color: #666;
-  max-width: 600px;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 640px;
   margin: 0 auto;
   line-height: 1.6;
 `;
 
+/* ===================== GRID ===================== */
+
 const FormGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 4rem;
   align-items: start;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
 `;
 
+/* ===================== FORM ===================== */
+
 const FormContainer = styled(motion.div)`
-  background: #fff;
-  border: 1px solid rgba(255, 140, 0, 0.2);
-  border-radius: 20px;
+  background: linear-gradient(180deg, #0f141a, #0b0f14);
+  border-radius: 22px;
   padding: 3rem;
-  box-shadow: 0 4px 20px rgba(255, 140, 0, 0.1);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.7),
+    0 0 30px rgba(0,234,255,0.05);
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 2.2rem;
   }
 `;
 
 const FormTitle = styled.h3`
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 600;
   margin-bottom: 2rem;
-  color: #333;
+  color: #ffffff;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 `;
 
+/* ===================== INPUTS ===================== */
+
 const FormGroup = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
 `;
 
 const Label = styled.label`
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: #333;
-  margin-bottom: 0.5rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.4rem;
 `;
 
-const Input = styled.input`
+const inputBase = `
   width: 100%;
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid rgba(255, 140, 0, 0.3);
+  padding: 0.95rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 10px;
-  color: #333;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
 
   &::placeholder {
-    color: #999;
+    color: rgba(255,255,255,0.4);
   }
 
   &:focus {
     outline: none;
-    border-color: #ff8c00;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+    border-color: rgba(0,234,255,0.55);
+    box-shadow: 0 0 0 2px rgba(0,234,255,0.15);
+    background: rgba(255,255,255,0.06);
   }
 `;
 
+const Input = styled.input`${inputBase}`;
+
 const Select = styled.select`
-  width: 100%;
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid rgba(255, 140, 0, 0.3);
-  border-radius: 10px;
-  color: #333;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  ${inputBase}
   cursor: pointer;
 
-  &:focus {
-    outline: none;
-    border-color: #ff8c00;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+  /* 🔥 FIX FOR WHITE DROPDOWN */
+  option {
+    background: #0b0f14;
+    color: #ffffff;
+  }
+
+  option:checked {
+    background: rgba(0,234,255,0.25);
   }
 `;
 
 const TextArea = styled.textarea`
-  width: 100%;
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid rgba(255, 140, 0, 0.3);
-  border-radius: 10px;
-  color: #333;
-  font-size: 1rem;
+  ${inputBase}
   min-height: 120px;
   resize: vertical;
-  transition: all 0.3s ease;
-
-  &::placeholder {
-    color: #999;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #ff8c00;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
-  }
 `;
+
+/* ===================== BUTTON ===================== */
 
 const SubmitButton = styled(motion.button)`
   width: 100%;
-  background: linear-gradient(45deg, #ff8c00, #ffa500);
-  color: #fff;
-  border: none;
-  padding: 1.2rem;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  padding: 1.1rem;
+  border-radius: 12px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+
+  color: #7de9f1;
+  background: transparent;
+  border: 1px solid rgba(125,233,241,0.45);
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
 
   &:hover {
+    background: rgba(0,234,255,0.12);
+    box-shadow: 0 0 18px rgba(0,234,255,0.35);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
   }
 `;
 
+/* ===================== CONTACT INFO ===================== */
+
 const ContactInfo = styled(motion.div)`
   h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #333;
+    color: #ffffff;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 `;
 
 const ContactItem = styled.div`
   display: flex;
-  align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: #fff;
-  border: 1px solid rgba(255, 140, 0, 0.2);
-  border-radius: 15px;
+  align-items: center;
+  margin-bottom: 1.8rem;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, #0f141a, #0b0f14);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+
   transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 140, 0, 0.4);
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+    transform: translateY(-3px);
+    border-color: rgba(0,234,255,0.35);
+    box-shadow: 0 0 25px rgba(0,234,255,0.15);
   }
 `;
 
 const ContactIcon = styled.div`
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #ff8c00, #ffa500);
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(0,234,255,0.15);
+  color: #7de9f1;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  flex-shrink: 0;
 `;
 
 const ContactText = styled.div`
   h4 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
+    color: #ffffff;
+    margin-bottom: 0.2rem;
   }
 
   p {
-    color: #666;
     font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
   }
 `;
 
-// ------------------ Component ------------------
+/* ===================== COMPONENT ===================== */
+
 const ContactForm = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
@@ -258,22 +257,21 @@ const ContactForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${API}/meetings`, {
+      const res = await fetch(`${API}/meetings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Failed to submit form");
+      if (!res.ok) throw new Error("Failed to submit form");
 
       alert("✅ Meeting scheduled successfully!");
 
@@ -285,9 +283,8 @@ const ContactForm = () => {
         service: "",
         project_details: "",
       });
-
-    } catch (error) {
-      alert("❌ Error: " + error.message);
+    } catch (err) {
+      alert("❌ Error: " + err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -297,178 +294,89 @@ const ContactForm = () => {
     <ContactFormContainer ref={containerRef} id="contact">
       <ContentWrapper>
         <SectionHeader
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
           <SectionTitle>Schedule a Call</SectionTitle>
           <SectionSubtitle>
-            Ready to transform your business with AI? 
-            Let's discuss how we can help you achieve your goals.
+            Ready to transform your business with AI? Let’s talk.
           </SectionSubtitle>
         </SectionHeader>
 
         <FormGrid>
-          
-          {/* Form */}
           <FormContainer
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
           >
             <FormTitle>
-              <Calendar size={24} />
-              Schedule a Meeting
+              <Calendar size={22} /> Schedule a Meeting
             </FormTitle>
 
             <form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label htmlFor="full_name">Full Name *</Label>
-                <Input
-                  id="full_name"
-                  name="full_name"
-                  value={formData.full_name}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Enter your full name"
-                />
+                <Label>Full Name *</Label>
+                <Input name="full_name" value={formData.full_name} onChange={handleInputChange} required />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="email">Email *</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Enter your email"
-                />
+                <Label>Email *</Label>
+                <Input type="email" name="email" value={formData.email} onChange={handleInputChange} required />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="company">Company</Label>
-                <Input
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  placeholder="Enter your company"
-                />
+                <Label>Company</Label>
+                <Input name="company" value={formData.company} onChange={handleInputChange} />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="Enter your phone number"
-                />
+                <Label>Phone</Label>
+                <Input name="phone" value={formData.phone} onChange={handleInputChange} />
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="service">Select a Service</Label>
-                <Select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Choose a service...</option>
+                <Label>Service</Label>
+                <Select name="service" value={formData.service} onChange={handleInputChange}>
+                  <option value="">Choose a service</option>
                   <option value="ai-consultation">AI Consultation</option>
                   <option value="custom-development">Custom Development</option>
-                  <option value="digital-transformation">
-                    Digital Transformation
-                  </option>
+                  <option value="digital-transformation">Digital Transformation</option>
                   <option value="data-analytics">Data Analytics</option>
-                  <option value="other">Other</option>
                 </Select>
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="project_details">Project Details *</Label>
-                <TextArea
-                  id="project_details"
-                  name="project_details"
-                  value={formData.project_details}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Tell us about your project..."
-                />
+                <Label>Project Details *</Label>
+                <TextArea name="project_details" value={formData.project_details} onChange={handleInputChange} required />
               </FormGroup>
 
-              <SubmitButton
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {isSubmitting ? (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      border: "2px solid #fff",
-                      borderTop: "2px solid transparent",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Schedule Meeting
-                  </>
-                )}
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Scheduling..." : <><Send size={18} /> Schedule Meeting</>}
               </SubmitButton>
             </form>
           </FormContainer>
 
-          {/* Contact Details */}
           <ContactInfo
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3>
-              <Clock size={24} /> Contact Information
-            </h3>
+            <h3><Clock size={22} /> Contact Information</h3>
 
             <ContactItem>
-              <ContactIcon>
-                <Phone size={24} />
-              </ContactIcon>
-              <ContactText>
-                <h4>Phone</h4>
-                <p>+91 72073 48777</p>
-              </ContactText>
+              <ContactIcon><Phone size={20} /></ContactIcon>
+              <ContactText><h4>Phone</h4><p>+91 72073 48777</p></ContactText>
             </ContactItem>
 
             <ContactItem>
-              <ContactIcon>
-                <Mail size={24} />
-              </ContactIcon>
-              <ContactText>
-                <h4>Email</h4>
-                <p>tarun@altaric.com</p>
-              </ContactText>
+              <ContactIcon><Mail size={20} /></ContactIcon>
+              <ContactText><h4>Email</h4><p>tarun@altaric.com</p></ContactText>
             </ContactItem>
 
             <ContactItem>
-              <ContactIcon>
-                <Building size={24} />
-              </ContactIcon>
-              <ContactText>
-                <h4>Business Hours</h4>
-                <p>Mon–Fri: 9 AM – 8 PM IST</p>
-              </ContactText>
+              <ContactIcon><Building size={20} /></ContactIcon>
+              <ContactText><h4>Business Hours</h4><p>Mon–Fri: 9 AM – 8 PM IST</p></ContactText>
             </ContactItem>
           </ContactInfo>
         </FormGrid>
