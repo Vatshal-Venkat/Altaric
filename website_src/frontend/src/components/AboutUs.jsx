@@ -289,7 +289,7 @@ const AboutUs = () => {
           </p>
           <p>
             With a deep focus on systems thinking and real-world deployment,
-            Tarun leads Altaric’s mission to build AI organizations can trust,
+            Shailaja leads Altaric’s mission to build AI organizations can trust,
             scale, and rely on.
           </p>
         </Section>
