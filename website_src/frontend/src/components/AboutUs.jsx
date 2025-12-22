@@ -284,7 +284,7 @@ const AboutUs = () => {
         <Section variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2>Founder</h2>
           <p>
-            <strong>Tarun Kappala</strong> founded Altaric to bridge cutting-edge
+            <strong>Shailaja Gollapudi</strong> founded Altaric to bridge cutting-edge
             AI research and enterprise-grade engineering.
           </p>
           <p>
