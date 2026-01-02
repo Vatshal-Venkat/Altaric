@@ -141,9 +141,9 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-=====
 
-##🔮 Future Enhancements
+
+## 🔮 Future Enhancements
 
 Authentication & user dashboards
 
@@ -155,9 +155,9 @@ Analytics and monitoring
 
 Expanded AI service integrations
 
-=============
 
-##📄 License
+
+## 📄 License
 
 This project is proprietary and owned by Altaric.
 Unauthorized use or redistribution is not permitted.
