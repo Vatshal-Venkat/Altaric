@@ -154,8 +154,8 @@ CI/CD pipelines
 Analytics and monitoring
 
 Expanded AI service integrations
-======
 
+====================================================
 ###📄 License
 
 This project is proprietary and owned by Altaric.
