@@ -272,7 +272,7 @@ const Footer = () => {
 
         <BottomBar>
           <Copyright>
-            © 2025 Altaric. All rights reserved. | Privacy Policy | Terms of Service
+            © 2026 Altaric. All rights reserved. | Privacy Policy | Terms of Service
           </Copyright>
           <ScrollToTop
             onClick={scrollToTop}
