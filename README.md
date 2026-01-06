@@ -163,6 +163,6 @@ This project is proprietary and owned by Altaric.
 Unauthorized use or redistribution is not permitted.
 
 
-###👤 Maintained By
+## 👤 Maintained By
 
 Altaric Engineering Team
