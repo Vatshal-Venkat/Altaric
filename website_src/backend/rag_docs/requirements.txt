@@ -9,4 +9,3 @@ python-dotenv
 gunicorn
 python-multipart
 pdfplumber
-google-generativeai

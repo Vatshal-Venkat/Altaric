@@ -1,14 +1,21 @@
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine, Base
-import models, schemas
+from app.database import SessionLocal, engine, Base
+import app.models as models
+import app.schemas as schemas
 from fastapi.middleware.cors import CORSMiddleware
+
+# (RAG routers can be enabled later)
+# from app.api import rag_upload, rag_query
 
 import os
 import shutil
 import smtplib
 from email.message import EmailMessage
 from datetime import datetime
+
+from app.api import rag
+
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
@@ -18,10 +25,20 @@ SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 
-# Create tables automatically
-Base.metadata.create_all(bind=engine)
+app = FastAPI(title="Altaric Backend")
 
-app = FastAPI()
+# -------------------------------
+# SAFE DATABASE INITIALIZATION
+# -------------------------------
+@app.on_event("startup")
+def on_startup():
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("✅ Database connected and tables ready")
+    except Exception as e:
+        # Do NOT crash the app if DB is down
+        print("⚠️ Database not available at startup")
+        print(e)
 
 # Dependency: get DB session
 def get_db():
@@ -40,6 +57,7 @@ app.add_middleware(
         "https://api.altaric.com",
         "https://altaric.vercel.app",
         "https://altaric-backend.onrender.com",
+        FRONTEND_URL,
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -175,3 +193,11 @@ def get_applications():
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+# -------------------------------
+# RAG ROUTERS (ENABLE LATER)
+# -------------------------------
+app.include_router(rag.router)
+
+# app.include_router(rag_upload.router, prefix="/api")
+# app.include_router(rag_query.router, prefix="/api")

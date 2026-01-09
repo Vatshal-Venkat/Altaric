@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text
-from database import Base
+from app.database import Base
+
 
 class Meeting(Base):
     __tablename__ = "meetings"

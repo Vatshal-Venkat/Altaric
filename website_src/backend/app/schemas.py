@@ -1,4 +1,6 @@
 from pydantic import BaseModel, EmailStr
+import app.models as models
+
 
 class MeetingCreate(BaseModel):
     full_name: str
